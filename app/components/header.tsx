@@ -87,7 +87,7 @@ export function Header() {
             )}
           </div>
         )}
-        <div className="flex overflow-hidden rounded-xl border border-line" role="group">
+        <div className="flex overflow-hidden rounded-xl border border-line">
           {(["ru", "en"] as const).map((l) => (
             <Link
               key={l}

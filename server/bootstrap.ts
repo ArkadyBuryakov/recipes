@@ -18,7 +18,9 @@ const SEED_DIR = join(process.cwd(), "seed/recipes");
 export async function applySeeds(db: Db, recipes: RecipeService, dir = SEED_DIR): Promise<number> {
   let files: string[];
   try {
-    files = readdirSync(dir).filter((f) => f.endsWith(".json")).sort();
+    files = readdirSync(dir)
+      .filter((f) => f.endsWith(".json"))
+      .sort();
   } catch {
     return 0;
   }
@@ -48,7 +50,12 @@ export async function bootstrapAdmin(db: Db): Promise<boolean> {
   if (!env.ADMIN_EMAIL || !env.ADMIN_PASSWORD) return false;
   const [{ n } = { n: 0 }] = await db.select({ n: sql<number>`count(*)::int` }).from(user);
   if (n > 0) return false;
-  await createUserWithPassword(db, { email: env.ADMIN_EMAIL, password: env.ADMIN_PASSWORD, name: env.ADMIN_NAME, role: "admin" });
+  await createUserWithPassword(db, {
+    email: env.ADMIN_EMAIL,
+    password: env.ADMIN_PASSWORD,
+    name: env.ADMIN_NAME,
+    role: "admin",
+  });
   return true;
 }
 

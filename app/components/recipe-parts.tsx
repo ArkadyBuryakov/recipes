@@ -24,7 +24,9 @@ export function CheckRow({
 }) {
   const done = checks.has(id);
   return (
-    // A row-wide hit area: whole row toggles (large touch targets, ADR 0010).
+    // A row-wide hit area: the whole row toggles (large touch targets, ADR 0010). A native checkbox
+    // can't contain the interactive chips (timers, ingredient notes) that steps render inline.
+    // biome-ignore lint/a11y/useSemanticElements: see above
     <div
       role="checkbox"
       aria-checked={done}
