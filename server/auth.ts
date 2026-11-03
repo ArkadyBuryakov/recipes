@@ -19,7 +19,7 @@ export const auth = betterAuth({
   // Invite-only (ADR 0006): accounts are created through invites, never public sign-up.
   emailAndPassword: { enabled: true, disableSignUp: true, minPasswordLength: 8 },
   disabledPaths: ["/token"],
-  rateLimit: { enabled: env.NODE_ENV === "production", storage: "database" },
+  rateLimit: { enabled: env.AUTH_RATE_LIMIT ?? env.NODE_ENV === "production", storage: "database" },
   advanced: { database: { generateId: "uuid" } },
   plugins: [
     admin({ defaultRole: "editor", adminRoles: ["admin"] }),

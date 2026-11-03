@@ -12,6 +12,8 @@ const schema = z
       .transform((v) => v.replace(/\/$/, "")),
     DATABASE_URL: z.string().default("postgres://recipes:recipes@localhost:5432/recipes"),
     BETTER_AUTH_SECRET: z.string().min(32).default(DEV_SECRET),
+    // Login rate limiting; on by default in production (disabled by the e2e suite, which logs in repeatedly).
+    AUTH_RATE_LIMIT: z.stringbool().optional(),
     ADMIN_EMAIL: z.email().optional(),
     ADMIN_PASSWORD: z.string().min(8).optional(),
     ADMIN_NAME: z.string().default("Admin"),

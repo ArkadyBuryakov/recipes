@@ -5,8 +5,10 @@ import { defineConfig } from "vite";
 export default defineConfig({
   environments: {
     ssr: {
+      // Bun built-ins (S3 client) resolve at runtime.
+      resolve: { external: ["bun"] },
       build: {
-        rollupOptions: { input: "./server/app.ts" },
+        rollupOptions: { input: "./server/app.ts", external: ["bun"] },
       },
     },
   },

@@ -2,6 +2,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 import { sessionPrincipal } from "./access";
+import { createApi } from "./api";
 import { auth } from "./auth";
 import { applySeeds, bootstrapAdmin } from "./bootstrap";
 import { appContext } from "./context";
@@ -52,6 +53,8 @@ app.get("/.well-known/*", async (c) => {
   return auth.handler(new Request(url, c.req.raw));
 });
 
+app.route("/", createApi(services));
+
 const handleRequest = createRequestHandler(
   () => import("virtual:react-router/server-build"),
   import.meta.env.MODE,
@@ -74,4 +77,5 @@ export async function init() {
   const seeded = await applySeeds(db, services.recipes);
   if (seeded) console.log(`seeded ${seeded} recipes`);
   if (await bootstrapAdmin(db)) console.log("created admin account from ADMIN_EMAIL");
+  services.push.start();
 }

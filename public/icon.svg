@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Recipes">
+  <title>Recipes</title>
+  <rect width="512" height="512" rx="112" fill="#b4441c"/>
+  <path d="M96 248h320c0 88-72 152-160 152S96 336 96 248z" fill="#faf8f5"/>
+  <rect x="80" y="228" width="352" height="28" rx="14" fill="#faf8f5"/>
+  <path d="M206 196c-14-22 14-36 0-60M256 196c-14-22 14-36 0-60M306 196c-14-22 14-36 0-60" fill="none" stroke="#faf8f5" stroke-width="18" stroke-linecap="round"/>
+</svg>

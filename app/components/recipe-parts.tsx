@@ -1,4 +1,4 @@
-import { type Lang, pick, t } from "@shared/l10n";
+import { pick, t } from "@shared/l10n";
 import { lowerFirst } from "@shared/markdown";
 import { buildPrepList } from "@shared/prep";
 import { formatIngredientQty, formatQty } from "@shared/quantity";
@@ -185,7 +185,7 @@ export function StepText({
   label: string;
 }) {
   const lang = useLang();
-  const byId = new Map(data.sections.flatMap((s) => s.ingredients.map((i) => [i.id, i] as const)));
+  const byId = new Map(data.sections.flatMap((s) => (s.ingredients ?? []).map((i) => [i.id, i] as const)));
   return (
     <>
       {parseStepText(text).segments.map((seg, i) => {

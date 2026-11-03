@@ -11,7 +11,7 @@
     "format": "biome check --write .",
     "test": "bun test tests/unit",
     "test:integration": "scripts/with-test-db.sh bun test tests/integration",
-    "test:e2e": "playwright test",
+    "test:e2e": "scripts/with-test-db.sh playwright test",
     "check": "biome check . && bun run typecheck && bun run test",
     "check:all": "bun run check && bun run test:integration && bun run test:e2e",
     "db:generate": "drizzle-kit generate",

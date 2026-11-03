@@ -8,11 +8,13 @@ import { useRootData } from "~/root";
 /** Hidden entry (ADR 0006): 10 taps on the logo within 3 s opens the login page. */
 function useSecretTaps(onUnlock: () => void) {
   const taps = useRef<number[]>([]);
-  return () => {
+  return (e: React.MouseEvent) => {
     const now = Date.now();
     taps.current = [...taps.current.filter((t) => now - t < 3000), now];
     if (taps.current.length >= 10) {
       taps.current = [];
+      // The logo is a home link; cancel that navigation so the unlock wins.
+      e.preventDefault();
       onUnlock();
     }
   };

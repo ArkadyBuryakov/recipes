@@ -13,6 +13,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import { getCtx } from "./lib/ctx.server";
 import { dictionaries, useLang } from "./lib/i18n";
+import { useServiceWorker } from "./lib/pwa";
 import { TimersProvider } from "./lib/timers";
 
 export async function loader({ context }: Route.LoaderArgs) {
@@ -57,6 +58,7 @@ export function useRootData() {
 }
 
 export default function App({ loaderData }: Route.ComponentProps) {
+  useServiceWorker();
   return (
     <TimersProvider vapidKey={loaderData.vapidPublicKey}>
       <Outlet />
