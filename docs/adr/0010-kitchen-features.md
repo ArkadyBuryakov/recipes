@@ -20,16 +20,17 @@ Wanted: screen wake lock, timers from steps (several running at once), push noti
   - Cancel, pause, or extend updates or deletes the row.
   - Rows are deleted after firing. Expired subscriptions are pruned.
   - **iOS needs the PWA installed** to the Home Screen (iOS 16.4+). The UI explains this when permission is requested on iOS Safari.
-- **Alert settings** (localStorage): sound on/off, choice of sound, vibration on/off, and "ring until dismissed" vs a single chime. These apply to the in-page alert. The push notification uses the OS default sound.
+- **Alert settings** (localStorage): sound on/off (a generated three-tone chime), vibration on/off, and "ring until dismissed" vs a single chime. These apply to the in-page alert. The push notification uses the OS default sound.
 
 ### Touch
 - At least 48 px interactive elements in prep and cook mode, and a full-row tap area for checkboxes.
 
 ### Offline (PWA)
 - Hand-written service worker (`public/sw.js`), registered in production builds only.
-- The app shell is precached.
-- On first visit, **all published recipes** (JSON) and cover thumbnails are cached in IndexedDB and refreshed in the background.
-- Offline, routes render from the cache. Editing requires being online (the editor shows an offline notice).
+- On each visit the worker fetches `/api/offline` and, when its version changed, caches **every published recipe page**
+  in both languages (SSR HTML + React Router `.data`), the JS/CSS assets they reference, and cover thumbnails (Cache Storage).
+- Pages are network-first (5 s timeout) with cache fallback; assets and images are cache-first. An offline banner is shown.
+  Editing requires being online.
 
 ## Consequences
 
