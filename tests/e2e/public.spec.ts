@@ -5,19 +5,16 @@ test.describe("public cookbook", () => {
     await page.goto("/", { waitUntil: "commit" });
     await expect(page).toHaveURL(/\/(ru|en)$/);
     await page.goto("/ru");
-    await expect(page.getByRole("heading", { name: "Чашу и нитамаго" })).toBeVisible();
-    expect(await page.locator("main a h2").count()).toBeGreaterThan(25);
+    await expect(page.getByRole("link", { name: "Чашу и нитамаго" })).toBeVisible();
+    expect(await page.locator("main tbody tr").count()).toBeGreaterThan(25);
   });
 
-  test("search and tag filter", async ({ page }) => {
+  test("search", async ({ page }) => {
     await page.goto("/en");
     await page.getByRole("searchbox").fill("lentil");
-    await expect(page.getByRole("heading", { name: /Turkish lentil soup/i })).toBeVisible();
-    await expect(page.locator("main a h2")).toHaveCount(1);
-    await page.goto("/en");
-    await page.getByRole("link", { name: /^soup \d+$/ }).click();
-    await expect(page).toHaveURL(/tag=soup/);
-    await expect(page.getByRole("heading", { name: /borscht/i })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Turkish lentil soup/i })).toBeVisible();
+    await expect(page.locator("main tbody tr")).toHaveCount(1);
+    await expect(page.getByText("1 recipe", { exact: true })).toBeVisible();
   });
 
   test("language toggle keeps the page", async ({ page }) => {

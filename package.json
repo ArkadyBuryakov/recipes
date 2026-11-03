@@ -24,6 +24,8 @@
     "@better-auth/drizzle-adapter": "^1.7.15",
     "@better-auth/mcp": "^1.7.15",
     "@better-auth/oauth-provider": "^1.7.15",
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
     "@hono/node-server": "^2.1.6",
     "@modelcontextprotocol/server": "^2.4.0",
     "@react-router/node": "^8.5.1",

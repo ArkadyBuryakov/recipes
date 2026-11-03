@@ -42,7 +42,7 @@ export default function History({ loaderData }: Route.ComponentProps) {
   const { slug, revisions } = loaderData;
   return (
     <main className="mx-auto w-full max-w-4xl px-4 pt-6 pb-32">
-      <Link to={`/${lang}/r/${slug}`} className="text-accent">
+      <Link to={`/${lang}/r/${slug}`} className="text-link">
         ← {slug}
       </Link>
       <h1 className="mt-2 mb-5 text-3xl">{lang === "ru" ? "История изменений" : "History"}</h1>

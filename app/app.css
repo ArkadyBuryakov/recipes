@@ -1,34 +1,54 @@
 @import "tailwindcss";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource/ibm-plex-mono/700.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Warm, typography-led palette (docs/design/mockup.html). */
+/* "Workshop" style, quiet headers (ADR 0015, docs/design/styles.html#workshop). */
 @theme {
-  --color-bg: #faf8f5;
+  --color-bg: #eeede6;
   --color-surface: #ffffff;
-  --color-surface-2: #f2eee8;
-  --color-ink: #1f1b16;
-  --color-muted: #6f665c;
-  --color-line: #e4ddd3;
-  --color-accent: #b4441c;
-  --color-accent-soft: #f6e3d9;
-  --color-ok: #3f7d4e;
+  --color-surface-2: #e2e0d6;
+  --color-ink: #111111;
+  --color-muted: #5a5a55;
+  --color-line: #c9c7bd;
+  --color-line-strong: #111111;
+  --color-accent: #ffd400;
+  --color-accent-ink: #111111;
+  --color-accent-soft: #fff1a6;
+  --color-link: #765c00;
+  --color-ok: #1f7a3d;
   --color-danger: #b42318;
-  --font-serif: "Iowan Old Style", "Charter", "Georgia", serif;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --shadow-sm: 2px 2px 0 var(--color-line-strong);
+  --shadow-lg: 4px 4px 0 var(--color-line-strong);
+  --shadow-xl: 5px 5px 0 var(--color-line-strong);
+  --shadow-2xl: 6px 6px 0 var(--color-line-strong);
 }
 
 @layer base {
   .dark {
-    --color-bg: #161412;
-    --color-surface: #1f1c19;
-    --color-surface-2: #2a2622;
-    --color-ink: #efe9e2;
-    --color-muted: #a39a90;
-    --color-line: #36302a;
-    --color-accent: #e8794c;
-    --color-accent-soft: #3a261c;
-    --color-ok: #7cc28e;
+    --color-bg: #141414;
+    --color-surface: #1c1c1c;
+    --color-surface-2: #262626;
+    --color-ink: #f0efe8;
+    --color-muted: #a3a29a;
+    --color-line: #3a3a3a;
+    --color-line-strong: #f0efe8;
+    --color-accent-soft: #3d3610;
+    --color-link: #ffd400;
+    --color-ok: #6cc38d;
     --color-danger: #f97066;
   }
   html {
@@ -38,19 +58,19 @@
   h1,
   h2,
   h3 {
-    @apply font-serif tracking-tight;
+    @apply font-mono font-medium tracking-tight;
   }
   :focus-visible {
-    @apply outline-2 outline-offset-2 outline-accent;
+    @apply outline-2 outline-offset-2 outline-line-strong;
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 text-[15px] font-semibold text-ink transition-colors hover:bg-surface-2 disabled:opacity-50;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 border-2 border-line-strong bg-surface px-4 font-mono text-sm font-medium text-ink transition-colors hover:bg-surface-2 disabled:opacity-50;
   }
   .btn-primary {
-    @apply border-accent bg-accent text-white hover:bg-accent/90;
+    @apply bg-accent text-accent-ink shadow-sm hover:bg-accent;
   }
   .btn-ghost {
     @apply border-transparent bg-transparent;
@@ -59,18 +79,30 @@
     @apply border-danger text-danger;
   }
   .input {
-    @apply min-h-11 w-full rounded-xl border border-line bg-surface px-3.5 text-[15px] text-ink placeholder:text-muted;
+    @apply min-h-11 w-full border-2 border-line-strong bg-surface px-3.5 text-[15px] text-ink placeholder:text-muted;
   }
   .pill {
-    @apply inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1.5 text-sm text-muted;
+    @apply inline-flex items-center gap-1.5 bg-surface-2 px-2.5 py-1 font-mono text-[13px] text-muted;
   }
   .tag {
-    @apply rounded-full bg-accent-soft px-2.5 py-1 text-[13px] text-accent;
+    @apply bg-accent-soft px-2 py-0.5 font-mono text-[12px] text-ink;
   }
+  /* A box: thick border with an offset shadow. */
   .card {
-    @apply rounded-2xl border border-line bg-surface;
+    @apply border-2 border-line-strong bg-surface shadow-xl;
   }
   .label {
-    @apply text-xs font-bold uppercase tracking-wider text-muted;
+    @apply font-mono text-xs font-medium uppercase tracking-wider text-muted;
+  }
+  /* Quiet section header inside a .card: yellow number box, plain title, dashed rule. */
+  .sec-title {
+    @apply -mx-4 mb-0 flex items-baseline gap-3 border-line border-b border-dashed px-4 pt-3.5 pb-2.5 font-mono text-[17px] font-medium sm:-mx-5 sm:px-5;
+  }
+  .sec-no {
+    @apply bg-accent px-1.5 py-px text-xs text-accent-ink tabular-nums;
+  }
+  /* Highlighter stroke behind inline ingredients. */
+  .marker {
+    background: linear-gradient(transparent 45%, var(--color-accent-soft) 45%);
   }
 }

@@ -13,7 +13,7 @@ export function TimerChip({ seconds, label }: { seconds: number; label: string }
         e.stopPropagation();
         start(label, seconds);
       }}
-      className="mx-0.5 inline-flex items-center gap-1 rounded-full border-[1.5px] border-accent px-2.5 py-0.5 align-baseline text-[15px] font-semibold text-accent hover:bg-accent-soft"
+      className="mx-0.5 inline-flex items-center gap-1 border-2 border-line-strong px-1.5 align-baseline font-mono text-[13px] font-medium leading-6 hover:bg-accent hover:text-accent-ink"
     >
       ⏱ {formatDuration(seconds, lang)}
     </button>
@@ -38,7 +38,7 @@ function Settings({ onClose }: { onClose: () => void }) {
     </label>
   );
   return (
-    <div className="card w-80 max-w-[calc(100vw-24px)] p-4 shadow-xl">
+    <div className="card w-80 max-w-[calc(100vw-24px)] p-4">
       <div className="mb-2 flex items-center justify-between">
         <strong>{t.timerSettings}</strong>
         <button type="button" className="btn btn-ghost min-h-9 px-2" onClick={onClose}>
@@ -96,14 +96,14 @@ export function TimerTray() {
           return (
             <div
               key={timer.id}
-              className={`flex items-center gap-2 rounded-2xl py-2 pr-2 pl-3.5 shadow-lg ${ringing ? "animate-pulse bg-accent text-white" : "bg-ink text-bg"}`}
+              className={`flex items-center gap-2 border-2 border-accent py-2 pr-2 pl-3.5 font-mono ${ringing ? "animate-pulse bg-accent text-accent-ink" : "bg-ink text-bg"}`}
             >
               <span className="max-w-32 truncate text-sm">{timer.label}</span>
               <b className="text-xl tabular-nums">{ringing ? t.timerDone : formatClock(ms)}</b>
               {!ringing && (
                 <button
                   type="button"
-                  className="h-9 min-w-9 rounded-lg border border-current/40 px-2"
+                  className="h-9 min-w-9 border border-current/40 px-2"
                   onClick={() => (paused ? resume(timer.id) : pause(timer.id))}
                   aria-label={paused ? "resume" : "pause"}
                 >
@@ -112,14 +112,14 @@ export function TimerTray() {
               )}
               <button
                 type="button"
-                className="h-9 rounded-lg border border-current/40 px-2"
+                className="h-9 border border-current/40 px-2"
                 onClick={() => extend(timer.id, 60)}
               >
                 +1′
               </button>
               <button
                 type="button"
-                className="h-9 min-w-9 rounded-lg border border-current/40 px-2"
+                className="h-9 min-w-9 border border-current/40 px-2"
                 onClick={() => cancel(timer.id)}
                 aria-label="dismiss"
               >
@@ -130,7 +130,7 @@ export function TimerTray() {
         })}
         <button
           type="button"
-          className="h-11 w-11 rounded-2xl bg-surface text-ink shadow-lg"
+          className="h-11 w-11 border-2 border-line-strong bg-surface text-ink shadow-sm"
           title={t.timerSettings}
           aria-label={t.timerSettings}
           onClick={() => setSettingsOpen((o) => !o)}

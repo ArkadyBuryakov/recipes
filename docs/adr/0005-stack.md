@@ -26,7 +26,7 @@ You want: better-auth, a TypeScript backend, React + Vite, **full SSR** for inde
   - **MCP:** MCP TypeScript SDK v2 (`@modelcontextprotocol/server`), `createMcpHandler`: 2026-07-28 protocol plus
     stateless serving of 2025-era clients from the same factory
   - **UI:** Tailwind CSS v4 with a handful of hand-rolled components (`app/app.css` component classes). shadcn/Radix
-    was dropped: the UI needs no complex primitives, and fewer dependencies keep the client bundle small.
+    was dropped: the UI needs no complex primitives, and fewer dependencies keep the client bundle small. Visual style: 0015.
   - **PWA:** a hand-written service worker (`public/sw.js`). `vite-plugin-pwa` targets static builds and adds little with SSR.
   - **Lint/format:** Biome. **Tests:** `bun test` for unit/integration, Playwright for e2e (0013).
 - Rendering: public pages are SSR'd with `<title>`, meta/OG tags, and JSON-LD `Recipe` for rich results. Editor routes are SSR'd too, but auth-gated and `noindex`.

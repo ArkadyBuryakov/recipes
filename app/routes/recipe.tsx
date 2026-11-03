@@ -130,12 +130,12 @@ function SubRecipes({
     const f = factor * s.factor;
     const ns = `sub:${s.recipe.slug}:`;
     return (
-      <details key={s.recipe.slug} className="card mt-6 px-4 open:pb-4">
-        <summary className="min-h-14 cursor-pointer py-4 font-semibold">
+      <details key={s.recipe.slug} className="card mb-7 px-4 open:pb-4 sm:px-5">
+        <summary className="min-h-14 cursor-pointer py-4 font-mono font-medium">
           ↳ {tr.subRecipes}: <L value={s.recipe.title} />{" "}
           <Link
             to={`/${lang}/r/${s.recipe.slug}`}
-            className="font-normal text-accent"
+            className="font-normal underline decoration-accent decoration-2"
             onClick={(e) => e.stopPropagation()}
           >
             ↗
@@ -171,85 +171,49 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
     ? `${servings} ${t(recipe.servings.label, lang)}`
     : tr.servings(servings);
 
+  const nIngredients = recipe.sections.reduce((n, s) => n + s.ingredients.length, 0);
+  const nSteps = recipe.sections.reduce((n, s) => n + s.steps.length, 0);
+  const times = [
+    [tr.prepTime, recipe.times?.prepMin],
+    [tr.cookTime, recipe.times?.cookMin],
+    [tr.passiveTime, recipe.times?.passiveMin],
+  ] as const;
+
   return (
     <div className="flex flex-1">
-      <main className="min-w-0 flex-1 px-4 pt-6 pb-32 lg:px-10">
-        <article className="mx-auto max-w-[720px]">
-          {recipe.status === "draft" && <span className="tag mb-2 inline-block">{tr.draft}</span>}
-          <h1 className="mb-2.5 text-[32px] leading-tight sm:text-[40px]">
+      <main className="min-w-0 flex-1 px-4 pt-4 pb-32 sm:px-6 lg:px-10">
+        <article className="mx-auto max-w-[760px]">
+          <Link to={`/${lang}`} className="font-mono text-sm text-muted hover:text-ink print:hidden">
+            ← {tr.allRecipes}
+          </Link>
+          <h1 className="mt-5 mb-3 text-[34px] leading-[1.1] sm:text-[46px]">
             {title.text}
+            {recipe.status === "draft" && <span className="tag ml-3 align-middle">{tr.draft}</span>}
             {title.fallback && (
               <span className="ml-2 align-middle font-sans text-xs text-muted">({tr.notTranslated})</span>
             )}
           </h1>
           {recipe.description && (
-            <p className="mb-4 text-[17px] leading-relaxed text-muted">
+            <p className="mb-5 max-w-[640px] text-lg leading-relaxed text-muted">
               <L value={recipe.description} />
             </p>
           )}
-          <div className="mb-3 flex flex-wrap items-center gap-2">
-            {recipe.times?.prepMin ? (
-              <span className="pill">
-                {tr.prepTime}{" "}
-                <b className="font-semibold text-ink">{formatDuration(recipe.times.prepMin * 60, lang)}</b>
-              </span>
-            ) : null}
-            {recipe.times?.cookMin ? (
-              <span className="pill">
-                {tr.cookTime}{" "}
-                <b className="font-semibold text-ink">{formatDuration(recipe.times.cookMin * 60, lang)}</b>
-              </span>
-            ) : null}
-            {recipe.times?.passiveMin ? (
-              <span className="pill">
-                {tr.passiveTime}{" "}
-                <b className="font-semibold text-ink">{formatDuration(recipe.times.passiveMin * 60, lang)}</b>
-              </span>
-            ) : null}
-          </div>
-          <div className="mb-4 flex flex-wrap gap-1.5">
-            {recipe.tags.map((tag) => (
-              <Link
-                key={t(tag, "en")}
-                to={`/${lang}?tag=${encodeURIComponent(t(tag, lang))}`}
-                className="tag"
-              >
-                {t(tag, lang)}
-              </Link>
-            ))}
-          </div>
-          {recipe.source && <SourceLine source={recipe.source} lang={lang} />}
-          {canEdit && (
-            <div className="mb-4 flex gap-2 print:hidden">
-              <Link className="btn" to={`/${lang}/r/${recipe.slug}/edit`}>
-                ✎ {tr.edit}
-              </Link>
-              <Link className="btn btn-ghost" to={`/${lang}/r/${recipe.slug}/history`}>
-                ↺
-              </Link>
-            </div>
-          )}
-
-          <div className="sticky top-14 z-20 -mx-4 mb-4 flex flex-wrap items-center justify-between gap-2 bg-bg px-4 py-2.5 print:hidden">
-            <div className="flex rounded-xl bg-surface-2 p-1 max-sm:w-full" role="tablist">
-              {(["prep", "cook", "total"] as const).map((x) => (
-                <button
-                  key={x}
-                  type="button"
-                  role="tab"
-                  aria-selected={tab === x}
-                  onClick={() => setState((s) => ({ ...s, tab: x }))}
-                  className={`min-h-11 rounded-lg px-4 text-[15px] font-semibold max-sm:flex-1 max-sm:px-1.5 max-sm:text-sm ${tab === x ? "bg-surface text-ink shadow-sm" : "text-muted"}`}
-                >
-                  {x === "prep" ? tr.prep : x === "cook" ? tr.cook : tr.total}
-                </button>
-              ))}
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="flex items-center rounded-xl border border-line bg-surface">
+          <div className="mb-4 flex flex-wrap items-center gap-x-7 gap-y-3">
+            {times.map(([label, min]) =>
+              min ? (
+                <div key={label} className="text-sm text-muted">
+                  {label}
+                  <b className="block font-mono text-[17px] font-medium text-ink">
+                    {formatDuration(min * 60, lang)}
+                  </b>
+                </div>
+              ) : null,
+            )}
+            <div className="flex items-center gap-2.5 print:hidden">
+              <div className="flex items-center border-2 border-line-strong bg-surface font-mono">
                 <button
                   type="button"
-                  className="h-11 w-11 text-xl"
+                  className="h-10 w-10 text-lg"
                   aria-label="−"
                   onClick={() =>
                     setState((s) => ({ ...s, servings: Math.max(step, +(s.servings - step).toFixed(2)) }))
@@ -257,10 +221,10 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
                 >
                   −
                 </button>
-                <span className="min-w-24 text-center text-[15px] tabular-nums">{servingsLabel}</span>
+                <span className="min-w-24 text-center text-sm font-medium tabular-nums">{servingsLabel}</span>
                 <button
                   type="button"
-                  className="h-11 w-11 text-xl"
+                  className="h-10 w-10 text-lg"
                   aria-label="+"
                   onClick={() => setState((s) => ({ ...s, servings: +(s.servings + step).toFixed(2) }))}
                 >
@@ -268,7 +232,7 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
                 </button>
               </div>
               {kind === "youtube" && (
-                <button type="button" className="btn" onClick={video.toggle}>
+                <button type="button" className="btn min-h-11" onClick={video.toggle}>
                   ▶ <span className="max-sm:hidden">{tr.source}</span>
                 </button>
               )}
@@ -283,19 +247,56 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
               </button>
             </div>
           </div>
+          {recipe.source && <SourceLine source={recipe.source} lang={lang} />}
+          {canEdit && (
+            <div className="mb-4 flex gap-2 print:hidden">
+              <Link className="btn" to={`/${lang}/r/${recipe.slug}/edit`}>
+                ✎ {tr.edit}
+              </Link>
+              <Link className="btn btn-ghost" to={`/${lang}/r/${recipe.slug}/history`}>
+                ↺
+              </Link>
+            </div>
+          )}
+
+          <div className="sticky top-16 z-20 mt-6 mb-7 border-line-strong border-b-2 bg-bg py-3 print:hidden">
+            <div className="flex gap-1.5" role="tablist">
+              {(["prep", "cook", "total"] as const).map((x) => (
+                <button
+                  key={x}
+                  type="button"
+                  role="tab"
+                  aria-selected={tab === x}
+                  onClick={() => setState((s) => ({ ...s, tab: x }))}
+                  className={`min-h-11 border-2 border-line-strong px-4 font-mono text-sm font-medium uppercase max-sm:flex-1 max-sm:px-1.5 max-sm:text-[13px] ${tab === x ? "bg-accent text-accent-ink" : ""}`}
+                >
+                  {x === "prep" ? tr.prep : x === "cook" ? tr.cook : tr.total}
+                  {x !== "total" && (
+                    <span className="ml-1.5 text-xs opacity-60 max-sm:hidden">
+                      {x === "prep" ? nIngredients : nSteps}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {tab === "prep" && <PrepPanel data={recipe} factor={factor} checks={checks} />}
           {tab === "cook" && <CookPanel data={recipe} factor={factor} checks={checks} />}
           {tab === "total" && (
-            <section>
-              <h2 className="mt-4 mb-2 text-2xl">{tr.groceries}</h2>
+            <section className="card mb-7 px-4 pb-1 sm:px-5">
+              <h2 className="label pt-4 pb-1 text-ink">{tr.groceries}</h2>
               {groceries.map((g) => {
                 const amounts = formatShoppingAmounts(g, lang);
                 return (
                   <CheckRow key={g.key} id={`buy:${g.key}`} checks={checks}>
-                    {amounts && <span className="font-semibold tabular-nums">{amounts} </span>}
-                    {g.name}
-                    {g.optional && <span className="text-[15px] text-muted italic"> — {tr.optional}</span>}
+                    <span className="grid grid-cols-[6.5rem_1fr] gap-3 sm:grid-cols-[8.5rem_1fr]">
+                      <span className="font-mono tabular-nums">{amounts}</span>
+                      <span>
+                        {g.name}
+                        {g.optional && <span className="text-muted"> — {tr.optional}</span>}
+                      </span>
+                    </span>
                   </CheckRow>
                 );
               })}

@@ -16,11 +16,13 @@ export function CheckRow({
   checks,
   children,
   lead,
+  className = "",
 }: {
   id: string;
   checks: Checks;
   children: ReactNode;
   lead?: ReactNode;
+  className?: string;
 }) {
   const done = checks.has(id);
   return (
@@ -40,17 +42,17 @@ export function CheckRow({
           checks.toggle(id);
         }
       }}
-      className="group flex min-h-14 cursor-pointer items-start gap-3.5 border-line border-b py-3.5 last:border-b-0"
+      className={`group flex min-h-13 cursor-pointer items-start gap-3.5 border-line border-b border-dashed py-3 last:border-b-0 ${className}`}
     >
       {lead ?? (
         <span
-          className={`mt-0.5 grid size-[26px] flex-none place-items-center rounded-lg border-2 text-base ${done ? "border-ok bg-ok text-white" : "border-line text-transparent"}`}
+          className={`mt-0.5 grid size-[22px] flex-none place-items-center border-2 border-line-strong text-sm ${done ? "bg-ink text-accent" : "text-transparent"}`}
         >
           ✓
         </span>
       )}
       <span
-        className={`flex-1 text-[17px] leading-relaxed ${done ? "text-muted line-through decoration-line" : ""}`}
+        className={`flex-1 text-base leading-relaxed ${done ? "text-muted line-through decoration-muted" : ""}`}
       >
         {children}
       </span>
@@ -61,7 +63,7 @@ export function CheckRow({
 function Fallback({ fallback }: { fallback: boolean }) {
   const tr = useT();
   return fallback ? (
-    <span className="ml-1.5 rounded bg-surface-2 px-1.5 py-0.5 align-middle text-[11px] text-muted no-underline">
+    <span className="ml-1.5 bg-surface-2 px-1.5 py-0.5 align-middle font-mono text-[11px] text-muted no-underline">
       {tr.notTranslated}
     </span>
   ) : null;
@@ -83,20 +85,34 @@ export function IngredientText({ ing, factor }: { ing: Ingredient; factor: numbe
   const tr = useT();
   const qty = formatIngredientQty(ing, factor, lang);
   return (
-    <>
-      {qty && <span className="font-semibold tabular-nums">{qty} </span>}
-      <L value={ing.name} />
-      {ing.scaling === "to-taste" && !qty && <span className="text-muted"> — {tr.toTaste}</span>}
-      {ing.optional && <span className="text-[15px] text-muted italic"> — {tr.optional}</span>}
-      {ing.alternatives.map((a) => (
-        <span key={t(a.name, "en")} className="text-[15px] text-muted italic">
-          {" "}
-          · {tr.or} {[formatQty(a.qty, a.unit, lang), t(a.name, lang)].filter(Boolean).join(" ")}
-          {a.note && ` (${t(a.note, lang)})`}
-        </span>
-      ))}
-      {ing.prep && <span className="block text-[15px] text-muted">{t(ing.prep, lang)}</span>}
-    </>
+    <span className="grid grid-cols-[6.5rem_1fr] gap-3 sm:grid-cols-[8.5rem_1fr]">
+      <span className="font-mono tabular-nums">{qty || (ing.scaling === "to-taste" ? tr.toTaste : "")}</span>
+      <span>
+        <L value={ing.name} />
+        {ing.optional && (
+          <span className="ml-2 border border-line px-1.5 align-middle font-mono text-[11px] text-muted">
+            {tr.optional}
+          </span>
+        )}
+        {ing.alternatives.map((a) => (
+          <span key={t(a.name, "en")} className="text-[15px] text-muted italic">
+            {" "}
+            · {tr.or} {[formatQty(a.qty, a.unit, lang), t(a.name, lang)].filter(Boolean).join(" ")}
+            {a.note && ` (${t(a.note, lang)})`}
+          </span>
+        ))}
+        {ing.prep && <span className="text-muted">, {t(ing.prep, lang)}</span>}
+      </span>
+    </span>
+  );
+}
+
+export function SectionTitle({ n, children }: { n: number; children: ReactNode }) {
+  return (
+    <h2 className="sec-title">
+      <span className="sec-no">{String(n).padStart(2, "0")}</span>
+      {children}
+    </h2>
   );
 }
 
@@ -118,36 +134,42 @@ export function PrepPanel({
   return (
     <div>
       {prep.tasks.length > 0 && (
-        <div className="mb-2 rounded-2xl border border-line border-dashed px-4">
+        <div className="card mb-7 px-4 pb-1 sm:px-5">
+          <h2 className="label pt-4 pb-1 text-ink">{tr.prepAhead}</h2>
           {prep.tasks.map((task) => (
             <CheckRow key={task.id} id={`${ns}task:${task.id}`} checks={checks}>
-              <span className="label block text-accent">
-                {task.leadMin ? `${formatDuration(task.leadMin * 60, lang)} ${tr.ahead}` : tr.beforeStart}
-              </span>
               <L value={task.text} />
+              {task.leadMin ? (
+                <span className="text-muted">
+                  {" "}
+                  · {formatDuration(task.leadMin * 60, lang)} {tr.ahead}
+                </span>
+              ) : null}
             </CheckRow>
           ))}
         </div>
       )}
-      {prep.sections.map(({ section, bowls, loose }) => (
-        <section key={section.id}>
+      {prep.sections.map(({ section, bowls, loose }, i) => (
+        <section key={section.id} className="card mb-7 px-4 pb-1 sm:px-5">
           {(section.title || prep.sections.length > 1) && (
-            <h2 className="mt-7 mb-2 text-2xl">{section.title ? <L value={section.title} /> : section.id}</h2>
+            <SectionTitle n={i + 1}>{section.title ? <L value={section.title} /> : section.id}</SectionTitle>
           )}
+          {loose.map(({ ingredient }) => (
+            <CheckRow key={ingredient.id} id={`${ns}ing:${ingredient.id}`} checks={checks}>
+              <IngredientText ing={ingredient} factor={factor} />
+            </CheckRow>
+          ))}
           {bowls.map((bowl) => (
-            <div key={bowl.id} className="card my-2.5 px-4">
-              <div className="label pt-3">{bowl.label ? <L value={bowl.label} /> : bowl.id}</div>
+            <div key={bowl.id}>
+              <div className="label pt-4 text-[11px]">
+                ▣ {tr.bowl}: {bowl.label ? <L value={bowl.label} /> : bowl.id}
+              </div>
               {bowl.items.map(({ ingredient }) => (
                 <CheckRow key={ingredient.id} id={`${ns}ing:${ingredient.id}`} checks={checks}>
                   <IngredientText ing={ingredient} factor={factor} />
                 </CheckRow>
               ))}
             </div>
-          ))}
-          {loose.map(({ ingredient }) => (
-            <CheckRow key={ingredient.id} id={`${ns}ing:${ingredient.id}`} checks={checks}>
-              <IngredientText ing={ingredient} factor={factor} />
-            </CheckRow>
           ))}
         </section>
       ))}
@@ -163,11 +185,13 @@ function InlineIngredient({ ing, factor, label }: { ing: Ingredient; factor: num
     <button
       type="button"
       onClick={() => setOpen((o) => !o)}
-      className="inline rounded-md bg-accent-soft px-1.5 py-px text-left font-medium text-ink"
+      className="marker inline px-0.5 text-left font-medium text-ink"
       title={ing.prep ? t(ing.prep, lang) : undefined}
     >
       {label ?? lowerFirst(t(ing.name, lang))}
-      {qty && <span className="font-bold whitespace-nowrap text-accent tabular-nums"> {qty}</span>}
+      {qty && (
+        <span className="font-mono text-[0.85em] font-normal whitespace-nowrap tabular-nums"> {qty}</span>
+      )}
       {open && ing.prep && <span className="font-normal text-muted"> ({t(ing.prep, lang)})</span>}
     </button>
   );
@@ -197,7 +221,7 @@ export function StepText({
             <Link
               key={key}
               to={`/${lang}/r/${seg.slug}`}
-              className="font-medium text-accent underline underline-offset-2"
+              className="font-medium underline decoration-2 decoration-accent underline-offset-2"
             >
               {seg.slug}
             </Link>
@@ -228,44 +252,60 @@ export function CookPanel({
   const lang = useLang();
   const tr = useT();
   const title = t(data.title, lang);
+  // The first unchecked step is highlighted, so it's easy to find your place at the stove.
+  const current = data.sections.flatMap((s) => s.steps).find((st) => !checks.has(`${ns}step:${st.id}`))?.id;
   let n = 0;
+  let sn = 0;
   return (
     <div>
-      {data.sections.map((section) => (
-        <section key={section.id}>
-          {section.steps.length > 0 && (section.title || data.sections.length > 1) && (
-            <h2 className="mt-7 mb-2 text-2xl">{section.title ? <L value={section.title} /> : section.id}</h2>
-          )}
-          {section.steps.map((step) => {
-            n++;
-            const num = n;
-            const p = pick(step.text, lang);
-            const label = section.title ? `${t(section.title, lang)} · ${num}` : `${title} · ${num}`;
-            return (
-              <CheckRow
-                key={step.id}
-                id={`${ns}step:${step.id}`}
-                checks={checks}
-                lead={
-                  <span
-                    className={`grid size-[30px] flex-none place-items-center rounded-full text-sm font-bold ${checks.has(`${ns}step:${step.id}`) ? "bg-ok text-white" : "bg-surface-2 text-muted"}`}
+      {data.sections.map((section) => {
+        if (!section.steps.length) return null;
+        sn++;
+        return (
+          <div key={section.id}>
+            <section className="card mb-7 px-4 pb-1 sm:px-5">
+              {(section.title || data.sections.length > 1) && (
+                <SectionTitle n={sn}>{section.title ? <L value={section.title} /> : section.id}</SectionTitle>
+              )}
+              {section.steps.map((step) => {
+                n++;
+                const num = n;
+                const p = pick(step.text, lang);
+                const label = section.title ? `${t(section.title, lang)} · ${num}` : `${title} · ${num}`;
+                const done = checks.has(`${ns}step:${step.id}`);
+                return (
+                  <CheckRow
+                    key={step.id}
+                    id={`${ns}step:${step.id}`}
+                    checks={checks}
+                    className={step.id === current ? "-mx-4 bg-accent-soft px-4 sm:-mx-5 sm:px-5" : ""}
+                    lead={
+                      <span className="flex flex-none items-start gap-3">
+                        <span
+                          className={`mt-1 grid size-[22px] place-items-center border-2 border-line-strong text-sm ${done ? "bg-ink text-accent" : "text-transparent"}`}
+                        >
+                          ✓
+                        </span>
+                        <span className="min-w-7 pt-0.5 font-mono font-medium tabular-nums">{num}.</span>
+                      </span>
+                    }
                   >
-                    {num}
-                  </span>
-                }
-              >
-                <StepText text={p.text} data={data} factor={factor} label={label} />
-                <Fallback fallback={p.fallback} />
-              </CheckRow>
-            );
-          })}
-          {section.waitAfterMin && (
-            <p className="my-3 rounded-xl bg-surface-2 px-4 py-3 text-muted">
-              ⏳ {tr.wait}: {formatDuration(section.waitAfterMin * 60, lang)}
-            </p>
-          )}
-        </section>
-      ))}
+                    <span className="text-[17px] leading-relaxed">
+                      <StepText text={p.text} data={data} factor={factor} label={label} />
+                    </span>
+                    <Fallback fallback={p.fallback} />
+                  </CheckRow>
+                );
+              })}
+            </section>
+            {section.waitAfterMin && (
+              <p className="-mt-3 mb-7 flex items-center gap-3 font-mono text-sm text-muted before:flex-1 before:border-line before:border-t before:border-dashed after:flex-1 after:border-line after:border-t after:border-dashed">
+                {tr.wait} {formatDuration(section.waitAfterMin * 60, lang)}
+              </p>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

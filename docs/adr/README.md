@@ -18,3 +18,4 @@ Format: context → decision → consequences. Status is one of **Proposed** (wa
 | 0012 | [Hosting and deployment](0012-hosting-deployment.md)             | Accepted |
 | 0013 | [Quality gates](0013-quality-gates.md)                           | Accepted |
 | 0014 | [Migration of existing recipes](0014-migration.md)               | Accepted |
+| 0015 | [Visual style: "Workshop"](0015-visual-style.md)                 | Accepted |

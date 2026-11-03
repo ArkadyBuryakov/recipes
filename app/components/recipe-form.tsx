@@ -216,7 +216,7 @@ function IngredientRow({
         </label>
         <button
           type="button"
-          className="text-accent"
+          className="text-link"
           onClick={() =>
             onChange({ ...ing, alternatives: [...(ing.alternatives ?? []), { name: { ru: "", en: "" } }] })
           }

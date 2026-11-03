@@ -34,16 +34,17 @@ export function Header() {
   });
 
   return (
-    <header className="sticky top-0 z-30 border-b border-line bg-bg/95 backdrop-blur print:hidden">
-      <div className="mx-auto flex h-14 max-w-6xl items-center gap-2 px-4">
+    <header className="sticky top-0 z-30 bg-bg print:hidden">
+      <div className="mx-auto flex h-16 max-w-6xl items-center gap-2 border-line-strong border-b-2 px-4 sm:px-6">
         <Link
           to={`/${lang}`}
           onClick={onLogoTap}
-          className="select-none font-serif text-[22px] font-bold"
+          className="select-none font-mono text-lg font-medium lowercase"
           draggable={false}
         >
+          <span className="text-muted">[</span>
           {t.appName}
-          <span className="text-accent">.</span>
+          <span className="text-muted">]</span>
         </Link>
         <div className="flex-1" />
         {user && (
@@ -58,26 +59,26 @@ export function Header() {
             </button>
             {menu && (
               <nav
-                className="card absolute right-0 mt-1 flex w-56 flex-col p-1.5 shadow-lg"
+                className="card absolute right-0 mt-1 flex w-56 flex-col p-1.5"
                 onClick={() => setMenu(false)}
               >
-                <Link className="rounded-lg px-3 py-2.5 hover:bg-surface-2" to={`/${lang}/new`}>
+                <Link className="px-3 py-2.5 font-mono text-sm hover:bg-accent-soft" to={`/${lang}/new`}>
                   + {t.newRecipe}
                 </Link>
-                <Link className="rounded-lg px-3 py-2.5 hover:bg-surface-2" to={`/${lang}/trash`}>
+                <Link className="px-3 py-2.5 font-mono text-sm hover:bg-accent-soft" to={`/${lang}/trash`}>
                   {t.trash}
                 </Link>
                 {user.role === "admin" && (
-                  <Link className="rounded-lg px-3 py-2.5 hover:bg-surface-2" to={`/${lang}/admin`}>
+                  <Link className="px-3 py-2.5 font-mono text-sm hover:bg-accent-soft" to={`/${lang}/admin`}>
                     {t.admin}
                   </Link>
                 )}
-                <Link className="rounded-lg px-3 py-2.5 hover:bg-surface-2" to={`/${lang}/tokens`}>
+                <Link className="px-3 py-2.5 font-mono text-sm hover:bg-accent-soft" to={`/${lang}/tokens`}>
                   {t.tokens}
                 </Link>
                 <button
                   type="button"
-                  className="rounded-lg px-3 py-2.5 text-left hover:bg-surface-2"
+                  className="px-3 py-2.5 text-left font-mono text-sm hover:bg-accent-soft"
                   onClick={async () => {
                     await authClient.signOut();
                     window.location.assign(`/${lang}`);
@@ -89,14 +90,14 @@ export function Header() {
             )}
           </div>
         )}
-        <div className="flex overflow-hidden rounded-xl border border-line">
+        <div className="flex font-mono">
           {(["ru", "en"] as const).map((l) => (
             <Link
               key={l}
               to={switchLangPath(pathname, l) + search}
               aria-current={l === lang}
               hrefLang={l}
-              className={`grid min-h-10 min-w-10 place-items-center px-2 text-sm font-semibold uppercase ${l === lang ? "bg-ink text-bg" : "bg-surface"}`}
+              className={`grid min-h-10 min-w-10 place-items-center px-2 text-[13px] uppercase ${l === lang ? "bg-surface-2 text-ink" : "text-muted"}`}
             >
               {l}
             </Link>

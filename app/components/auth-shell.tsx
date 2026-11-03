@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 export function AuthShell({ title, children }: { title: string; children: ReactNode }) {
   return (
     <main className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center px-5 py-10">
-      <a href="/" className="mb-8 font-serif text-2xl font-bold">
-        Рецепты<span className="text-accent">.</span>
+      <a href="/" className="mb-8 font-mono text-lg font-medium lowercase">
+        <span className="text-muted">[</span>рецепты<span className="text-muted">]</span>
       </a>
       <h1 className="mb-5 text-3xl">{title}</h1>
       {children}

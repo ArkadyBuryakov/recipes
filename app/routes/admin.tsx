@@ -96,7 +96,7 @@ export default function Admin({ loaderData }: Route.ComponentProps) {
       <h1 className="mb-5 text-3xl">{tr.admin}</h1>
       {result?.error && <p className="mb-4 rounded-xl bg-danger/10 p-3 text-danger">{result.error}</p>}
       {result?.link && (
-        <div className="card mb-5 border-accent p-4">
+        <div className="card mb-5 bg-accent-soft p-4">
           <p className="mb-2 text-sm">{t.copy}</p>
           <div className="flex gap-2">
             <input

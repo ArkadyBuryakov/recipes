@@ -24,7 +24,7 @@ export function SourceLine({ source, lang }: { source: Source; lang: Lang }) {
             <img
               src={`/img/${source.imageKey}?w=200`}
               alt={label}
-              className="inline h-14 rounded-lg border border-line"
+              className="inline h-14 border-2 border-line-strong"
             />
           </button>
           {label && ` ${label}`}
@@ -44,7 +44,12 @@ export function SourceLine({ source, lang }: { source: Source; lang: Lang }) {
           )}
         </>
       ) : source.url ? (
-        <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-accent">
+        <a
+          href={source.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-medium underline decoration-accent decoration-2 underline-offset-2"
+        >
           {label || siteName(source.url)} ↗
         </a>
       ) : (
@@ -92,17 +97,17 @@ export function VideoPanel({
   const label = source.label ? t(source.label, lang) : "";
   const phone =
     mode === "open"
-      ? "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:rounded-t-3xl max-lg:p-4 max-lg:pb-6 max-lg:shadow-2xl"
+      ? "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:border-line-strong max-lg:border-t-2 max-lg:p-4 max-lg:pb-6"
       : mode === "mini"
-        ? "max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:w-48 max-lg:overflow-hidden max-lg:rounded-xl max-lg:shadow-2xl"
+        ? "max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:w-48 max-lg:overflow-hidden max-lg:border-2 max-lg:border-line-strong max-lg:shadow-lg"
         : "max-lg:hidden";
   const desktop = desktopOpen
-    ? "lg:sticky lg:top-14 lg:h-[calc(100dvh-3.5rem)] lg:w-[420px] lg:flex-none lg:overflow-y-auto lg:border-line lg:border-l lg:p-5"
+    ? "lg:sticky lg:top-16 lg:h-[calc(100dvh-4rem)] lg:w-[420px] lg:flex-none lg:overflow-y-auto lg:border-line-strong lg:border-l-2 lg:p-5"
     : "lg:hidden";
   return (
     <aside className={`bg-surface print:hidden ${phone} ${desktop}`}>
       <div className={`mb-3 flex items-center justify-between ${mode === "mini" ? "max-lg:hidden" : ""}`}>
-        <strong className="font-serif text-xl">{tr.source}</strong>
+        <strong className="label text-ink">{tr.source}</strong>
         <button
           type="button"
           className="btn btn-ghost min-h-9 px-2"
@@ -114,7 +119,7 @@ export function VideoPanel({
       <div className="relative">
         {active && (
           <iframe
-            className="aspect-video w-full rounded-xl bg-black max-lg:[.rounded-xl_&]:rounded-none"
+            className="aspect-video w-full border-2 border-line-strong bg-black"
             src={`https://www.youtube-nocookie.com/embed/${id}`}
             title={label || "YouTube"}
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
@@ -143,12 +148,7 @@ export function VideoPanel({
         )}
       </div>
       <div className={mode === "mini" ? "max-lg:hidden" : ""}>
-        <a
-          href={source.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-3 inline-block font-semibold text-accent"
-        >
+        <a href={source.url} target="_blank" rel="noopener noreferrer" className="btn mt-3">
           {tr.openOn("YouTube")}
         </a>
         {label && <p className="mt-2 text-sm text-muted">{label}</p>}

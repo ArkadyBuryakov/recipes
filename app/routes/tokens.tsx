@@ -101,7 +101,7 @@ export default function Tokens({ loaderData }: Route.ComponentProps) {
 
       <h2 className="mb-2 text-xl">{t.tokens}</h2>
       {result?.key && (
-        <div className="card mb-4 border-accent p-4">
+        <div className="card mb-4 bg-accent-soft p-4">
           <p className="mb-2 text-sm">{t.once}</p>
           <div className="flex gap-2">
             <input

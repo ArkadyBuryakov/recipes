@@ -26,3 +26,4 @@ plugins), MCP SDK v2 (`@modelcontextprotocol/server`). One process: `server.ts` 
 - All deletes are soft; every recipe write goes through `RecipeService` so it gets a revision row.
 - Route modules may import from `@server/*` only inside `loader`/`action` (or `*.server.ts`), so server code is tree-shaken from the client bundle.
 - Biome's `--unsafe` fixes can change semantics; review them.
+- Visual style is ADR 0015 ("Workshop"): use the tokens and component classes in `app/app.css`; the reference is `docs/design/styles.html#workshop/<page>/<device>` with the Quiet headers.
