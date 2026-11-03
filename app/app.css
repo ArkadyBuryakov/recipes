@@ -1,1 +1,76 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Warm, typography-led palette (docs/design/mockup.html). */
+@theme {
+  --color-bg: #faf8f5;
+  --color-surface: #ffffff;
+  --color-surface-2: #f2eee8;
+  --color-ink: #1f1b16;
+  --color-muted: #6f665c;
+  --color-line: #e4ddd3;
+  --color-accent: #b4441c;
+  --color-accent-soft: #f6e3d9;
+  --color-ok: #3f7d4e;
+  --color-danger: #b42318;
+  --font-serif: "Iowan Old Style", "Charter", "Georgia", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+@layer base {
+  .dark {
+    --color-bg: #161412;
+    --color-surface: #1f1c19;
+    --color-surface-2: #2a2622;
+    --color-ink: #efe9e2;
+    --color-muted: #a39a90;
+    --color-line: #36302a;
+    --color-accent: #e8794c;
+    --color-accent-soft: #3a261c;
+    --color-ok: #7cc28e;
+    --color-danger: #f97066;
+  }
+  html {
+    @apply bg-bg text-ink font-sans antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-serif tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 text-[15px] font-semibold text-ink transition-colors hover:bg-surface-2 disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply border-accent bg-accent text-white hover:bg-accent/90;
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent;
+  }
+  .btn-danger {
+    @apply border-danger text-danger;
+  }
+  .input {
+    @apply min-h-11 w-full rounded-xl border border-line bg-surface px-3.5 text-[15px] text-ink placeholder:text-muted;
+  }
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full bg-surface-2 px-3 py-1.5 text-sm text-muted;
+  }
+  .tag {
+    @apply rounded-full bg-accent-soft px-2.5 py-1 text-[13px] text-accent;
+  }
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+  }
+  .label {
+    @apply text-xs font-bold uppercase tracking-wider text-muted;
+  }
+}

@@ -26,6 +26,7 @@ COPY --from=prod-deps /app/node_modules node_modules
 COPY --from=build /app/build build
 COPY package.json server.ts ./
 COPY server/db/migrations server/db/migrations
+COPY seed seed
 USER bun
 EXPOSE 3000
 HEALTHCHECK --interval=15s --timeout=5s --start-period=30s \

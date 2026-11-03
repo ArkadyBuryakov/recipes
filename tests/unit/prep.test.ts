@@ -50,7 +50,7 @@ describe("markdown", () => {
     const md = recipeToMarkdown(data, { lang: "en", servings: 8, url: "https://x/en/r/chashu" });
     expect(md).toContain("# Chashu and nitamago");
     expect(md).toContain("Servings: 8");
-    expect(md).toContain("1. Add Garlic (4–6 cloves) and Ginger (20 g), simmer 1 h 30 min");
+    expect(md).toContain("1. Add garlic (4–6 cloves) and ginger (20 g), simmer 1 h 30 min");
     expect(md).toContain("- **Aromatics**");
     expect(md).toContain("Sake: 2 tbsp — or water");
     expect(md).toContain("Bay leaf: 1");

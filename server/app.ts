@@ -1,9 +1,13 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { createRequestHandler, RouterContextProvider } from "react-router";
+import { sessionPrincipal } from "./access";
+import { applySeeds, bootstrapAdmin } from "./bootstrap";
 import { auth } from "./auth";
+import { appContext } from "./context";
 import { db, sql } from "./db/client";
 import { runMigrations } from "./db/migrate";
+import { env } from "./env";
 import { createMcpEndpoints } from "./mcp";
 import { services } from "./services";
 
@@ -53,9 +57,21 @@ const handleRequest = createRequestHandler(
   import.meta.env.MODE,
 );
 
-app.all("*", (c) => handleRequest(c.req.raw, new RouterContextProvider()));
+app.all("*", async (c) => {
+  const context = new RouterContextProvider();
+  context.set(appContext, {
+    services,
+    principal: await sessionPrincipal(c.req.raw.headers),
+    publicUrl: env.PUBLIC_URL,
+    vapidPublicKey: env.VAPID_PUBLIC_KEY ?? null,
+  });
+  return handleRequest(c.req.raw, context);
+});
 
-/** One-time startup work: schema migrations, then seeds and bootstrap (added later). */
+/** Startup: schema migrations, initial data migration (seeds), first admin. */
 export async function init() {
   await runMigrations(db);
+  const seeded = await applySeeds(db, services.recipes);
+  if (seeded) console.log(`seeded ${seeded} recipes`);
+  if (await bootstrapAdmin(db)) console.log("created admin account from ADMIN_EMAIL");
 }

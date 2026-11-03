@@ -21,6 +21,9 @@ services:
     environment:
       DATABASE_URL: postgres://recipes:recipes@db:5432/recipes
       PUBLIC_URL: http://localhost:${APP_PORT:-3000}
+      # Dev-only login (created on first start of an empty database).
+      ADMIN_EMAIL: admin@example.com
+      ADMIN_PASSWORD: password123
     ports: ["${APP_PORT:-3000}:3000"]
     depends_on:
       db: { condition: service_healthy }

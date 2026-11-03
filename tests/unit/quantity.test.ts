@@ -64,3 +64,18 @@ describe("tokens", () => {
     expect(parseStepText("Add {{ing:ginger").errors.length).toBe(1);
   });
 });
+
+describe("ingredient labels", () => {
+  test("{{ing:id|label}} keeps the author's wording and the same signature", async () => {
+    const { tokenSignature } = await import("@shared/tokens");
+    const { segments } = parseStepText("Залить {{ing:pork|свинину}} водой");
+    expect(segments[1]).toEqual({ type: "ing", id: "pork", label: "свинину" });
+    expect(tokenSignature("Залить {{ing:pork|свинину}}")).toBe(tokenSignature("Cover {{ing:pork}}"));
+  });
+
+  test("lowercases names inside sentences but keeps acronyms", async () => {
+    const { lowerFirst } = await import("@shared/markdown");
+    expect(lowerFirst("Свиная грудинка")).toBe("свиная грудинка");
+    expect(lowerFirst("BBQ sauce")).toBe("BBQ sauce");
+  });
+});

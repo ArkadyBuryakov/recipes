@@ -1,12 +1,13 @@
 /**
  * Step text tokens (ADR 0002):
  *   {{ing:<ingredient-id>}}   inline ingredient with scaled quantity
+ *   {{ing:<id>|<text>}}       same, shown with the author's wording (e.g. Russian case: {{ing:pork|свинину}})
  *   {{timer:<duration>}}      tappable timer, duration like 45s, 20m, 1h30m, 2d
  *   {{recipe:<slug>}}         link to another recipe
  */
 export type Segment =
   | { type: "text"; value: string }
-  | { type: "ing"; id: string }
+  | { type: "ing"; id: string; label?: string }
   | { type: "timer"; seconds: number; raw: string }
   | { type: "recipe"; slug: string };
 
@@ -16,7 +17,7 @@ const TOKEN_RE = /\{\{\s*([a-z]+)\s*:\s*([^}]*?)\s*\}\}/g;
 const DURATION_RE = /^(?:(\d+)d)?(?:(\d+)h)?(?:(\d+)m)?(?:(\d+)s)?$/;
 
 export const TOKEN_SYNTAX_TEXT =
-  "Step text tokens: {{ing:<ingredient id>}} renders the ingredient name with its scaled quantity; {{timer:<duration>}} renders a timer, durations like 45s, 20m, 1h30m, 2d; {{recipe:<slug>}} links another recipe. RU and EN texts of a step must contain the same tokens.";
+  "Step text tokens: {{ing:<ingredient id>}} renders the ingredient name with its scaled quantity, {{ing:<id>|<words>}} shows your own wording instead of the name (use it for grammatical case, e.g. {{ing:pork|свинину}}, {{ing:onion|the onion}}); {{timer:<duration>}} renders a timer, durations like 45s, 20m, 1h30m, 2d; {{recipe:<slug>}} links another recipe. RU and EN texts of a step must contain the same tokens.";
 
 export function parseDuration(raw: string): number | null {
   const m = DURATION_RE.exec(raw);
@@ -35,7 +36,9 @@ export function parseStepText(text: string): { segments: Segment[]; errors: Toke
     const index = match.index ?? 0;
     if (index > last) segments.push({ type: "text", value: text.slice(last, index) });
     last = index + token.length;
-    if (kind === "ing" && /^[a-z0-9][a-z0-9-]*$/.test(arg)) segments.push({ type: "ing", id: arg });
+    const [ref = "", label] = kind === "ing" ? arg.split("|").map((x) => x.trim()) : [arg];
+    if (kind === "ing" && /^[a-z0-9][a-z0-9-]*$/.test(ref))
+      segments.push({ type: "ing", id: ref, ...(label && { label }) });
     else if (kind === "recipe" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(arg))
       segments.push({ type: "recipe", slug: arg });
     else if (kind === "timer") {

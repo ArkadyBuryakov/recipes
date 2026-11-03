@@ -37,6 +37,11 @@ const L = {
   },
 } as const;
 
+/** Ingredient names are capitalized in lists; inside a sentence they read lowercase. */
+export function lowerFirst(s: string): string {
+  return s.length > 1 && s[1] === s[1]?.toLowerCase() ? s[0]?.toLocaleLowerCase() + s.slice(1) : s;
+}
+
 /** Plain-text step with ingredient quantities inlined: "Add ginger (10 g)". */
 export function renderStepText(
   text: string,
@@ -53,7 +58,8 @@ export function renderStepText(
       const ing = ingredients.get(s.id);
       if (!ing) return s.id;
       const qty = formatIngredientQty(ing, factor, lang);
-      return qty ? `${t(ing.name, lang)} (${qty})` : t(ing.name, lang);
+      const name = s.label ?? lowerFirst(t(ing.name, lang));
+      return qty ? `${name} (${qty})` : name;
     })
     .join("");
 }
