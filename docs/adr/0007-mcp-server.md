@@ -15,6 +15,10 @@ Any MCP-capable agent should be able to read without auth, and read + write with
 - **Editor auth:** both of these.
   - **OAuth 2.1** through better-auth's MCP/OIDC provider: protected-resource metadata, dynamic client registration, PKCE, and a consent screen. For claude.ai/Desktop connectors and Claude Code.
   - **Personal API tokens** (bearer), created and revoked in the UI, scoped to the user. For scripts and agents without OAuth support. Hashed at rest, and shown once.
+- **Implementation:** `@better-auth/mcp` (OAuth 2.1 authorization server + RFC 9728 protected resource metadata,
+  JWT access tokens bound to the `/mcp/editor` resource) with Dynamic Client Registration enabled. Client ID Metadata
+  Documents (CIMD) are not enabled yet: on Bun the plugin needs an application-supplied SSRF-safe fetch transport.
+  DCR works with Claude Code, Cursor and claude.ai connectors today; add `@better-auth/cimd` when a client requires it.
 - **Every recipe returned by any tool includes `url`** (absolute site link in the requested language).
 - Audit revisions from MCP record `channel: 'mcp'` and the token or OAuth client id.
 

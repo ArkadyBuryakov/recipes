@@ -69,6 +69,9 @@ Step {
 PrepTask { id; text: L10n; leadMin?: number }
 ```
 
+- `{{ing:<id>|<words>}}` renders the author's wording instead of the ingredient name (Russian grammatical case:
+  "Залить {{ing:pork|свинину}}"); without it, the name is shown lowercased inside the sentence. Labels don't affect
+  the RU/EN token-equality check.
 - Tokens are validated on write: every `{{ing:id}}` must exist in the recipe, and every `{{recipe:slug}}` must point to an existing recipe. A write with unresolved tokens is rejected.
 - Prep that needs cooking (mixing a sauce, marinating meat) is its own **section**, not a prep task.
 - Multi-day processes (kombucha, sauerkraut) are sequences of sections separated by `waitAfterMin`.

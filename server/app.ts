@@ -72,6 +72,8 @@ app.all("*", async (c) => {
 });
 
 /** Startup: schema migrations, initial data migration (seeds), first admin. */
+export { cli } from "./cli";
+
 export async function init() {
   await runMigrations(db);
   const seeded = await applySeeds(db, services.recipes);

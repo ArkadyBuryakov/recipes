@@ -2,11 +2,19 @@
 // Production: Bun.serve with static assets from build/client and the bundled app from build/server.
 import type { Hono } from "hono";
 
-type AppModule = { app: Hono; init: () => Promise<void> };
+type AppModule = { app: Hono; init: () => Promise<void>; cli: (args: string[]) => Promise<number> };
 
 const PORT = Number(process.env.PORT ?? 3000);
 
-if (process.env.NODE_ENV === "production") {
+if (process.argv[2] === "cli") {
+  // Admin commands, e.g. `bun server.ts cli reset-link me@example.com` (in the container: production build).
+  const mod: AppModule =
+    process.env.NODE_ENV === "production"
+      ? // @ts-ignore: produced by `react-router build`
+        await import("./build/server/index.js")
+      : await import("./server/app-cli");
+  process.exit(await mod.cli(process.argv.slice(3)));
+} else if (process.env.NODE_ENV === "production") {
   const { serveStatic } = await import("hono/bun");
   const { Hono } = await import("hono");
   // @ts-expect-error: produced by `react-router build`

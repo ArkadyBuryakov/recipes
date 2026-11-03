@@ -26,6 +26,7 @@ Wanted: screen wake lock, timers from steps (several running at once), push noti
 - At least 48 px interactive elements in prep and cook mode, and a full-row tap area for checkboxes.
 
 ### Offline (PWA)
+- Hand-written service worker (`public/sw.js`), registered in production builds only.
 - The app shell is precached.
 - On first visit, **all published recipes** (JSON) and cover thumbnails are cached in IndexedDB and refreshed in the background.
 - Offline, routes render from the cache. Editing requires being online (the editor shows an offline notice).
