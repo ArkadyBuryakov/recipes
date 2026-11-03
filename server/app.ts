@@ -1,8 +1,11 @@
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { createRequestHandler, RouterContextProvider } from "react-router";
 import { auth } from "./auth";
 import { db, sql } from "./db/client";
 import { runMigrations } from "./db/migrate";
+import { createMcpEndpoints } from "./mcp";
+import { services } from "./services";
 
 export const app = new Hono();
 
@@ -10,6 +13,20 @@ app.get("/healthz", async (c) => {
   await sql`select 1`;
   return c.json({ ok: true });
 });
+
+// MCP clients may run in browsers (inspectors, web agents).
+const mcpCors = cors({
+  origin: "*",
+  allowHeaders: ["Authorization", "Content-Type", "Mcp-Protocol-Version", "Mcp-Session-Id", "Last-Event-ID", "DPoP"],
+  exposeHeaders: ["WWW-Authenticate", "Mcp-Session-Id"],
+});
+app.use("/mcp/*", mcpCors);
+app.use("/mcp", mcpCors);
+app.use("/.well-known/*", mcpCors);
+
+const mcp = createMcpEndpoints(services);
+app.all("/mcp", (c) => mcp.public(c.req.raw));
+app.all("/mcp/editor", (c) => mcp.editor(c.req.raw));
 
 app.on(["GET", "POST"], "/api/auth/*", (c) => auth.handler(c.req.raw));
 

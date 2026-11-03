@@ -158,3 +158,28 @@ export function shoppingListToMarkdown(entries: { data: RecipeData; factor: numb
     })
     .join("\n");
 }
+
+export function prepListToMarkdown(data: RecipeData, opts: { lang: Lang; servings?: number }): string {
+  const { lang } = opts;
+  const l = L[lang];
+  const factor = (opts.servings ?? data.servings.amount) / data.servings.amount;
+  const prep = buildPrepList(data, factor);
+  const out = [`# ${l.prep}: ${t(data.title, lang)}`];
+  if (prep.tasks.length) {
+    out.push(`\n## ${l.tasks}`);
+    for (const task of prep.tasks) {
+      const lead = task.leadMin ? ` (${formatDuration(task.leadMin * 60, lang)} ${l.ahead})` : "";
+      out.push(`- [ ] ${t(task.text, lang)}${lead}`);
+    }
+  }
+  for (const s of prep.sections) {
+    if (s.section.title || prep.sections.length > 1)
+      out.push(`\n## ${s.section.title ? t(s.section.title, lang) : s.section.id}`);
+    for (const bowl of s.bowls) {
+      out.push(`- **${bowl.label ? t(bowl.label, lang) : bowl.id}**`);
+      for (const i of bowl.items) out.push(`  - [ ] ${ingredientLine(i.ingredient, factor, lang)}`);
+    }
+    for (const i of s.loose) out.push(`- [ ] ${ingredientLine(i.ingredient, factor, lang)}`);
+  }
+  return out.join("\n");
+}
