@@ -1,0 +1,10 @@
+.git
+node_modules
+build
+.react-router
+recipes
+docs
+playwright-report
+test-results
+.env
+.env.*

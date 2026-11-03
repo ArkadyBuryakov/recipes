@@ -1,0 +1,20 @@
+# Worktree setup for this repo. See `man 5 workforest`.
+# Dev environment per worktree:  wf run dev  (Ctrl-C / wf stop dev tears containers down)
+#                                wf run destroy  (also drops the database volume; run before wf delete)
+
+# The Obsidian recipes vault symlink (source for the one-time migration), shared from the main worktree.
+symlinks:
+  - recipes
+
+setup_scripts:
+  - bun install
+
+scripts:
+  dev:
+    command: scripts/dev.sh up
+    cleanup: scripts/dev.sh down
+    stop_timeout: 60
+  destroy: scripts/dev.sh destroy
+  env: scripts/dev.sh env
+  check: bun run check
+  check-all: bun run check:all

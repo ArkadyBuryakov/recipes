@@ -1,0 +1,39 @@
+# Local development only. Start it with `wf run dev` (or scripts/dev.sh up), which picks
+# per-worktree ports and project names so several worktrees can run side by side.
+name: ${COMPOSE_PROJECT_NAME:-recipes}
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: recipes
+      POSTGRES_PASSWORD: recipes
+      POSTGRES_DB: recipes
+    ports: ["${DB_PORT:-5432}:5432"]
+    volumes: [db:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U recipes"]
+      interval: 2s
+      retries: 30
+
+  app:
+    build: { context: ., target: dev }
+    environment:
+      DATABASE_URL: postgres://recipes:recipes@db:5432/recipes
+      PUBLIC_URL: http://localhost:${APP_PORT:-3000}
+    ports: ["${APP_PORT:-3000}:3000"]
+    depends_on:
+      db: { condition: service_healthy }
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore: [node_modules/, build/, .react-router/, recipes/, .git/, test-results/, playwright-report/]
+        - action: rebuild
+          path: package.json
+        - action: rebuild
+          path: bun.lock
+
+volumes:
+  db:

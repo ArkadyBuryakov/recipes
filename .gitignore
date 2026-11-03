@@ -1,1 +1,10 @@
 recipes
+node_modules
+build
+.react-router
+.env
+.env.*
+!.env.example
+playwright-report
+test-results
+*.log
