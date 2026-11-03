@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mockup — Рецепты</title>
+<style>
+  :root {
+    --bg: #faf8f5; --surface: #ffffff; --surface-2: #f2eee8; --text: #1f1b16; --muted: #6f665c;
+    --line: #e4ddd3; --accent: #b4441c; --accent-soft: #f6e3d9; --ok: #3f7d4e;
+    --serif: "Iowan Old Style", "Charter", "Georgia", serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --radius: 14px;
+  }
+  [data-theme="dark"] {
+    --bg: #161412; --surface: #1f1c19; --surface-2: #2a2622; --text: #efe9e2; --muted: #a39a90;
+    --line: #36302a; --accent: #e8794c; --accent-soft: #3a261c; --ok: #7cc28e;
+  }
+  @media (prefers-color-scheme: dark) {
+    [data-theme="system"] {
+      --bg: #161412; --surface: #1f1c19; --surface-2: #2a2622; --text: #efe9e2; --muted: #a39a90;
+      --line: #36302a; --accent: #e8794c; --accent-soft: #3a261c; --ok: #7cc28e;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: var(--sans); background: #d9d4cd; color: var(--text); }
+
+  /* mockup chrome (not part of the design) */
+  .mock-bar { display: flex; gap: 8px; align-items: center; justify-content: center; padding: 10px; font: 13px var(--sans); color: #333; }
+  .mock-bar button { font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #aaa; background: #fff; cursor: pointer; }
+  .mock-bar button[aria-pressed="true"] { background: #333; color: #fff; border-color: #333; }
+  .stage { display: flex; justify-content: center; padding: 0 12px 40px; }
+  .device { container-type: inline-size; width: 1180px; height: 820px; overflow: hidden; border-radius: 18px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.25); position: relative; transition: width .25s; }
+  .device.phone { width: 390px; height: 844px; border-radius: 44px; border: 10px solid #111; }
+
+  /* app */
+  .app { background: var(--bg); color: var(--text); height: 100%; display: flex; flex-direction: column; position: relative; }
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--line); background: var(--bg); }
+  .logo { font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -.01em; user-select: none; cursor: default; }
+  .logo span { color: var(--accent); }
+  .top-actions { display: flex; gap: 6px; align-items: center; }
+  .icon-btn, .seg button { min-height: 40px; min-width: 40px; border: 1px solid var(--line); background: var(--surface); color: var(--text);
+            border-radius: 10px; font: 500 14px var(--sans); cursor: pointer; padding: 0 10px; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; min-width: 40px; }
+  .seg button[aria-pressed="true"] { background: var(--text); color: var(--bg); }
+  .search { flex: 1; max-width: 360px; margin: 0 20px; }
+  .search input { width: 100%; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 0 14px; font: 15px var(--sans); }
+
+  .body { flex: 1; display: flex; min-height: 0; }
+  .main { flex: 1; overflow-y: auto; padding: 28px 40px 120px; }
+  .content { max-width: 720px; margin: 0 auto; }
+  .sidebar { width: 420px; border-left: 1px solid var(--line); background: var(--surface); padding: 20px; overflow-y: auto; display: none; }
+  .sidebar.open { display: block; }
+
+  .crumbs { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+  h1 { font-family: var(--serif); font-size: 40px; line-height: 1.1; margin: 0 0 10px; letter-spacing: -.02em; }
+  .lede { color: var(--muted); font-size: 17px; line-height: 1.5; margin: 0 0 18px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--surface-2); font-size: 14px; color: var(--muted); }
+  .pill b { color: var(--text); font-weight: 600; }
+  .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; }
+  .tag { font-size: 13px; color: var(--accent); background: var(--accent-soft); padding: 4px 10px; border-radius: 999px; }
+
+  .controls { display: flex; gap: 10px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 18px;
+              position: sticky; top: -28px; background: var(--bg); padding: 10px 0; z-index: 2; }
+  .tabs { display: inline-flex; background: var(--surface-2); border-radius: 12px; padding: 4px; gap: 2px; }
+  .tabs button { border: 0; background: transparent; color: var(--muted); font: 600 15px var(--sans); padding: 10px 16px; border-radius: 9px; cursor: pointer; min-height: 44px; }
+  .tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .stepper { display: inline-flex; align-items: center; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+  .stepper button { width: 44px; height: 44px; border: 0; background: transparent; color: var(--text); font-size: 20px; cursor: pointer; }
+  .stepper span { min-width: 92px; text-align: center; font-size: 15px; }
+  .source-btn { min-height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); color: var(--text); padding: 0 14px; font: 600 15px var(--sans); cursor: pointer; }
+
+  .panel { display: none; } .panel.active { display: block; }
+  h2 { font-family: var(--serif); font-size: 24px; margin: 28px 0 12px; letter-spacing: -.01em; }
+  h2 .wait { font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--muted); margin-left: 8px; }
+  .tasks { border: 1px dashed var(--line); border-radius: var(--radius); padding: 6px 16px; margin-bottom: 8px; }
+  .tasks .when { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
+
+  .bowl { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 4px 16px; margin: 10px 0; }
+  .bowl-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding-top: 12px; }
+  .row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px solid var(--line); cursor: pointer; min-height: 56px; }
+  .bowl .row:last-child, .tasks .row:last-child { border-bottom: 0; }
+  .check { flex: none; width: 26px; height: 26px; border-radius: 8px; border: 2px solid var(--line); margin-top: 1px; display: grid; place-items: center; color: transparent; font-size: 16px; }
+  .row.done .check { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .row.done .txt { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+  .txt { flex: 1; font-size: 17px; line-height: 1.45; }
+  .qty { font-variant-numeric: tabular-nums; font-weight: 650; white-space: nowrap; }
+  .prep { display: block; color: var(--muted); font-size: 15px; }
+  .alt { color: var(--muted); font-size: 14px; font-style: italic; }
+
+  .steps .row { align-items: flex-start; }
+  .num { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--surface-2); display: grid; place-items: center; font: 700 14px var(--sans); color: var(--muted); }
+  .row.done .num { background: var(--ok); color: #fff; }
+  .ing { display: inline; background: var(--accent-soft); color: var(--text); border-radius: 7px; padding: 1px 7px; font-weight: 550; white-space: nowrap; }
+  .ing .qty { color: var(--accent); font-weight: 700; }
+  .timer-chip { display: inline-flex; align-items: center; gap: 5px; border: 1.5px solid var(--accent); color: var(--accent); background: transparent; border-radius: 999px;
+                padding: 2px 10px; font: 650 15px var(--sans); cursor: pointer; vertical-align: baseline; }
+  .sub { border: 1px solid var(--line); border-radius: var(--radius); margin-top: 26px; background: var(--surface); }
+  .sub summary { padding: 16px; cursor: pointer; font-weight: 600; font-size: 16px; }
+  .sub div { padding: 0 16px 16px; color: var(--muted); }
+
+  .tray { position: absolute; left: 50%; transform: translateX(-50%); bottom: 18px; display: flex; gap: 8px; z-index: 5; }
+  .timer { background: var(--text); color: var(--bg); border-radius: 14px; padding: 10px 14px; display: flex; gap: 12px; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.25); font: 14px var(--sans); }
+  .timer b { font: 700 20px var(--sans); font-variant-numeric: tabular-nums; }
+  .timer button { background: transparent; color: inherit; border: 1px solid currentColor; opacity: .7; border-radius: 8px; height: 32px; padding: 0 8px; cursor: pointer; }
+  .timer.ring { background: var(--accent); animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { transform: scale(1.04); } }
+
+  .video { aspect-ratio: 16/9; width: 100%; border: 0; border-radius: 12px; background: #000; }
+  .src-title { font-family: var(--serif); font-size: 20px; margin: 0 0 12px; }
+  .src-link { display: inline-block; margin-top: 12px; color: var(--accent); font-weight: 600; text-decoration: none; }
+  .src-note { color: var(--muted); font-size: 14px; margin-top: 18px; line-height: 1.5; }
+
+  .sheet { position: absolute; inset: auto 0 0 0; background: var(--surface); border-radius: 20px 20px 0 0; box-shadow: 0 -10px 40px rgba(0,0,0,.25);
+           padding: 10px 16px 24px; transform: translateY(105%); transition: transform .25s; z-index: 6; }
+  .sheet.open { transform: none; }
+  .grab { width: 40px; height: 5px; border-radius: 3px; background: var(--line); margin: 0 auto 12px; }
+  .sheet-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .mini { position: absolute; right: 12px; bottom: 90px; width: 168px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.35); z-index: 5; display: none; background: #000; }
+  .mini.show { display: block; }
+  .mini .video { border-radius: 0; }
+
+  /* phone layout via container query */
+  @container (max-width: 700px) {
+    .topbar { padding: 10px 14px; }
+    .search { display: none; }
+    .main { padding: 18px 16px 120px; }
+    h1 { font-size: 30px; }
+    .lede { font-size: 16px; }
+    .controls { top: -18px; }
+    .tabs { width: 100%; } .tabs button { flex: 1; padding: 10px 6px; font-size: 14px; }
+    .sidebar { display: none !important; }
+    .tray { bottom: 14px; width: calc(100% - 24px); justify-content: center; }
+  }
+  @container (min-width: 701px) { .sheet, .mini { display: none !important; } }
+</style>
+</head>
+<body>
+
+<div class="mock-bar">
+  <strong>Mockup</strong>
+  <button data-view="laptop" aria-pressed="true">Laptop</button>
+  <button data-view="phone" aria-pressed="false">Phone</button>
+  <span style="opacity:.6">— tap logo 10× (hidden login), try tabs, servings, checkboxes, ⏱ chips, Source</span>
+</div>
+
+<div class="stage">
+<div class="device" id="device">
+<div class="app" id="app" data-theme="system">
+
+  <header class="topbar">
+    <div class="logo" id="logo">Рецепты<span>.</span></div>
+    <div class="search"><input placeholder="Поиск: «курица рис», «суп»…"></div>
+    <div class="top-actions">
+      <div class="seg" role="group" aria-label="Язык">
+        <button aria-pressed="true">RU</button><button aria-pressed="false">EN</button>
+      </div>
+      <button class="icon-btn" id="theme" title="Тема: системная">◐</button>
+    </div>
+  </header>
+
+  <div class="body">
+    <main class="main">
+      <div class="content">
+        <div class="crumbs">Японская кухня · Топпинги</div>
+        <h1>Чашу и нитамаго</h1>
+        <p class="lede">Маринованные свинина и яйца. Отличный топпинг к рамену и рису.</p>
+
+        <div class="meta">
+          <span class="pill">Подготовка <b>20 мин</b></span>
+          <span class="pill">Готовка <b>2 ч</b></span>
+          <span class="pill">Ожидание <b>на ночь</b></span>
+        </div>
+        <div class="tags"><span class="tag">японская</span><span class="tag">свинина</span><span class="tag">яйца</span><span class="tag">топпинг</span></div>
+
+        <div class="controls">
+          <div class="tabs" role="tablist">
+            <button role="tab" aria-selected="true" data-tab="prep">Подготовка</button>
+            <button role="tab" aria-selected="false" data-tab="cook">Готовка</button>
+            <button role="tab" aria-selected="false" data-tab="total">Все продукты</button>
+          </div>
+          <div style="display:flex; gap:8px">
+            <div class="stepper"><button id="minus" aria-label="Меньше">−</button><span id="servings">4 порции</span><button id="plus" aria-label="Больше">+</button></div>
+            <button class="source-btn" id="sourceBtn">▶ Источник</button>
+          </div>
+        </div>
+
+        <!-- PREP -->
+        <section class="panel active" id="panel-prep">
+          <div class="tasks">
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="when">За 1 день</span><br>Приготовить заранее — мясо маринуется ночь</span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="when">До начала</span><br>Достать пищевую нить и зип-лок пакет</span></div>
+          </div>
+
+          <h2>Чашу</h2>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="750" data-max="1000" data-unit="г"></span> свиная грудинка<span class="prep">сделать надрезы, проколоть вилкой, свернуть рулетом и перевязать</span></span></div>
+          <div class="bowl">
+            <div class="bowl-title">Миска · ароматика для варки</div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="2" data-max="3" data-unit="зубч."></span> чеснок<span class="prep">очистить, слегка раздавить</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="10" data-unit="г"></span> имбирь<span class="prep">тонко нарезать</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="1" data-max="2" data-unit="стеб."></span> зелёный лук<span class="prep">целиком, помыть</span></span></div>
+          </div>
+
+          <h2>Маринад</h2>
+          <div class="bowl">
+            <div class="bowl-title">Кастрюля · жидкое</div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="2" data-unit="cup"></span> свиной бульон<span class="prep">оставить после варки чашу</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="1" data-unit="cup"></span> соевый соус</span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="100" data-max="150" data-unit="г"></span> сахар</span></div>
+          </div>
+          <div class="bowl">
+            <div class="bowl-title">Миска · ароматика маринада</div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="2" data-max="3" data-unit="зубч."></span> чеснок<span class="prep">очистить</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="10" data-unit="г"></span> имбирь<span class="prep">нарезать слайсами</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="1" data-max="2" data-unit="стеб."></span> зелёный лук<span class="prep">нарезать по 5 см</span></span></div>
+            <div class="row"><span class="check">✓</span><span class="txt">острый перец <span class="alt">— по желанию</span></span></div>
+          </div>
+
+          <h2>Нитамаго <span class="wait">параллельно с остыванием маринада</span></h2>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="3" data-unit=""></span> яйца<span class="prep">комнатной температуры</span></span></div>
+        </section>
+
+        <!-- COOK -->
+        <section class="panel steps" id="panel-cook">
+          <h2>Чашу</h2>
+          <div class="row"><span class="num">1</span><span class="txt">Сделать надрезы в <span class="ing">свиной грудинке <span class="qty" data-min="750" data-max="1000" data-unit="г"></span></span>, проколоть вилкой с обеих сторон.</span></div>
+          <div class="row"><span class="num">2</span><span class="txt">Скрутить надрезами внутрь, начиная с тонкой стороны. Зафиксировать нитью.</span></div>
+          <div class="row"><span class="num">3</span><span class="txt">Залить водой, довести до кипения и кипятить <button class="timer-chip" data-sec="60" data-label="Бланшировка">⏱ 1 мин</button>. Слить воду, промыть мясо и кастрюлю.</span></div>
+          <div class="row"><span class="num">4</span><span class="txt">Снова залить водой, добавить <span class="ing">зелёный лук <span class="qty" data-min="1" data-max="2" data-unit="стеб."></span></span>, <span class="ing">чеснок <span class="qty" data-min="2" data-max="3" data-unit="зубч."></span></span> и <span class="ing">имбирь <span class="qty" data-min="10" data-unit="г"></span></span>.</span></div>
+          <div class="row"><span class="num">5</span><span class="txt">Варить под крышкой <button class="timer-chip" data-sec="5400" data-label="Варка чашу">⏱ 1 ч 30 мин</button>, доливая воду. Бульон сохранить.</span></div>
+          <h2>Маринад</h2>
+          <div class="row"><span class="num">6</span><span class="txt">В небольшую кастрюлю положить мясо, добавить <span class="ing">бульон <span class="qty" data-min="2" data-unit="cup"></span></span>, <span class="ing">соевый соус <span class="qty" data-min="1" data-unit="cup"></span></span>, <span class="ing">сахар <span class="qty" data-min="100" data-max="150" data-unit="г"></span></span> и ароматику.</span></div>
+          <div class="row"><span class="num">7</span><span class="txt">Довести до кипения, накрыть мясо бумажной салфеткой и варить <button class="timer-chip" data-sec="1200" data-label="Маринад">⏱ 20 мин</button>, перевернув на 10-й минуте.</span></div>
+          <h2>Нитамаго</h2>
+          <div class="row"><span class="num">8</span><span class="txt">Пока маринад остывает, сварить <span class="ing">яйца <span class="qty" data-min="3" data-unit=""></span></span> в мешочек <button class="timer-chip" data-sec="360" data-label="Яйца">⏱ 6 мин</button>, остудить и очистить.</span></div>
+          <div class="row"><span class="num">9</span><span class="txt">Переложить мясо и яйца в контейнер, залить маринадом и оставить на ночь.</span></div>
+
+          <details class="sub"><summary>↳ Используется в: Соус терияки из маринада</summary><div>Вложенный рецепт раскрывается здесь, со своей подготовкой и шагами, масштабируется вместе с этим рецептом.</div></details>
+        </section>
+
+        <!-- TOTAL -->
+        <section class="panel" id="panel-total">
+          <h2>Список продуктов</h2>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="750" data-max="1000" data-unit="г"></span> свиная грудинка</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="4" data-max="6" data-unit="зубч."></span> чеснок</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="20" data-unit="г"></span> имбирь</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="2" data-max="4" data-unit="стеб."></span> зелёный лук</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="1" data-unit="cup"></span> соевый соус</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="100" data-max="150" data-unit="г"></span> сахар</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt"><span class="qty" data-min="3" data-unit=""></span> яйца</span></div>
+          <div class="row"><span class="check">✓</span><span class="txt">острый перец <span class="alt">— по желанию</span></span></div>
+        </section>
+      </div>
+    </main>
+
+    <aside class="sidebar open" id="sidebar">
+      <p class="src-title">Источник</p>
+      <iframe class="video" src="https://www.youtube-nocookie.com/embed/sYUp0qCAtzw" title="YouTube" allowfullscreen></iframe>
+      <a class="src-link" href="https://www.youtube.com/watch?v=sYUp0qCAtzw" target="_blank" rel="noopener">Открыть на YouTube ↗</a>
+      <p class="src-note">Taiji's Kitchen — How to make Chashu and Nitamago</p>
+    </aside>
+  </div>
+
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <div class="sheet-head"><strong>Источник</strong><button class="icon-btn" id="sheetClose">Свернуть</button></div>
+    <div id="sheetVideoSlot"></div>
+    <a class="src-link" href="https://www.youtube.com/watch?v=sYUp0qCAtzw" target="_blank" rel="noopener">Открыть на YouTube ↗</a>
+  </div>
+  <div class="mini" id="mini"></div>
+
+  <div class="tray" id="tray"></div>
+</div>
+</div>
+</div>
+
+<script>
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const device = $('#device'), app = $('#app');
+
+  // view switch
+  $$('.mock-bar [data-view]').forEach(b => b.onclick = () => {
+    $$('.mock-bar [data-view]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    device.classList.toggle('phone', b.dataset.view === 'phone');
+  });
+
+  // theme: system → light → dark
+  const themes = ['system', 'light', 'dark'], labels = { system: 'системная', light: 'светлая', dark: 'тёмная' };
+  $('#theme').onclick = e => {
+    const next = themes[(themes.indexOf(app.dataset.theme) + 1) % 3];
+    app.dataset.theme = next; e.currentTarget.title = 'Тема: ' + labels[next];
+    e.currentTarget.textContent = { system: '◐', light: '☀', dark: '☾' }[next];
+  };
+  $$('.seg button').forEach(b => b.onclick = () => $$('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b)));
+
+  // tabs
+  $$('[data-tab]').forEach(b => b.onclick = () => {
+    $$('[data-tab]').forEach(x => x.setAttribute('aria-selected', x === b));
+    $$('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + b.dataset.tab));
+  });
+
+  // checkboxes
+  $$('.panel .row, .tasks .row').forEach(r => r.addEventListener('click', e => { if (!e.target.closest('button')) r.classList.toggle('done'); }));
+
+  // scaling
+  const base = 4; let servings = 4;
+  const frac = n => { const w = Math.floor(n), f = n - w, map = [[0,''],[.25,'¼'],[.33,'⅓'],[.5,'½'],[.67,'⅔'],[.75,'¾'],[1,'']];
+    const [v, s] = map.reduce((a, c) => Math.abs(c[0] - f) < Math.abs(a[0] - f) ? c : a); const ww = v === 1 ? w + 1 : w;
+    return (ww ? ww : '') + s || '0'; };
+  const fmt = (n, u) => {
+    if (u === 'г' && n >= 1000) return [+(n / 1000).toFixed(2), 'кг'];
+    if (u === 'cup' || u === 'ст.л.' || u === 'ч.л.') return [frac(n), u];
+    return [n >= 10 ? Math.round(n) : +n.toFixed(1), u];
+  };
+  function render() {
+    $('#servings').textContent = servings + ' ' + (servings === 1 ? 'порция' : servings < 5 ? 'порции' : 'порций');
+    const k = servings / base;
+    $$('.qty').forEach(q => {
+      const u = q.dataset.unit, [a, ua] = fmt(q.dataset.min * k, u);
+      let s = a; if (q.dataset.max) { const [b, ub] = fmt(q.dataset.max * k, u); s = ua === ub ? `${a}–${b}` : `${a} ${ua}–${b}`; }
+      q.textContent = (s + ' ' + (ua || '')).trim();
+    });
+  }
+  $('#minus').onclick = () => { if (servings > 1) { servings--; render(); } };
+  $('#plus').onclick = () => { servings++; render(); };
+  render();
+
+  // timers
+  const tray = $('#tray');
+  const mmss = s => { const h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return (h ? h + ':' + String(m).padStart(2, '0') : m) + ':' + String(x).padStart(2, '0'); };
+  $$('.timer-chip').forEach(c => c.onclick = () => {
+    let left = +c.dataset.sec; if (left > 600) left = 15; // mockup: long timers shortened to 15 s
+    const el = document.createElement('div'); el.className = 'timer';
+    el.innerHTML = `<span>${c.dataset.label}</span><b></b><button>+1</button><button>✕</button>`;
+    const [plus, x] = $$('button', el), b = $('b', el);
+    const tick = () => { b.textContent = left > 0 ? mmss(left) : 'Готово!'; if (left <= 0) el.classList.add('ring'); left--; };
+    tick(); const id = setInterval(tick, 1000);
+    plus.onclick = () => { left += 60; el.classList.remove('ring'); };
+    x.onclick = () => { clearInterval(id); el.remove(); };
+    tray.append(el);
+  });
+
+  // source: sidebar on laptop, bottom sheet + mini player on phone
+  const video = $('#sidebar .video'), sheet = $('#sheet'), mini = $('#mini');
+  $('#sourceBtn').onclick = () => {
+    if (device.classList.contains('phone')) { $('#sheetVideoSlot').append(video); mini.classList.remove('show'); sheet.classList.add('open'); }
+    else { $('#sidebar').classList.toggle('open'); }
+  };
+  $('#sheetClose').onclick = () => { sheet.classList.remove('open'); mini.append(video); mini.classList.add('show'); };
+  mini.onclick = () => $('#sourceBtn').click();
+  $$('.mock-bar [data-view="laptop"]').forEach(b => b.addEventListener('click', () => {
+    sheet.classList.remove('open'); mini.classList.remove('show'); $('#sidebar .src-title').after(video);
+  }));
+
+  // hidden login: 10 taps in 3 s
+  let taps = [];
+  $('#logo').onclick = () => { const now = Date.now(); taps = [...taps.filter(t => now - t < 3000), now];
+    if (taps.length >= 10) { taps = []; $('#logo').innerHTML = 'Вход<span>…</span>'; setTimeout(() => $('#logo').innerHTML = 'Рецепты<span>.</span>', 1500); } };
+</script>
+</body>
+</html>
