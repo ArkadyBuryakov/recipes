@@ -17,7 +17,14 @@ app.get("/healthz", async (c) => {
 // MCP clients may run in browsers (inspectors, web agents).
 const mcpCors = cors({
   origin: "*",
-  allowHeaders: ["Authorization", "Content-Type", "Mcp-Protocol-Version", "Mcp-Session-Id", "Last-Event-ID", "DPoP"],
+  allowHeaders: [
+    "Authorization",
+    "Content-Type",
+    "Mcp-Protocol-Version",
+    "Mcp-Session-Id",
+    "Last-Event-ID",
+    "DPoP",
+  ],
   exposeHeaders: ["WWW-Authenticate", "Mcp-Session-Id"],
 });
 app.use("/mcp/*", mcpCors);
