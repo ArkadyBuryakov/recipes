@@ -12,6 +12,7 @@ Any MCP-capable agent should be able to read without auth, and read + write with
 - **Two endpoints:**
   - `https://recipes.buryakov.pro/mcp`: public, read-only, no auth. Only published recipes.
   - `https://recipes.buryakov.pro/mcp/editor`: authenticated, read (including drafts) + write
+- **Setup instructions** per client (Claude Code, claude.ai/Desktop, ChatGPT, Codex, Cursor, Gemini CLI, VS Code): the public `/:lang/agents` page (linked from home) shows the read-only server; editors get the editor endpoint, OAuth and token variants on `/:lang/tokens`.
 - **Editor auth:** both of these.
   - **OAuth 2.1** through better-auth's MCP/OIDC provider: protected-resource metadata, dynamic client registration, PKCE, and a consent screen. For claude.ai/Desktop connectors and Claude Code.
   - **Personal API tokens** (bearer), created and revoked in the UI, scoped to the user. For scripts and agents without OAuth support. Hashed at rest, and shown once.

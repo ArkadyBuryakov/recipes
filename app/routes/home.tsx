@@ -102,6 +102,9 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       ) : (
         <p className="py-16 text-center text-muted">{t.nothingFound}</p>
       )}
+      <Link to={`/${lang}/agents`} className="label mt-10 inline-block hover:text-ink">
+        {t.agents} →
+      </Link>
     </main>
   );
 }

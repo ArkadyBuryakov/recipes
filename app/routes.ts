@@ -9,6 +9,7 @@ export default [
   route(":lang", "routes/lang.tsx", [
     index("routes/home.tsx"),
     route("r/:slug", "routes/recipe.tsx"),
+    route("agents", "routes/agents.tsx"),
     layout("routes/editor-layout.tsx", [
       route("new", "routes/editor.tsx", { id: "recipe-new" }),
       route("r/:slug/edit", "routes/editor.tsx", { id: "recipe-edit" }),

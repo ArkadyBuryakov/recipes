@@ -9,6 +9,16 @@ test.describe("public cookbook", () => {
     expect(await page.locator("main tbody tr").count()).toBeGreaterThan(25);
   });
 
+  test("public MCP page: linked from home, read-only server only", async ({ page }) => {
+    await page.goto("/en");
+    await page.getByRole("link", { name: /AI agents/ }).click();
+    await expect(page).toHaveURL(/\/en\/agents$/);
+    await expect(page.getByRole("tabpanel")).toContainText("claude mcp add --transport http recipes ");
+    await page.getByRole("tab", { name: "Claude.ai / Desktop" }).click();
+    await expect(page.getByRole("tabpanel")).toContainText("Customize");
+    await expect(page.getByRole("tabpanel")).not.toContainText("/mcp/editor");
+  });
+
   test("search", async ({ page }) => {
     await page.goto("/en");
     await page.getByRole("searchbox").fill("lentil");

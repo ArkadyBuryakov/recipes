@@ -223,8 +223,19 @@ function Snippet({ code }: { code: string }) {
   );
 }
 
-export function AgentSetup({ origin, lang }: { origin: string; lang: Lang }) {
-  const list = agents(origin);
+/** `editor: false` (the public page) shows only the read-only server, without the login and token steps. */
+export function AgentSetup({
+  origin,
+  lang,
+  editor = true,
+}: {
+  origin: string;
+  lang: Lang;
+  editor?: boolean;
+}) {
+  const list = agents(origin).map((a) =>
+    editor ? a : { ...a, blocks: a.blocks.filter((b) => b.title !== OAUTH && b.title !== TOKEN) },
+  );
   const [id, setId] = useStoredState("agent-setup", list[0]?.id ?? "");
   const agent = list.find((a) => a.id === id) ?? list[0];
   if (!agent) return null;
