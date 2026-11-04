@@ -1,0 +1,60 @@
+{
+  "slug": "kombucha",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Комбуча", "en": "Kombucha" },
+    "description": {
+      "ru": "Домашняя комбуча: первичное брожение около 6 дней, затем вторичное в бутылках 3–4 дня. Оставшиеся пол-литра — закваска для следующей партии.",
+      "en": "Homemade kombucha: about 6 days of primary fermentation, then 3–4 days in bottles. The remaining half litre is the starter for the next batch."
+    },
+    "servings": { "amount": 3.5, "label": { "ru": "л", "en": "l" } },
+    "times": { "passiveMin": 12960 },
+    "tags": [
+      { "ru": "ферментация", "en": "fermentation" },
+      { "ru": "напиток", "en": "drink" }
+    ],
+    "sections": [
+      {
+        "id": "starter",
+        "title": { "ru": "Первичное брожение", "en": "Primary fermentation" },
+        "ingredients": [
+          { "id": "tea", "name": { "ru": "Чай", "en": "Tea" }, "qty": { "min": 8 }, "prep": { "ru": "в пакетиках", "en": "tea bags" } },
+          { "id": "boiling-water", "name": { "ru": "Кипяток", "en": "Boiling water" }, "qty": { "min": 1.5, "max": 2 }, "unit": "l" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 1 }, "unit": "cup" },
+          { "id": "cold-water", "name": { "ru": "Холодная вода", "en": "Cold water" }, "prep": { "ru": "или лёд", "en": "or ice" } },
+          { "id": "room-water", "name": { "ru": "Вода комнатной температуры", "en": "Room-temperature water" }, "prep": { "ru": "до 3 л в сумме", "en": "up to 3 l in total" } },
+          { "id": "kombucha", "name": { "ru": "Комбуча", "en": "Kombucha" }, "qty": { "min": 500 }, "unit": "ml", "prep": { "ru": "из прошлой партии", "en": "from the previous batch" } }
+        ],
+        "steps": [
+          { "id": "brew", "text": { "ru": "Заварить {{ing:tea}} в {{ing:boiling-water}}.", "en": "Brew the {{ing:tea}} in {{ing:boiling-water}}." } },
+          { "id": "sugar", "text": { "ru": "Добавить {{ing:sugar}} и растворить.", "en": "Add the {{ing:sugar}} and stir until dissolved." } },
+          { "id": "cool", "text": { "ru": "Остудить, добавив {{ing:cold-water}}, до 35 °C и ниже.", "en": "Cool down with {{ing:cold-water}} to 35 °C or below." } },
+          { "id": "top-up", "text": { "ru": "Долить {{ing:room-water}} — всего должно получиться 3 литра.", "en": "Top up with {{ing:room-water}} to 3 litres in total." } },
+          { "id": "add-kombucha", "text": { "ru": "Влить {{ing:kombucha}}.", "en": "Pour in the {{ing:kombucha}}." } },
+          { "id": "ferment", "text": { "ru": "Накрыть полотенцем и оставить примерно на {{timer:6d}} при комнатной температуре (около 24 °C).", "en": "Cover with a towel and leave for about {{timer:6d}} at room temperature (around 24 °C)." } }
+        ],
+        "waitAfterMin": 8640
+      },
+      {
+        "id": "bottling",
+        "title": { "ru": "Разлив", "en": "Bottling" },
+        "ingredients": [
+          { "id": "bottling-sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 3 }, "unit": "tsp", "prep": { "ru": "1 ч. л. на 1 л", "en": "1 tsp per litre" } }
+        ],
+        "steps": [
+          { "id": "bottle", "text": { "ru": "Разлить 3 литра по бутылкам, добавив {{ing:bottling-sugar}} из расчёта 1 ч. л. на 1 литр.", "en": "Pour 3 litres into bottles, adding {{ing:bottling-sugar}} at 1 tsp per litre." } },
+          { "id": "keep-starter", "text": { "ru": "Оставшиеся пол-литра комбучи сохранить как закваску для новой партии.", "en": "Keep the remaining half litre of kombucha as the starter for a new batch." } },
+          { "id": "second-ferment", "text": { "ru": "Герметично закрыть и оставить дозревать при комнатной температуре на 3–4 дня ({{timer:3d}}).", "en": "Seal tightly and leave to mature at room temperature for 3–4 days ({{timer:3d}})." } }
+        ],
+        "waitAfterMin": 4320
+      },
+      {
+        "id": "finish",
+        "title": { "ru": "Готово", "en": "Ready" },
+        "steps": [
+          { "id": "chill", "text": { "ru": "Убрать бутылки в холодильник — напиток готов к употреблению.", "en": "Move the bottles to the fridge — the drink is ready." } }
+        ]
+      }
+    ]
+  }
+}

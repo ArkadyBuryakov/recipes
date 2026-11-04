@@ -1,0 +1,34 @@
+{
+  "slug": "puff-pastry",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Слоёное тесто", "en": "Puff pastry" },
+    "description": { "ru": "Слоёное тесто из двух частей: масляной (мука с маргарином) и основной.", "en": "Puff pastry made from two doughs: a fat dough (flour with margarine) and a base dough." },
+    "servings": { "amount": 1, "label": { "ru": "порция теста", "en": "batch" } },
+    "tags": [
+      { "ru": "тесто", "en": "dough" },
+      { "ru": "выпечка", "en": "baking" }
+    ],
+    "sections": [
+      {
+        "id": "dough-1",
+        "title": { "ru": "Тесто 1", "en": "Dough 1" },
+        "ingredients": [
+          { "id": "flour-1", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 150 }, "unit": "g" },
+          { "id": "margarine", "name": { "ru": "Маргарин", "en": "Margarine" }, "qty": { "min": 200 }, "unit": "g" }
+        ]
+      },
+      {
+        "id": "dough-2",
+        "title": { "ru": "Тесто 2", "en": "Dough 2" },
+        "ingredients": [
+          { "id": "egg", "name": { "ru": "Куриное яйцо", "en": "Egg" }, "qty": { "min": 1 } },
+          { "id": "flour-2", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 330 }, "unit": "g" },
+          { "id": "vinegar", "name": { "ru": "Уксус", "en": "Vinegar" }, "qty": { "min": 0.25 }, "unit": "tsp" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 180 }, "unit": "ml" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "pinch" }
+        ]
+      }
+    ]
+  }
+}

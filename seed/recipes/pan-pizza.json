@@ -1,0 +1,56 @@
+{
+  "slug": "pan-pizza",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Пицца на сковороде за час", "en": "One-hour pan pizza" },
+    "servings": { "amount": 1, "label": { "ru": "пицца", "en": "pizza" } },
+    "times": { "cookMin": 15, "passiveMin": 50 },
+    "tags": [
+      { "ru": "американская", "en": "american" },
+      { "ru": "выпечка", "en": "baking" },
+      { "ru": "основное", "en": "main" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=HWG4fF-7eC4", "label": { "ru": "YouTube — PAN PIZZA IN 1 HOUR (No Mixer)", "en": "YouTube — PAN PIZZA IN 1 HOUR (No Mixer)" } },
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 250 °C", "en": "Preheat the oven to 250 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "dough",
+        "title": { "ru": "Тесто", "en": "Dough" },
+        "bowls": [{ "id": "dough-mix", "label": { "ru": "Дрожжи, сахар, масло и соль", "en": "Yeast, sugar, oil and salt" } }],
+        "ingredients": [
+          { "id": "beer", "name": { "ru": "Пиво", "en": "Beer" }, "qty": { "min": 180 }, "unit": "g", "prep": { "ru": "подогреть до 32–35 °C", "en": "warmed to 32–35 °C" } },
+          { "id": "yeast", "name": { "ru": "Быстрые дрожжи", "en": "Instant yeast" }, "qty": { "min": 10 }, "unit": "g", "bowl": "dough-mix" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Granulated sugar" }, "qty": { "min": 5 }, "unit": "g", "bowl": "dough-mix" },
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 15 }, "unit": "g", "bowl": "dough-mix" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 9 }, "unit": "g", "bowl": "dough-mix" },
+          { "id": "flour", "name": { "ru": "Хлебопекарная мука", "en": "Bread flour" }, "qty": { "min": 280 }, "unit": "g" }
+        ],
+        "steps": [
+          { "id": "warm", "text": { "ru": "Подогреть {{ing:beer}} в кастрюльке до температуры тела (около 36 °C).", "en": "Warm the {{ing:beer}} in a saucepan to body temperature (around 36 °C)." } },
+          { "id": "mix", "text": { "ru": "Добавить {{ing:yeast}}, {{ing:sugar}}, {{ing:olive-oil}} и {{ing:salt}}, перемешать.", "en": "Add the {{ing:yeast}}, {{ing:sugar}}, {{ing:olive-oil}} and {{ing:salt}} and mix." } },
+          { "id": "flour", "text": { "ru": "Добавить {{ing:flour}} и перемешать.", "en": "Add the {{ing:flour}} and mix." } },
+          { "id": "ferment", "text": { "ru": "Оставить бродить на {{timer:15m}}.", "en": "Let it ferment for {{timer:15m}}." } },
+          { "id": "fold", "text": { "ru": "Несколько раз растянуть и сложить тесто, скруглить.", "en": "Stretch and fold several times, then shape into a ball." } },
+          { "id": "rest", "text": { "ru": "Оставить ещё на {{timer:15m}}.", "en": "Let it sit for another {{timer:15m}}." } },
+          { "id": "pan", "text": { "ru": "Выложить тесто на сковороду, растянуть и дать отдохнуть {{timer:10m}}, пока готовите остальные ингредиенты.", "en": "Put the dough into the pan, spread it out and let it rest for {{timer:10m}} while you prep the other ingredients." } }
+        ]
+      },
+      {
+        "id": "pizza",
+        "title": { "ru": "Пицца", "en": "Pizza" },
+        "ingredients": [
+          { "id": "sauce", "name": { "ru": "Соус для пиццы", "en": "Pizza sauce" }, "qty": { "min": 250 }, "unit": "g" },
+          { "id": "mozzarella", "name": { "ru": "Моцарелла", "en": "Mozzarella" }, "qty": { "min": 250 }, "unit": "g", "prep": { "ru": "натереть", "en": "shredded" } },
+          { "id": "toppings", "name": { "ru": "Начинка на выбор", "en": "Toppings of your choice" }, "scaling": "to-taste", "optional": true }
+        ],
+        "steps": [
+          { "id": "top", "text": { "ru": "Выложить на тесто {{ing:sauce}}, {{ing:mozzarella}} и {{ing:toppings}}.", "en": "Spread the {{ing:sauce}} over the dough and top with {{ing:mozzarella}} and {{ing:toppings}}." } },
+          { "id": "proof", "text": { "ru": "Оставить на {{timer:10m}}.", "en": "Let it sit for {{timer:10m}}." } },
+          { "id": "bake", "text": { "ru": "Выпекать при 250 °C {{timer:15m}}.", "en": "Bake at 250 °C for {{timer:15m}}." } }
+        ]
+      }
+    ]
+  }
+}

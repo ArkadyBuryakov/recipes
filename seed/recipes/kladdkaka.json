@@ -1,0 +1,36 @@
+{
+  "slug": "kladdkaka",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Шоколадный торт кладдкака", "en": "Kladdkaka chocolate cake" },
+    "servings": { "amount": 8 },
+    "times": { "cookMin": 25 },
+    "tags": [
+      { "ru": "шведская", "en": "swedish" },
+      { "ru": "десерт", "en": "dessert" },
+      { "ru": "выпечка", "en": "baking" }
+    ],
+    "source": { "url": "https://youtube.com/shorts/DCtp12ajClw", "label": { "ru": "FromScratchBakery", "en": "FromScratchBakery" } },
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 180 °C", "en": "Preheat the oven to 180 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "cake",
+        "title": { "ru": "Торт", "en": "Cake" },
+        "ingredients": [
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 100 }, "unit": "g" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 125 }, "unit": "g", "alternatives": [{ "name": { "ru": "сахар", "en": "sugar" }, "qty": { "min": 250 }, "unit": "g", "note": { "ru": "как в оригинальном рецепте", "en": "as in the original recipe" } }] },
+          { "id": "eggs", "name": { "ru": "Яйца", "en": "Eggs" }, "qty": { "min": 2 } },
+          { "id": "vanilla", "name": { "ru": "Ваниль", "en": "Vanilla" }, "qty": { "min": 1 }, "unit": "dash" },
+          { "id": "cocoa", "name": { "ru": "Какао-порошок", "en": "Cocoa powder" }, "qty": { "min": 25 }, "unit": "g" },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 100 }, "unit": "g" }
+        ],
+        "steps": [
+          { "id": "mix", "text": { "ru": "Смешать {{ing:butter}}, {{ing:sugar}}, {{ing:eggs}}, {{ing:vanilla}}, {{ing:cocoa}} и {{ing:flour}}.", "en": "Mix together {{ing:butter}}, {{ing:sugar}}, {{ing:eggs}}, {{ing:vanilla}}, {{ing:cocoa}} and {{ing:flour}}." } },
+          { "id": "bake", "text": { "ru": "Выпекать при 180 °C {{timer:25m}}.", "en": "Bake at 180 °C for {{timer:25m}}." } }
+        ]
+      }
+    ]
+  }
+}

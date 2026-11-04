@@ -1,0 +1,80 @@
+{
+  "slug": "apricot-grilled-cheese",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Абрикосовый гриль-чиз", "en": "Apricot grilled cheese" },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "закуска", "en": "snack" },
+      { "ru": "американская", "en": "american" }
+    ],
+    "source": {
+      "url": "https://www.instagram.com/reel/C9S2YMKi_1t/",
+      "label": { "ru": "Eggselent", "en": "Eggselent" }
+    },
+    "sections": [
+      {
+        "id": "bechamel",
+        "title": { "ru": "Бешамель", "en": "Béchamel" },
+        "ingredients": [
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 75 }, "unit": "g" },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "milk", "name": { "ru": "Молоко", "en": "Milk" }, "qty": { "min": 100 }, "unit": "ml" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "pinch" },
+          { "id": "nutmeg", "name": { "ru": "Мускатный орех", "en": "Nutmeg" }, "qty": { "min": 1 }, "unit": "pinch" },
+          { "id": "yolks", "name": { "ru": "Желтки", "en": "Egg yolks" }, "qty": { "min": 2 } }
+        ],
+        "steps": [
+          {
+            "id": "roux",
+            "text": {
+              "ru": "Растопить {{ing:butter}}, всыпать {{ing:flour}} и перемешать до однородности",
+              "en": "Melt the {{ing:butter}}, add the {{ing:flour}} and stir until smooth"
+            }
+          },
+          {
+            "id": "milk",
+            "text": {
+              "ru": "Постепенно влить {{ing:milk}}, помешивая, и прогреть до загустения. Приправить: {{ing:salt}}, {{ing:nutmeg}}",
+              "en": "Gradually pour in the {{ing:milk}}, stirring, and heat until thickened. Season with {{ing:salt}} and {{ing:nutmeg}}"
+            }
+          },
+          {
+            "id": "yolks",
+            "text": {
+              "ru": "Снять с огня и вмешать {{ing:yolks}}",
+              "en": "Take off the heat and stir in the {{ing:yolks}}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "sandwich",
+        "title": { "ru": "Сэндвич", "en": "Sandwich" },
+        "ingredients": [
+          { "id": "bread", "name": { "ru": "Хлеб для тартина", "en": "Tartine bread" }, "alternatives": [{ "name": { "ru": "любой хлеб", "en": "any bread" } }] },
+          { "id": "apricots", "name": { "ru": "Абрикосы", "en": "Apricots" } },
+          { "id": "jam", "name": { "ru": "Абрикосовый джем", "en": "Apricot jam" } },
+          { "id": "mozzarella", "name": { "ru": "Моцарелла", "en": "Mozzarella" } },
+          { "id": "ham", "name": { "ru": "Ветчина", "en": "Ham" } }
+        ],
+        "steps": [
+          {
+            "id": "assemble",
+            "text": {
+              "ru": "Смазать {{ing:bread}} бешамелью и абрикосовым джемом ({{ing:jam}}), выложить {{ing:apricots}}, {{ing:ham}} и {{ing:mozzarella}}, накрыть вторым ломтиком",
+              "en": "Spread the {{ing:bread}} with béchamel and {{ing:jam}}, top with {{ing:apricots}}, {{ing:ham}} and {{ing:mozzarella}}, close with a second slice"
+            }
+          },
+          {
+            "id": "grill",
+            "text": {
+              "ru": "Обжарить на сковороде с двух сторон до золотистой корочки и расплавленного сыра",
+              "en": "Toast in a pan on both sides until golden and the cheese has melted"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

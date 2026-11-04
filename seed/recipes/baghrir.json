@@ -1,0 +1,85 @@
+{
+  "slug": "baghrir",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Марокканские блинчики багрир", "en": "Moroccan baghrir pancakes" },
+    "description": {
+      "ru": "Дырчатые манные блинчики, которые жарят только с одной стороны",
+      "en": "Spongy semolina pancakes full of holes, cooked on one side only"
+    },
+    "servings": { "amount": 4 },
+    "times": { "passiveMin": 15 },
+    "tags": [
+      { "ru": "марокканская", "en": "moroccan" },
+      { "ru": "выпечка", "en": "baking" }
+    ],
+    "source": {
+      "url": "https://www.instagram.com/p/Cw0an-GNEGh/",
+      "label": { "ru": "pp_avokado", "en": "pp_avokado" }
+    },
+    "sections": [
+      {
+        "id": "batter",
+        "title": { "ru": "Тесто", "en": "Batter" },
+        "bowls": [
+          { "id": "batter", "label": { "ru": "Тесто", "en": "Batter" } },
+          { "id": "leavening", "label": { "ru": "Сода и уксус", "en": "Soda and vinegar" } }
+        ],
+        "ingredients": [
+          { "id": "semolina", "name": { "ru": "Манка", "en": "Semolina" }, "qty": { "min": 200 }, "unit": "g", "bowl": "batter" },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 100 }, "unit": "g", "bowl": "batter" },
+          { "id": "yeast", "name": { "ru": "Быстродействующие дрожжи", "en": "Instant yeast" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "batter" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 1, "max": 2 }, "unit": "tbsp", "bowl": "batter" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 0.5 }, "unit": "tsp", "bowl": "batter" },
+          { "id": "water", "name": { "ru": "Тёплая вода", "en": "Warm water" }, "qty": { "min": 550 }, "unit": "ml", "bowl": "batter" },
+          { "id": "soda", "name": { "ru": "Сода", "en": "Baking soda" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "leavening" },
+          { "id": "vinegar", "name": { "ru": "Уксус 9%", "en": "Vinegar 9%" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "leavening" }
+        ],
+        "steps": [
+          {
+            "id": "mix",
+            "text": {
+              "ru": "Смешать {{ing:semolina}}, {{ing:flour}}, {{ing:yeast}}, {{ing:sugar}}, {{ing:salt}} и {{ing:water}}",
+              "en": "Combine the {{ing:semolina}}, {{ing:flour}}, {{ing:yeast}}, {{ing:sugar}}, {{ing:salt}} and {{ing:water}}"
+            }
+          },
+          { "id": "blend", "text": { "ru": "Пробить погружным блендером", "en": "Blitz with an immersion blender" } },
+          { "id": "rest", "text": { "ru": "Оставить на {{timer:15m}}", "en": "Leave for {{timer:15m}}" } },
+          {
+            "id": "leaven",
+            "text": {
+              "ru": "Добавить {{ing:soda}} и {{ing:vinegar}}, перемешать",
+              "en": "Add the {{ing:soda}} and {{ing:vinegar}} and stir"
+            }
+          }
+        ]
+      },
+      {
+        "id": "cook",
+        "title": { "ru": "Жарка", "en": "Cooking" },
+        "steps": [
+          {
+            "id": "fry",
+            "text": {
+              "ru": "Жарить на сухой антипригарной сковороде с одной стороны, пока поверхность не схватится",
+              "en": "Cook in a dry non-stick pan on one side only, until the top has set"
+            }
+          }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "steps": [
+          {
+            "id": "topping",
+            "text": {
+              "ru": "В качестве топпинга можно подавать соус из сливочного масла и мёда 50/50",
+              "en": "Serve topped with a sauce of butter and honey, 50/50, if you like"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

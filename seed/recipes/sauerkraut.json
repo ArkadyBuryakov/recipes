@@ -1,0 +1,82 @@
+{
+  "slug": "sauerkraut",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Квашеная капуста", "en": "Sauerkraut" },
+    "description": {
+      "ru": "Квашеная капуста с морковью в 3-литровой банке: три дня при комнатной температуре",
+      "en": "Sauerkraut with carrot in a 3-litre jar: three days at room temperature"
+    },
+    "servings": { "amount": 1, "label": { "ru": "банка 3 л", "en": "3 l jar" } },
+    "times": { "passiveMin": 4320 },
+    "tags": [
+      { "ru": "ферментация", "en": "fermentation" },
+      { "ru": "овощи", "en": "vegetables" }
+    ],
+    "sections": [
+      {
+        "id": "prep",
+        "title": { "ru": "Подготовка", "en": "Preparation" },
+        "ingredients": [
+          { "id": "cabbage", "name": { "ru": "Капуста", "en": "Cabbage" }, "prep": { "ru": "нарезать соломкой", "en": "cut into thin strips" } },
+          { "id": "carrots", "name": { "ru": "Морковь", "en": "Carrots" }, "qty": { "min": 1, "max": 2 }, "prep": { "ru": "натереть", "en": "grated" } },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" } }
+        ],
+        "steps": [
+          { "id": "cut", "text": { "ru": "Нарезать {{ing:cabbage}} соломкой", "en": "Cut the {{ing:cabbage}} into thin strips" } },
+          { "id": "grate", "text": { "ru": "Натереть {{ing:carrots}}", "en": "Grate the {{ing:carrots}}" } },
+          { "id": "mix", "text": { "ru": "Перемешать и помять руками", "en": "Mix and squeeze with your hands" } },
+          { "id": "jar", "text": { "ru": "Сложить получившуюся массу в 3-литровую банку", "en": "Pack the mixture into a 3-litre jar" } },
+          { "id": "salt", "text": { "ru": "Сверху насыпать {{ing:salt}}", "en": "Sprinkle the {{ing:salt}} on top" } },
+          { "id": "water", "text": { "ru": "Залить {{ing:water}}", "en": "Cover with {{ing:water}}" } },
+          {
+            "id": "bowl",
+            "text": {
+              "ru": "Поставить банку в миску, чтобы при протекании не вылилось на стол",
+              "en": "Stand the jar in a bowl so nothing spills on the table if it leaks"
+            }
+          },
+          {
+            "id": "ferment",
+            "text": {
+              "ru": "Оставить при комнатной температуре на {{timer:2d}}. 1–2 раза в день протыкать палочкой, чтобы выходили газы",
+              "en": "Leave at room temperature for {{timer:2d}}. Poke with a stick 1–2 times a day to let the gases out"
+            }
+          }
+        ],
+        "waitAfterMin": 2880
+      },
+      {
+        "id": "sugar",
+        "title": { "ru": "Сахар", "en": "Sugar" },
+        "ingredients": [
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 1 }, "unit": "tbsp" }
+        ],
+        "steps": [
+          {
+            "id": "sugar",
+            "text": {
+              "ru": "К концу вторых суток насыпать сверху {{ing:sugar}} и ждать ещё {{timer:1d}}",
+              "en": "At the end of the second day sprinkle the {{ing:sugar}} on top and wait another {{timer:1d}}"
+            }
+          }
+        ],
+        "waitAfterMin": 1440
+      },
+      {
+        "id": "fridge",
+        "title": { "ru": "В холодильник", "en": "Into the fridge" },
+        "steps": [
+          {
+            "id": "press",
+            "text": {
+              "ru": "К концу третьих суток придавить капусту, чтобы она была полностью покрыта водой, и убрать в холодильник",
+              "en": "At the end of the third day press the cabbage down so it is fully covered with liquid, and refrigerate"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

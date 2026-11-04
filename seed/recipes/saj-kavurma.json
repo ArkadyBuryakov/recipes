@@ -1,0 +1,40 @@
+{
+  "slug": "saj-kavurma",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Садж кавурма", "en": "Saj kavurma" },
+    "description": { "ru": "Турецкое жаркое из баранины с перцем и помидорами на садже.", "en": "Turkish lamb sauté with peppers and tomatoes, cooked on a saj pan." },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "турецкая", "en": "turkish" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "баранина", "en": "lamb" }
+    ],
+    "source": { "url": "https://yemek.com/tarif/sac-kavurma/", "label": { "en": "yemek.com — Sac Kavurma" } },
+    "sections": [
+      {
+        "id": "main",
+        "bowls": [{ "id": "spices", "label": { "ru": "Специи", "en": "Spices" } }],
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "meat", "name": { "ru": "Баранина", "en": "Lamb" }, "qty": { "min": 1 }, "unit": "kg", "prep": { "ru": "нарезать кубиками", "en": "diced" }, "alternatives": [{ "name": { "ru": "телятина средней жирности", "en": "medium-fat veal" } }] },
+          { "id": "peppers", "name": { "ru": "Зелёный турецкий перец", "en": "Green Turkish peppers" }, "qty": { "min": 3 }, "prep": { "ru": "нарезать", "en": "chopped" } },
+          { "id": "tomatoes", "name": { "ru": "Помидоры", "en": "Tomatoes" }, "qty": { "min": 2 }, "prep": { "ru": "очистить от кожицы, нарезать кубиками", "en": "peeled and diced" } },
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 1 }, "unit": "tbsp" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 2 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "black-pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "chili", "name": { "ru": "Молотый острый перец", "en": "Chili pepper" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "oregano", "name": { "ru": "Орегано", "en": "Oregano" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" }
+        ],
+        "steps": [
+          { "id": "heat", "text": { "ru": "Разогреть {{ing:oil}} на садже (сковороде) и выложить {{ing:meat}}.", "en": "Heat the {{ing:oil}} in the saj (or a wide pan) and add the {{ing:meat}}." } },
+          { "id": "fry-meat", "text": { "ru": "Жарить мясо на сильном огне, пока оно не пустит сок и слегка не подрумянится.", "en": "Fry the meat over high heat until it releases its juices and lightly browns." } },
+          { "id": "peppers", "text": { "ru": "Добавить {{ing:peppers}}. Так как готовим на сильном огне, время от времени помешивать, чтобы ничего не прилипло ко дну и не подгорело.", "en": "Add the {{ing:peppers}}. Since everything cooks over high heat, stir occasionally so nothing sticks to the bottom and burns." } },
+          { "id": "tomatoes", "text": { "ru": "Когда перец обжарится, добавить {{ing:tomatoes}}.", "en": "Once the peppers are sautéed, add the {{ing:tomatoes}}." } },
+          { "id": "butter", "text": { "ru": "Когда помидоры приготовятся, добавить {{ing:butter}} и перемешать.", "en": "When the tomatoes are cooked, add the {{ing:butter}} and mix." } },
+          { "id": "spices", "text": { "ru": "Добавить {{ing:salt}}, {{ing:black-pepper}}, {{ing:chili}} и {{ing:oregano}} и помешивать 2–3 минуты {{timer:2m}}, затем выключить огонь и подавать горячим.", "en": "Add the {{ing:salt}}, {{ing:black-pepper}}, {{ing:chili}} and {{ing:oregano}} and stir for 2–3 minutes {{timer:2m}}, then turn off the heat and serve hot." } }
+        ]
+      }
+    ]
+  }
+}

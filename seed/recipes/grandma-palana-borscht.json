@@ -1,0 +1,156 @@
+{
+  "slug": "grandma-palana-borscht",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Борщ от бабушки Паланы", "en": "Grandma Palana's borscht" },
+    "description": {
+      "ru": "Семейный рецепт борща с зажаркой на сале, растёртой в ступке с зеленью",
+      "en": "Family borscht recipe with a fry-up of pork fat, onion and carrot pounded in a mortar with herbs"
+    },
+    "servings": { "amount": 6 },
+    "tags": [
+      { "ru": "суп", "en": "soup" },
+      { "ru": "украинская", "en": "ukrainian" }
+    ],
+    "source": { "label": { "ru": "Бабушка Палана", "en": "Grandma Palana" } },
+    "sections": [
+      {
+        "id": "base",
+        "title": { "ru": "Основа", "en": "Base" },
+        "ingredients": [
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" } },
+          { "id": "meat", "name": { "ru": "Мясо", "en": "Meat" }, "optional": true, "prep": { "ru": "для бульона", "en": "for the broth" } },
+          { "id": "beans", "name": { "ru": "Фасоль", "en": "Beans" }, "optional": true },
+          { "id": "potatoes", "name": { "ru": "Картошка", "en": "Potatoes" }, "prep": { "ru": "почистить и нарезать", "en": "peeled and cut" } },
+          { "id": "cabbage", "name": { "ru": "Капуста", "en": "Cabbage" }, "prep": { "ru": "нарезать", "en": "shredded" } },
+          { "id": "tomatoes", "name": { "ru": "Помидоры", "en": "Tomatoes" }, "qty": { "min": 5 }, "prep": { "ru": "спелые, целиком", "en": "ripe, whole" } }
+        ],
+        "steps": [
+          {
+            "id": "water",
+            "text": {
+              "ru": "Поставить на огонь {{ing:water}} (или бульон: {{ing:meat}} и {{ing:beans}})",
+              "en": "Put the {{ing:water}} on the heat (or a broth with the {{ing:meat}} and {{ing:beans}})"
+            }
+          },
+          {
+            "id": "potatoes",
+            "text": {
+              "ru": "Пока вода закипает, почистить и порезать {{ing:potatoes}}, добавить в воду",
+              "en": "While the water comes to a boil, peel and cut the {{ing:potatoes}} and add them to the pot"
+            }
+          },
+          {
+            "id": "cabbage",
+            "text": { "ru": "Нарезать {{ing:cabbage}} и добавить в воду", "en": "Shred the {{ing:cabbage}} and add it to the pot" }
+          },
+          {
+            "id": "tomatoes",
+            "text": { "ru": "Закинуть {{ing:tomatoes}} целиком", "en": "Drop in the whole {{ing:tomatoes}}" }
+          }
+        ]
+      },
+      {
+        "id": "fry-up",
+        "title": { "ru": "Зажарка", "en": "Fry-up" },
+        "ingredients": [
+          { "id": "salo", "name": { "ru": "Сало", "en": "Salo (cured pork fat)" }, "prep": { "ru": "мелкими кусочками", "en": "cut into small pieces" } },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onion" } },
+          { "id": "carrot", "name": { "ru": "Морковь", "en": "Carrot" } },
+          { "id": "dill", "name": { "ru": "Укроп", "en": "Dill" } },
+          { "id": "parsley", "name": { "ru": "Петрушка", "en": "Parsley" } }
+        ],
+        "steps": [
+          {
+            "id": "salo",
+            "text": {
+              "ru": "Параллельно с супом обжарить {{ing:salo}}, пока жир не вытопится и не образуются шкварки",
+              "en": "Meanwhile, fry the {{ing:salo}} until the fat renders and crackling forms"
+            }
+          },
+          {
+            "id": "mortar",
+            "text": { "ru": "Шкварки переложить в ступку, добавить {{ing:salt}}", "en": "Move the crackling to a mortar and add {{ing:salt}}" }
+          },
+          {
+            "id": "onion",
+            "text": {
+              "ru": "На оставшемся жире пожарить {{ing:onion}} и добавить его в ступку",
+              "en": "Fry the {{ing:onion}} in the remaining fat and add it to the mortar"
+            }
+          },
+          {
+            "id": "carrot",
+            "text": { "ru": "Дожарить {{ing:carrot}} и отложить", "en": "Then fry the {{ing:carrot}} and set aside" }
+          },
+          {
+            "id": "pound",
+            "text": {
+              "ru": "В ступке растереть лук со шкварками, добавить {{ing:dill}} и {{ing:parsley}} и растереть",
+              "en": "Pound the onion and crackling in the mortar, add the {{ing:dill}} and {{ing:parsley}} and pound again"
+            }
+          },
+          {
+            "id": "carrot-in",
+            "text": {
+              "ru": "Добавить в ступку морковь с остатками жира",
+              "en": "Add the carrot with the remaining fat to the mortar"
+            }
+          },
+          {
+            "id": "broth-in",
+            "text": {
+              "ru": "Добавить в ступку немного картошки с бульоном, растолочь и перемешать",
+              "en": "Add a little potato and broth from the pot to the mortar, mash and mix"
+            }
+          }
+        ]
+      },
+      {
+        "id": "finish",
+        "title": { "ru": "Завершение", "en": "Finishing" },
+        "ingredients": [
+          { "id": "bay-leaf", "name": { "ru": "Лавровый лист", "en": "Bay leaf" }, "scaling": "fixed" }
+        ],
+        "steps": [
+          {
+            "id": "tomatoes-out",
+            "text": {
+              "ru": "Достать помидоры и протереть через дуршлаг",
+              "en": "Take out the tomatoes and press them through a colander"
+            }
+          },
+          {
+            "id": "tomatoes-in",
+            "text": {
+              "ru": "Протёртые помидоры без шкурок добавить в суп",
+              "en": "Add the pressed tomatoes, without the skins, to the soup"
+            }
+          },
+          {
+            "id": "fry-up-in",
+            "text": {
+              "ru": "Переложить зажарку из ступки в кастрюлю",
+              "en": "Transfer the fry-up from the mortar to the pot"
+            }
+          },
+          {
+            "id": "bay",
+            "text": {
+              "ru": "Добавить {{ing:bay-leaf}} и варить {{timer:5m}}",
+              "en": "Add the {{ing:bay-leaf}} and simmer for {{timer:5m}}"
+            }
+          },
+          {
+            "id": "rest",
+            "text": {
+              "ru": "Выключить огонь и дать настояться {{timer:30m}}",
+              "en": "Turn off the heat and let it rest for {{timer:30m}}"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

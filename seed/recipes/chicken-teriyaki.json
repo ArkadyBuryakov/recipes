@@ -1,0 +1,42 @@
+{
+  "slug": "chicken-teriyaki",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Курица терияки", "en": "Chicken teriyaki" },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "японская", "en": "japanese" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "курица", "en": "chicken" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=c4dDzWsoRqU", "label": { "ru": "Taiji's Kitchen", "en": "Taiji's Kitchen" } },
+    "sections": [
+      {
+        "id": "teriyaki",
+        "title": { "ru": "Курица терияки", "en": "Teriyaki chicken" },
+        "bowls": [{ "id": "sauce", "label": { "ru": "Соус", "en": "Sauce" } }],
+        "ingredients": [
+          { "id": "chicken", "name": { "ru": "Курица", "en": "Chicken" }, "qty": { "min": 200, "max": 400 }, "unit": "g" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 1.5 }, "unit": "tbsp" },
+          { "id": "sake", "name": { "ru": "Сакэ", "en": "Sake" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "sauce", "alternatives": [{ "name": { "ru": "вода", "en": "water" } }] },
+          { "id": "mirin", "name": { "ru": "Мирин", "en": "Mirin" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 3 }, "unit": "tbsp", "bowl": "sauce" }
+        ],
+        "steps": [
+          { "id": "fry", "text": { "ru": "Обжарить {{ing:chicken}} с обеих сторон до хрустящей корочки.", "en": "Fry the {{ing:chicken}} on both sides until crispy." } },
+          { "id": "drain", "text": { "ru": "Убрать излишки масла.", "en": "Remove the excess fat." } },
+          { "id": "sugar", "text": { "ru": "Насыпать {{ing:sugar}}.", "en": "Sprinkle in the {{ing:sugar}}." } },
+          { "id": "sauce", "text": { "ru": "Влить {{ing:sake}}, {{ing:mirin}} и {{ing:soy}}.", "en": "Pour in the {{ing:sake}}, {{ing:mirin}} and {{ing:soy}}." } },
+          { "id": "glaze", "text": { "ru": "Тушить на среднем огне до загустения соуса.", "en": "Simmer over medium heat until the sauce thickens." } }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "steps": [
+          { "id": "serve", "text": { "ru": "При подаче курицу можно нарезать и полить остатками соуса.", "en": "To serve, slice the chicken and drizzle with the remaining sauce." } }
+        ]
+      }
+    ]
+  }
+}

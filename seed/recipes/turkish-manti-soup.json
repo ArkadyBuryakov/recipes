@@ -1,0 +1,41 @@
+{
+  "slug": "turkish-manti-soup",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Суп с турецкими манты", "en": "Turkish manti soup" },
+    "description": { "ru": "Томатный суп с мятой, нутом и турецкими манты (Yüksük çorbası).", "en": "Tomato soup with mint, chickpeas and Turkish manti (Yüksük çorbası)." },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "турецкая", "en": "turkish" },
+      { "ru": "суп", "en": "soup" }
+    ],
+    "source": { "url": "https://yemek.com/tarif/yuksuk-corbasi/", "label": { "en": "Yemek.com" } },
+    "sections": [
+      {
+        "id": "soup",
+        "bowls": [
+          { "id": "fats", "label": { "ru": "Масла", "en": "Fats" } },
+          { "id": "base", "label": { "ru": "Паста и мята", "en": "Paste and mint" } },
+          { "id": "broth", "label": { "ru": "Нут и специи", "en": "Chickpeas and seasoning" } }
+        ],
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "fats" },
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "fats" },
+          { "id": "tomato-paste", "name": { "ru": "Томатная паста", "en": "Tomato paste" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "base" },
+          { "id": "mint", "name": { "ru": "Сушёная мята", "en": "Dried mint" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "base" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 1 }, "unit": "l" },
+          { "id": "chickpeas", "name": { "ru": "Нут", "en": "Chickpeas" }, "qty": { "min": 1 }, "unit": "cup", "prep": { "ru": "отварной", "en": "cooked" }, "bowl": "broth" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "broth" },
+          { "id": "pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "broth" },
+          { "id": "manti", "name": { "ru": "Турецкие манты", "en": "Turkish manti" }, "qty": { "min": 1.5 }, "unit": "cup" }
+        ],
+        "steps": [
+          { "id": "heat", "text": { "ru": "В небольшой кастрюле разогреть {{ing:oil}} и {{ing:butter}}.", "en": "Heat the {{ing:oil}} and {{ing:butter}} in a small pot." } },
+          { "id": "paste", "text": { "ru": "Добавить {{ing:tomato-paste}} и {{ing:mint}} и обжарить 1–2 минуты {{timer:1m}}.", "en": "Add the {{ing:tomato-paste}} and {{ing:mint}} and fry for 1–2 minutes {{timer:1m}}." } },
+          { "id": "water", "text": { "ru": "Залить {{ing:water}}, засыпать {{ing:chickpeas}}, {{ing:salt}} и {{ing:pepper}}. Довести до кипения.", "en": "Pour in the {{ing:water}}, add the {{ing:chickpeas}}, {{ing:salt}} and {{ing:pepper}}. Bring to a boil." } },
+          { "id": "manti", "text": { "ru": "Засыпать {{ing:manti}} и варить 10–15 минут {{timer:10m}}.", "en": "Add the {{ing:manti}} and cook for 10–15 minutes {{timer:10m}}." } }
+        ]
+      }
+    ]
+  }
+}

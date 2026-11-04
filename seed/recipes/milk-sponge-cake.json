@@ -1,0 +1,244 @@
+{
+  "slug": "milk-sponge-cake",
+  "status": "published",
+  "recipe": {
+    "title": {
+      "ru": "Кекс на молочной опаре",
+      "en": "Milk starter cake"
+    },
+    "description": {
+      "ru": "Кекс на молочной опаре, которая зреет в холодильнике 5 дней. Стакан зрелой опары каждый раз оставляют для следующего кекса",
+      "en": "A cake made with a milk starter that matures in the fridge for 5 days. Each time, a cup of mature starter is kept back for the next cake"
+    },
+    "servings": {
+      "amount": 1,
+      "label": {
+        "ru": "кекс",
+        "en": "cake"
+      }
+    },
+    "times": {
+      "cookMin": 25,
+      "passiveMin": 7260
+    },
+    "tags": [
+      {
+        "ru": "выпечка",
+        "en": "baking"
+      },
+      {
+        "ru": "десерт",
+        "en": "dessert"
+      }
+    ],
+    "source": {
+      "label": {
+        "ru": "Рецепт от тёти Тани",
+        "en": "Aunt Tanya's recipe"
+      }
+    },
+    "prepTasks": [
+      {
+        "id": "oven",
+        "text": {
+          "ru": "Разогреть духовку до 200 °C",
+          "en": "Preheat the oven to 200 °C"
+        }
+      }
+    ],
+    "sections": [
+      {
+        "id": "starter",
+        "title": {
+          "ru": "Опара (этап I)",
+          "en": "Starter (stage I)"
+        },
+        "bowls": [
+          {
+            "id": "jar",
+            "label": {
+              "ru": "Банка 1 л",
+              "en": "1 l jar"
+            }
+          }
+        ],
+        "ingredients": [
+          {
+            "id": "mature-starter",
+            "name": {
+              "ru": "Зрелая опара",
+              "en": "Mature starter"
+            },
+            "qty": {
+              "min": 1
+            },
+            "unit": "cup",
+            "bowl": "jar"
+          },
+          {
+            "id": "milk",
+            "name": {
+              "ru": "Молоко",
+              "en": "Milk"
+            },
+            "qty": {
+              "min": 1
+            },
+            "unit": "cup",
+            "bowl": "jar"
+          },
+          {
+            "id": "sugar",
+            "name": {
+              "ru": "Сахар",
+              "en": "Sugar"
+            },
+            "qty": {
+              "min": 0.5
+            },
+            "unit": "cup",
+            "bowl": "jar"
+          },
+          {
+            "id": "flour-starter",
+            "name": {
+              "ru": "Мука",
+              "en": "Flour"
+            },
+            "qty": {
+              "min": 0.5
+            },
+            "unit": "cup",
+            "bowl": "jar"
+          }
+        ],
+        "steps": [
+          {
+            "id": "mix",
+            "text": {
+              "ru": "Перемешать {{ing:mature-starter}}, {{ing:milk}}, {{ing:sugar}} и {{ing:flour-starter}} в 1-литровой банке",
+              "en": "Mix the {{ing:mature-starter}}, {{ing:milk}}, {{ing:sugar}} and {{ing:flour-starter}} in a 1-litre jar"
+            }
+          },
+          {
+            "id": "mature",
+            "text": {
+              "ru": "Неплотно прикрыть крышкой, поставить банку в миску и убрать в холодильник на {{timer:5d}}",
+              "en": "Cover loosely with a lid, stand the jar in a bowl and refrigerate for {{timer:5d}}"
+            }
+          }
+        ],
+        "waitAfterMin": 7200
+      },
+      {
+        "id": "dough",
+        "title": {
+          "ru": "Тесто (этап II)",
+          "en": "Batter (stage II)"
+        },
+        "ingredients": [
+          {
+            "id": "starter",
+            "name": {
+              "ru": "Зрелая опара",
+              "en": "Mature starter"
+            },
+            "prep": {
+              "ru": "вся, кроме 1 стакана",
+              "en": "all but 1 cup"
+            }
+          },
+          {
+            "id": "flour",
+            "name": {
+              "ru": "Мука",
+              "en": "Flour"
+            },
+            "qty": {
+              "min": 1.25
+            },
+            "unit": "cup"
+          },
+          {
+            "id": "eggs",
+            "name": {
+              "ru": "Яйца",
+              "en": "Eggs"
+            },
+            "qty": {
+              "min": 2
+            }
+          },
+          {
+            "id": "butter",
+            "name": {
+              "ru": "Сливочное масло",
+              "en": "Butter"
+            },
+            "qty": {
+              "min": 80
+            },
+            "unit": "g",
+            "alternatives": [
+              {
+                "name": {
+                  "ru": "маргарин",
+                  "en": "margarine"
+                },
+                "note": {
+                  "ru": "1/3 пачки",
+                  "en": "1/3 of a pack"
+                }
+              }
+            ]
+          },
+          {
+            "id": "soda",
+            "name": {
+              "ru": "Сода",
+              "en": "Baking soda"
+            },
+            "qty": {
+              "min": 1
+            },
+            "unit": "tsp",
+            "prep": {
+              "ru": "не гасить",
+              "en": "not quenched with vinegar"
+            }
+          }
+        ],
+        "steps": [
+          {
+            "id": "set-aside",
+            "text": {
+              "ru": "Отделить 1 стакан зрелой опары и повторить с ним этап I — это опара для следующего кекса",
+              "en": "Set aside 1 cup of the mature starter and repeat stage I with it — that is the starter for the next cake"
+            }
+          },
+          {
+            "id": "mix-batter",
+            "text": {
+              "ru": "Смешать {{ing:starter}}, {{ing:flour}}, {{ing:eggs}}, {{ing:butter}} и {{ing:soda}} до однородной консистенции",
+              "en": "Mix the {{ing:starter}}, {{ing:flour}}, {{ing:eggs}}, {{ing:butter}} and {{ing:soda}} until smooth"
+            }
+          },
+          {
+            "id": "rise",
+            "text": {
+              "ru": "Переложить тесто в сковороду, в которой будете печь, и дать постоять в тёплом месте {{timer:1h}}. Чтобы кекс был с отверстием в середине и лучше пропёкся, поставить в центр банку",
+              "en": "Transfer the batter to the skillet you will bake in and leave it in a warm place for {{timer:1h}}. For a ring-shaped cake that bakes through better, stand a jar in the centre"
+            }
+          },
+          {
+            "id": "bake",
+            "text": {
+              "ru": "Выпекать при 200 °C {{timer:20m}} (20–25 минут)",
+              "en": "Bake at 200 °C for {{timer:20m}} (20–25 minutes)"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "slug": "chakhokhbili",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Чахохбили", "en": "Chakhokhbili" },
+    "description": { "ru": "Грузинская курица, тушённая с луком и помидорами.", "en": "Georgian chicken stewed with onions and tomatoes." },
+    "servings": { "amount": 6 },
+    "tags": [
+      { "ru": "грузинская", "en": "georgian" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "курица", "en": "chicken" }
+    ],
+    "source": { "url": "https://www.instagram.com/reel/DOEDlqHjFmx/?igsh=MTNrMGF4d2hqdzZ1bQ==", "label": { "en": "Instagram" } },
+    "sections": [
+      {
+        "id": "main",
+        "bowls": [
+          { "id": "tomato", "label": { "ru": "Томатная паста и паприка", "en": "Tomato paste and paprika" } },
+          { "id": "spices", "label": { "ru": "Оставшиеся специи и зелень", "en": "Remaining spices and herbs" } }
+        ],
+        "ingredients": [
+          { "id": "chicken", "name": { "ru": "Курица", "en": "Chicken" }, "qty": { "min": 1.5 }, "unit": "kg" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onions" }, "qty": { "min": 7 }, "prep": { "ru": "нарезать полукольцами", "en": "sliced into half-rings" } },
+          { "id": "tomato-paste", "name": { "ru": "Томатная паста", "en": "Tomato paste" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "tomato" },
+          { "id": "paprika", "name": { "ru": "Паприка", "en": "Paprika" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "tomato" },
+          { "id": "tomatoes", "name": { "ru": "Помидоры", "en": "Tomatoes" }, "qty": { "min": 1 }, "unit": "kg", "prep": { "ru": "нарезать", "en": "chopped" } },
+          { "id": "black-pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "khmeli-suneli", "name": { "ru": "Хмели-сунели", "en": "Khmeli suneli" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "coriander", "name": { "ru": "Кориандр", "en": "Coriander" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 4 }, "unit": "clove", "bowl": "spices" },
+          { "id": "basil", "name": { "ru": "Сушёный базилик", "en": "Dried basil" }, "scaling": "to-taste", "bowl": "spices" },
+          { "id": "cilantro", "name": { "ru": "Кинза", "en": "Cilantro" }, "scaling": "to-taste", "bowl": "spices" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "scaling": "to-taste", "bowl": "spices" }
+        ],
+        "steps": [
+          { "id": "brown", "text": { "ru": "Обжарить {{ing:chicken}} на сковороде до корочки, подсаливая ({{ing:salt}}).", "en": "Brown the {{ing:chicken}} in a pan until golden, seasoning with {{ing:salt}}." } },
+          { "id": "onion", "text": { "ru": "Убрать мясо и выложить в сковороду {{ing:onion}}.", "en": "Remove the meat and add the {{ing:onion}} to the pan." } },
+          { "id": "tomato", "text": { "ru": "Обжарив лук, добавить {{ing:tomato-paste}} и {{ing:paprika}}.", "en": "Once the onion is fried, add the {{ing:tomato-paste}} and {{ing:paprika}}." } },
+          { "id": "meat-back", "text": { "ru": "Перемешать и выложить сверху мясо.", "en": "Stir, then place the meat on top." } },
+          { "id": "layer", "text": { "ru": "Сверху выложить {{ing:tomatoes}}, оставшиеся специи и зелень: {{ing:black-pepper}}, {{ing:khmeli-suneli}}, {{ing:coriander}}, {{ing:garlic}}, {{ing:basil}}, {{ing:cilantro}}, {{ing:sugar}}.", "en": "Top with the {{ing:tomatoes}} and the remaining spices and herbs: {{ing:black-pepper}}, {{ing:khmeli-suneli}}, {{ing:coriander}}, {{ing:garlic}}, {{ing:basil}}, {{ing:cilantro}}, {{ing:sugar}}." } },
+          { "id": "stew", "text": { "ru": "Накрыть крышкой и готовить на среднем огне {{timer:30m}}.", "en": "Cover and cook over medium heat for {{timer:30m}}." } }
+        ]
+      }
+    ]
+  }
+}

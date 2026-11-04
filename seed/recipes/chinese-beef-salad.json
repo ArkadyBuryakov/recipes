@@ -1,0 +1,107 @@
+{
+  "slug": "chinese-beef-salad",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Китайский салат из говядины", "en": "Chinese beef salad" },
+    "description": {
+      "ru": "Тонко нарезанная маринованная говядина с кинзой и чили, заправленная горячим маслом",
+      "en": "Thinly sliced marinated beef with cilantro and chili, dressed with sizzling hot oil"
+    },
+    "servings": { "amount": 2 },
+    "times": { "passiveMin": 20 },
+    "tags": [
+      { "ru": "китайская", "en": "chinese" },
+      { "ru": "салат", "en": "salad" },
+      { "ru": "говядина", "en": "beef" }
+    ],
+    "source": {
+      "url": "https://www.tiktok.com/@chinesefood1020/video/7055627336825195777",
+      "label": { "ru": "Chinesefood1020", "en": "Chinesefood1020" }
+    },
+    "sections": [
+      {
+        "id": "marinade",
+        "title": { "ru": "Маринад", "en": "Marinade" },
+        "bowls": [{ "id": "marinade", "label": { "ru": "Маринад", "en": "Marinade" } }],
+        "ingredients": [
+          { "id": "beef", "name": { "ru": "Говядина", "en": "Beef" }, "prep": { "ru": "тонко нарезать", "en": "thinly sliced" } },
+          { "id": "cognac", "name": { "ru": "Коньяк", "en": "Cognac" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "marinade" },
+          { "id": "soy-marinade", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "marinade" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "marinade" },
+          { "id": "starch", "name": { "ru": "Крахмал", "en": "Starch" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "marinade" }
+        ],
+        "steps": [
+          { "id": "slice", "text": { "ru": "Тонко нарезать {{ing:beef}}", "en": "Thinly slice the {{ing:beef}}" } },
+          {
+            "id": "marinate",
+            "text": {
+              "ru": "Замариновать с {{ing:cognac}}, {{ing:soy-marinade}}, {{ing:salt}} и {{ing:starch}} и оставить на {{timer:20m}}",
+              "en": "Marinate with the {{ing:cognac}}, {{ing:soy-marinade}}, {{ing:salt}} and {{ing:starch}} and leave for {{timer:20m}}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "salad",
+        "title": { "ru": "Салат", "en": "Salad" },
+        "bowls": [{ "id": "seasoning", "label": { "ru": "Заправка", "en": "Seasoning" } }],
+        "ingredients": [
+          { "id": "chilies", "name": { "ru": "Перец чили", "en": "Chili peppers" }, "qty": { "min": 2 }, "prep": { "ru": "нарезать", "en": "chopped" } },
+          { "id": "cilantro", "name": { "ru": "Кинза", "en": "Cilantro" }, "qty": { "min": 1 }, "unit": "bunch", "prep": { "ru": "без стеблей", "en": "stems removed" } },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "seasoning" },
+          { "id": "chili-powder", "name": { "ru": "Молотый перец чили", "en": "Ground chili" }, "qty": { "min": 2 }, "unit": "tsp", "bowl": "seasoning" },
+          { "id": "sesame", "name": { "ru": "Кунжут", "en": "Sesame seeds" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "seasoning" },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "seasoning" },
+          { "id": "vinegar", "name": { "ru": "Красный уксус", "en": "Red vinegar" }, "qty": { "min": 0.5 }, "unit": "tbsp", "bowl": "seasoning" },
+          { "id": "oyster", "name": { "ru": "Устричный соус", "en": "Oyster sauce" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "seasoning" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 0.5 }, "unit": "tbsp", "bowl": "seasoning" },
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "qty": { "min": 2 }, "unit": "tbsp", "prep": { "ru": "раскалить", "en": "heated until very hot" } }
+        ],
+        "steps": [
+          {
+            "id": "prep",
+            "text": {
+              "ru": "Пока маринуется мясо: нарезать {{ing:chilies}} и убрать стебли у кинзы ({{ing:cilantro}}); довести до кипения воду в кастрюле",
+              "en": "While the meat marinates: chop the {{ing:chilies}} and remove the stems from the {{ing:cilantro}}; bring a pot of water to a boil"
+            }
+          },
+          {
+            "id": "blanch",
+            "text": {
+              "ru": "Обварить говядину в кипятке {{timer:1m}}, достать",
+              "en": "Blanch the beef in the boiling water for {{timer:1m}}, then take it out"
+            }
+          },
+          {
+            "id": "heat-oil",
+            "text": { "ru": "Поставить греться {{ing:oil}} на сковороде", "en": "Heat the {{ing:oil}} in a pan" }
+          },
+          {
+            "id": "combine",
+            "text": {
+              "ru": "Пока греется масло, добавить к мясу перец, кинзу и остальное: {{ing:garlic}}, {{ing:chili-powder}}, {{ing:sesame}}, {{ing:soy}}, {{ing:vinegar}}, {{ing:oyster}}, {{ing:sugar}}",
+              "en": "While the oil heats, add the chilies, cilantro and the rest to the meat: {{ing:garlic}}, {{ing:chili-powder}}, {{ing:sesame}}, {{ing:soy}}, {{ing:vinegar}}, {{ing:oyster}}, {{ing:sugar}}"
+            }
+          },
+          {
+            "id": "dress",
+            "text": { "ru": "Облить горячим маслом и перемешать", "en": "Pour the hot oil over and toss" }
+          }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "steps": [
+          {
+            "id": "rice",
+            "text": {
+              "ru": "Можно подавать с рисом, полив его соусом, который образовался в салате",
+              "en": "Serve with rice if you like, spooning the salad juices over the rice"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

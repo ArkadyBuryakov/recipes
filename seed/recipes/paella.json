@@ -1,0 +1,176 @@
+{
+  "slug": "paella",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Паэлья", "en": "Paella" },
+    "description": {
+      "ru": "Паэлья по-барселонски с креветками, кальмарами и мидиями на бульоне из креветочных панцирей",
+      "en": "Barcelona-style paella with prawns, squid and mussels, cooked in a stock made from the prawn shells"
+    },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "испанская", "en": "spanish" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "морепродукты", "en": "seafood" }
+    ],
+    "source": {
+      "url": "https://www.edimdoma.ru/retsepty/38521-paelya-po-barselonski",
+      "label": { "ru": "Едим дома — Паэлья по-барселонски", "en": "Edimdoma — Barcelona-style paella" }
+    },
+    "sections": [
+      {
+        "id": "stock",
+        "title": { "ru": "Бульон", "en": "Stock" },
+        "bowls": [{ "id": "aromatics", "label": { "ru": "Для бульона", "en": "For the stock" } }],
+        "ingredients": [
+          { "id": "prawns", "name": { "ru": "Креветки", "en": "Prawns" }, "qty": { "min": 8 }, "prep": { "ru": "большие", "en": "large" } },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 700 }, "unit": "ml" },
+          { "id": "carrot", "name": { "ru": "Морковь", "en": "Carrot" }, "qty": { "min": 1 }, "prep": { "ru": "почистить", "en": "peeled" }, "bowl": "aromatics" },
+          { "id": "garlic-stock", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2 }, "unit": "clove", "prep": { "ru": "почистить", "en": "peeled" }, "bowl": "aromatics" },
+          { "id": "bay-leaves", "name": { "ru": "Лавровый лист", "en": "Bay leaves" }, "qty": { "min": 3 }, "scaling": "fixed", "bowl": "aromatics" },
+          { "id": "parsley", "name": { "ru": "Петрушка", "en": "Parsley" }, "qty": { "min": 1 }, "unit": "bunch", "prep": { "ru": "помыть", "en": "washed" }, "bowl": "aromatics" }
+        ],
+        "steps": [
+          {
+            "id": "peel-prawns",
+            "text": {
+              "ru": "Очистить {{ing:prawns}} от голов и панцирей, удалить кишечную вену",
+              "en": "Remove the heads and shells from the {{ing:prawns}} and devein them"
+            }
+          },
+          {
+            "id": "shells",
+            "text": {
+              "ru": "Панцири и головы положить в кастрюльку, залить {{ing:water}} и довести до кипения",
+              "en": "Put the shells and heads in a small pot, cover with the {{ing:water}} and bring to a boil"
+            }
+          },
+          {
+            "id": "simmer",
+            "text": {
+              "ru": "Добавить {{ing:carrot}}, {{ing:garlic-stock}}, {{ing:bay-leaves}} и {{ing:parsley}}. Варить на небольшом огне {{timer:30m}}, затем процедить",
+              "en": "Add the {{ing:carrot}}, {{ing:garlic-stock}}, {{ing:bay-leaves}} and {{ing:parsley}}. Simmer over low heat for {{timer:30m}}, then strain"
+            }
+          }
+        ]
+      },
+      {
+        "id": "prep",
+        "title": { "ru": "Подготовка", "en": "Preparation" },
+        "bowls": [
+          { "id": "squid-tomato", "label": { "ru": "Кальмары и томаты", "en": "Squid and tomatoes" } },
+          { "id": "pepper-peas", "label": { "ru": "Перец и горошек", "en": "Pepper and peas" } }
+        ],
+        "ingredients": [
+          { "id": "tomatoes", "name": { "ru": "Помидоры", "en": "Tomatoes" }, "qty": { "min": 2 }, "prep": { "ru": "без кожицы, мелким кубиком", "en": "peeled, finely diced" }, "bowl": "squid-tomato" },
+          { "id": "bell-pepper", "name": { "ru": "Сладкий перец", "en": "Bell pepper" }, "qty": { "min": 1 }, "prep": { "ru": "крупный; тонкой соломкой", "en": "large; thinly sliced" }, "bowl": "pepper-peas" },
+          { "id": "peas", "name": { "ru": "Горошек свежемороженый", "en": "Frozen peas" }, "qty": { "min": 100 }, "unit": "g", "bowl": "pepper-peas" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 1 }, "unit": "clove", "prep": { "ru": "растереть в кашицу", "en": "crushed to a paste" }, "bowl": "squid-tomato" },
+          { "id": "saffron", "name": { "ru": "Шафран", "en": "Saffron" }, "qty": { "min": 1 }, "unit": "pinch" },
+          { "id": "warm-water", "name": { "ru": "Тёплая вода", "en": "Warm water" }, "prep": { "ru": "немного", "en": "a little" } },
+          { "id": "squid", "name": { "ru": "Кальмары", "en": "Squid" }, "qty": { "min": 300 }, "unit": "g", "prep": { "ru": "очистить, кольцами", "en": "cleaned, cut into rings" }, "bowl": "squid-tomato" },
+          { "id": "mussels", "name": { "ru": "Мидии", "en": "Mussels" }, "qty": { "min": 300 }, "unit": "g" }
+        ],
+        "steps": [
+          {
+            "id": "tomatoes",
+            "text": {
+              "ru": "Сделать на {{ing:tomatoes}} сверху крестовидные надрезы, ошпарить кипятком, снять кожицу и нарезать маленькими кубиками",
+              "en": "Score a cross on top of the {{ing:tomatoes}}, scald with boiling water, peel and cut into small dice"
+            }
+          },
+          {
+            "id": "pepper-garlic",
+            "text": {
+              "ru": "Нашинковать {{ing:bell-pepper}} тонкой соломкой. {{ing:garlic}} растереть в кашицу или пропустить через чеснокодавку",
+              "en": "Slice the {{ing:bell-pepper}} into thin strips. Crush the {{ing:garlic}} to a paste or put it through a garlic press"
+            }
+          },
+          {
+            "id": "saffron",
+            "text": {
+              "ru": "Залить {{ing:saffron}} небольшим количеством тёплой воды ({{ing:warm-water}})",
+              "en": "Soak the {{ing:saffron}} in a little {{ing:warm-water}}"
+            }
+          },
+          {
+            "id": "squid",
+            "text": {
+              "ru": "Очистить {{ing:squid}} от плёнки — это легко сделать, если опустить их в кипяток на {{timer:30s}}. Нарезать кольцами",
+              "en": "Peel the skin off the {{ing:squid}} — easy if you dip them in boiling water for {{timer:30s}}. Cut into rings"
+            }
+          },
+          {
+            "id": "mussels",
+            "text": {
+              "ru": "{{ing:mussels}} помыть и очистить от водорослей",
+              "en": "Wash the {{ing:mussels}} and clean off the beards"
+            }
+          }
+        ]
+      },
+      {
+        "id": "paella",
+        "title": { "ru": "Паэлья", "en": "Paella" },
+        "ingredients": [
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 0.5 }, "unit": "cup" },
+          { "id": "rice", "name": { "ru": "Круглозёрный рис", "en": "Round-grain rice" }, "qty": { "min": 400 }, "unit": "g" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "black-pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste" },
+          { "id": "basil", "name": { "ru": "Базилик", "en": "Basil" }, "scaling": "to-taste" }
+        ],
+        "steps": [
+          {
+            "id": "mussels-cook",
+            "text": {
+              "ru": "Разогреть на сковороде {{ing:olive-oil}}. Выложить мидии, посолить ({{ing:salt}}) и готовить {{timer:7m}} (7–10 минут). Переложить мидии на блюдо",
+              "en": "Heat the {{ing:olive-oil}} in a pan. Add the mussels, season with {{ing:salt}} and cook for {{timer:7m}} (7–10 minutes). Transfer the mussels to a plate"
+            }
+          },
+          {
+            "id": "prawns-cook",
+            "text": {
+              "ru": "Выложить на сковороду креветки, немного посолить, готовить {{timer:3m}}. Тоже переложить на блюдо",
+              "en": "Add the prawns, salt lightly and cook for {{timer:3m}}. Move them to the plate too"
+            }
+          },
+          {
+            "id": "squid-cook",
+            "text": {
+              "ru": "Выложить на сковороду кальмары и томаты, добавить немного соли, {{ing:basil}}, чесночную кашицу и готовить {{timer:5m}}",
+              "en": "Add the squid rings and tomatoes, a little salt, the {{ing:basil}} and the garlic paste, and cook for {{timer:5m}}"
+            }
+          },
+          {
+            "id": "veg",
+            "text": {
+              "ru": "Добавить сладкий перец и горошек, готовить {{timer:3m}}",
+              "en": "Add the bell pepper and peas and cook for {{timer:3m}}"
+            }
+          },
+          {
+            "id": "rice",
+            "text": {
+              "ru": "Всыпать {{ing:rice}}, перемешать, готовить {{timer:4m}}",
+              "en": "Add the {{ing:rice}}, stir and cook for {{timer:4m}}"
+            }
+          },
+          {
+            "id": "stock",
+            "text": {
+              "ru": "Влить бульон и раствор шафрана, посолить и поперчить ({{ing:black-pepper}}). Готовить {{timer:7m}}",
+              "en": "Pour in the stock and the saffron water, season with salt and {{ing:black-pepper}}. Cook for {{timer:7m}}"
+            }
+          },
+          {
+            "id": "finish",
+            "text": {
+              "ru": "Добавить креветки и мидии и довести рис до готовности",
+              "en": "Add the prawns and mussels back and cook until the rice is done"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

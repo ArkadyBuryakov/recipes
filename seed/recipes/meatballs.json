@@ -1,0 +1,35 @@
+{
+  "slug": "meatballs",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Тефтели", "en": "Meatballs" },
+    "description": {
+      "ru": "Базовые тефтели из телятины под любые блюда. Можно подавать как самостоятельное второе блюдо, добавлять в пасту, шакшуку, супы и т. д.",
+      "en": "Basic veal meatballs for any dish. Serve them as a main on their own, or add them to pasta, shakshuka, soups and more."
+    },
+    "servings": { "amount": 24, "label": { "ru": "шт.", "en": "meatballs" } },
+    "tags": [
+      { "ru": "основное", "en": "main" },
+      { "ru": "говядина", "en": "beef" }
+    ],
+    "sections": [
+      {
+        "id": "meatballs",
+        "ingredients": [
+          { "id": "mince", "name": { "ru": "Говяжий фарш", "en": "Ground beef" }, "qty": { "min": 500 }, "unit": "g" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste" },
+          { "id": "egg", "name": { "ru": "Куриное яйцо", "en": "Egg" }, "qty": { "min": 1 } },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "scaling": "to-taste", "prep": { "ru": "для обваливания, по необходимости", "en": "for dredging, as needed" } }
+        ],
+        "steps": [
+          { "id": "season", "text": { "ru": "{{ing:mince}} посолить ({{ing:salt}}) и поперчить ({{ing:pepper}}).", "en": "Season the {{ing:mince}} with {{ing:salt}} and {{ing:pepper}}." } },
+          { "id": "egg", "text": { "ru": "Добавить в фарш {{ing:egg}} и перемешать до однородности.", "en": "Add the {{ing:egg}} to the mince and mix until smooth." } },
+          { "id": "shape", "text": { "ru": "Разделить на 24 тефтели.", "en": "Divide into 24 meatballs." } },
+          { "id": "dredge", "text": { "ru": "Обвалять тефтели в {{ing:flour}}.", "en": "Roll the meatballs in {{ing:flour}}." } },
+          { "id": "fry", "text": { "ru": "Обжарить на сковороде (желательно чугунной).", "en": "Fry in a pan (preferably cast iron)." } }
+        ]
+      }
+    ]
+  }
+}

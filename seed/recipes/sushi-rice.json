@@ -1,0 +1,51 @@
+{
+  "slug": "sushi-rice",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Рис для суши", "en": "Sushi rice" },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "японская", "en": "japanese" },
+      { "ru": "гарнир", "en": "side" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=JyTZh6Ei8XM&t=282s", "label": { "en": "Taiji's Kitchen" } },
+    "sections": [
+      {
+        "id": "rice",
+        "title": { "ru": "Рис", "en": "Rice" },
+        "ingredients": [
+          { "id": "rice", "name": { "ru": "Рис", "en": "Rice" }, "qty": { "min": 2 }, "unit": "cup" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 2 }, "unit": "cup" },
+          { "id": "kombu", "name": { "ru": "Комбу", "en": "Kombu" }, "qty": { "min": 5 }, "unit": "g" }
+        ],
+        "steps": [
+          { "id": "rinse", "text": { "ru": "Тщательно промыть {{ing:rice}} до прозрачной воды и слить воду.", "en": "Rinse the {{ing:rice}} thoroughly until the water runs clear, then drain." } },
+          { "id": "pot", "text": { "ru": "Положить рис в кастрюлю, добавить {{ing:water}} и положить сверху {{ing:kombu}}.", "en": "Put the rice in a pot, add the {{ing:water}} and lay the {{ing:kombu}} on top." } },
+          { "id": "boil", "text": { "ru": "Поставить на большой огонь и довести до кипения.", "en": "Bring to a boil over high heat." } },
+          { "id": "simmer", "text": { "ru": "Как только вода закипит, убавить огонь до минимума, накрыть крышкой и варить {{timer:10m}}.", "en": "As soon as the water boils, turn the heat to the lowest setting, cover with a lid and cook for {{timer:10m}}." } }
+        ]
+      },
+      {
+        "id": "sushizu",
+        "title": { "ru": "Сушизу", "en": "Sushi-zu" },
+        "bowls": [{ "id": "sushizu", "label": { "ru": "Сушизу", "en": "Sushi-zu" } }],
+        "ingredients": [
+          { "id": "vinegar", "name": { "ru": "Рисовый уксус", "en": "Rice vinegar" }, "qty": { "min": 4 }, "unit": "tbsp", "bowl": "sushizu" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 3 }, "unit": "tbsp", "bowl": "sushizu" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "sushizu" }
+        ],
+        "steps": [
+          { "id": "make-sushizu", "text": { "ru": "Параллельно в отдельной миске смешать {{ing:vinegar}}, {{ing:sugar}} и {{ing:salt}} и, подогревая на среднем огне, перемешивать, пока сахар и соль полностью не растворятся.", "en": "Meanwhile, combine the {{ing:vinegar}}, {{ing:sugar}} and {{ing:salt}} in a separate bowl and stir over medium heat until the sugar and salt have fully dissolved." } }
+        ]
+      },
+      {
+        "id": "finish",
+        "title": { "ru": "Заправка риса", "en": "Seasoning the rice" },
+        "steps": [
+          { "id": "rest", "text": { "ru": "Выключить огонь и дать рису постоять под крышкой ещё 5–15 минут {{timer:5m}}.", "en": "Turn off the heat and let the rice stand, covered, for another 5–15 minutes {{timer:5m}}." } },
+          { "id": "mix", "text": { "ru": "Убрать комбу, добавить сушизу и перемешать.", "en": "Remove the kombu, add the sushi-zu and mix." } }
+        ]
+      }
+    ]
+  }
+}

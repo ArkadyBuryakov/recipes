@@ -1,0 +1,70 @@
+{
+  "slug": "chicken-tartiflette",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Куриный тартифлет", "en": "Chicken tartiflette" },
+    "servings": { "amount": 6 },
+    "times": { "cookMin": 45 },
+    "tags": [
+      { "ru": "французская", "en": "french" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "курица", "en": "chicken" }
+    ],
+    "source": { "url": "https://www.bbc.co.uk/food/recipes/chicken_tartiflette_49148", "label": { "ru": "BBC Food", "en": "BBC Food" } },
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 200 °C", "en": "Preheat the oven to 200 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "potatoes",
+        "title": { "ru": "Картофель", "en": "Potatoes" },
+        "bowls": [{ "id": "potato-mix", "label": { "ru": "Картофель с беконом", "en": "Potatoes and bacon" } }],
+        "ingredients": [
+          { "id": "bacon-diced", "name": { "ru": "Бекон", "en": "Bacon" }, "qty": { "min": 2 }, "unit": "slice", "bowl": "potato-mix", "prep": { "ru": "широкий, нарезать маленькими квадратиками", "en": "wide rashers, cut into small squares" } },
+          { "id": "potatoes", "name": { "ru": "Картофель", "en": "Potatoes" }, "qty": { "min": 500 }, "unit": "g", "bowl": "potato-mix", "prep": { "ru": "крупно нарезать, примерно на 4 части", "en": "cut into large chunks, about 4 per potato" } },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onion" }, "qty": { "min": 2 }, "bowl": "potato-mix", "optional": true, "prep": { "ru": "тонко нарезать", "en": "thinly sliced" }, "alternatives": [{ "name": { "ru": "луковый порошок", "en": "onion powder" } }] },
+          { "id": "garlic", "name": { "ru": "Чесночная паста", "en": "Garlic paste" }, "qty": { "min": 2 }, "unit": "tsp", "bowl": "potato-mix", "prep": { "ru": "турецкие чайные ложки", "en": "Turkish teaspoons" }, "alternatives": [{ "name": { "ru": "чесночный порошок", "en": "garlic powder" } }] },
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "potato-mix" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste" }
+        ],
+        "steps": [
+          { "id": "mix", "text": { "ru": "Смешать {{ing:bacon-diced}}, {{ing:potatoes}}, {{ing:onion}}, {{ing:garlic}}, {{ing:olive-oil}}, {{ing:salt}} и {{ing:pepper}}.", "en": "Toss together {{ing:bacon-diced}}, {{ing:potatoes}}, {{ing:onion}}, {{ing:garlic}}, {{ing:olive-oil}}, {{ing:salt}} and {{ing:pepper}}." } },
+          { "id": "roast", "text": { "ru": "Переложить в форму и запекать в духовке {{timer:25m}}.", "en": "Transfer to a baking dish and roast for {{timer:25m}}." } }
+        ]
+      },
+      {
+        "id": "chicken",
+        "title": { "ru": "Курица", "en": "Chicken" },
+        "ingredients": [
+          { "id": "chicken", "name": { "ru": "Куриная грудка", "en": "Chicken breast" }, "qty": { "min": 6 }, "prep": { "ru": "небольшие, по 125–150 г", "en": "small, about 125–150 g each" } },
+          { "id": "bacon-wrap", "name": { "ru": "Бекон", "en": "Bacon" }, "qty": { "min": 6 }, "unit": "slice", "prep": { "ru": "широкий", "en": "wide rashers" } },
+          { "id": "mushrooms", "name": { "ru": "Шампиньоны", "en": "Button mushrooms" }, "qty": { "min": 200 }, "unit": "g", "prep": { "ru": "нарезать", "en": "sliced" } },
+          { "id": "parsley", "name": { "ru": "Петрушка", "en": "Parsley" }, "qty": { "min": 2 }, "unit": "tbsp", "prep": { "ru": "нарезать", "en": "chopped" } },
+          { "id": "thyme", "name": { "ru": "Тимьян", "en": "Thyme" }, "qty": { "min": 1 }, "unit": "tbsp" }
+        ],
+        "steps": [
+          { "id": "wrap", "text": { "ru": "Каждую {{ing:chicken}} обернуть ломтиком {{ing:bacon-wrap}}, посолить и поперчить.", "en": "Wrap each {{ing:chicken}} in a slice of {{ing:bacon-wrap}}, season with salt and pepper." } },
+          { "id": "chop", "text": { "ru": "Нарезать {{ing:mushrooms}} и {{ing:parsley}}.", "en": "Slice the {{ing:mushrooms}} and chop the {{ing:parsley}}." } }
+        ]
+      },
+      {
+        "id": "bake",
+        "title": { "ru": "Запекание", "en": "Baking" },
+        "ingredients": [
+          { "id": "wine", "name": { "ru": "Белое вино", "en": "White wine" }, "qty": { "min": 200 }, "unit": "ml" },
+          { "id": "cream", "name": { "ru": "Сливки 30%", "en": "Cream (30% fat)" }, "qty": { "min": 150 }, "unit": "ml" },
+          { "id": "camembert", "name": { "ru": "Камамбер", "en": "Camembert" }, "qty": { "min": 115 }, "unit": "g", "alternatives": [{ "name": { "ru": "бри", "en": "brie" } }] },
+          { "id": "mustard", "name": { "ru": "Зернистая горчица", "en": "Wholegrain mustard" }, "qty": { "min": 1 }, "unit": "tbsp" },
+          { "id": "lemon", "name": { "ru": "Лимонный сок", "en": "Lemon juice" }, "qty": { "min": 1 }, "unit": "tbsp", "optional": true }
+        ],
+        "steps": [
+          { "id": "layer", "text": { "ru": "Достать картофель, выложить сверху {{ing:mushrooms}}, порвать на кусочки {{ing:camembert}}, влить {{ing:wine}} и {{ing:cream}}, перемешать.", "en": "Take the potatoes out, top with the {{ing:mushrooms}}, tear over the {{ing:camembert}}, pour in the {{ing:wine}} and {{ing:cream}} and stir." } },
+          { "id": "bake-chicken", "text": { "ru": "Сверху выложить {{ing:chicken}} и запекать ещё около {{timer:20m}}.", "en": "Lay the {{ing:chicken}} on top and bake for about {{timer:20m}} more." } },
+          { "id": "finish", "text": { "ru": "Достать из духовки. Курицу по желанию нарезать на несколько частей. В картофель добавить {{ing:lemon}}, {{ing:mustard}} и {{ing:parsley}}, перемешать.", "en": "Take out of the oven. Cut the chicken into pieces if you like. Stir {{ing:lemon}}, {{ing:mustard}} and {{ing:parsley}} into the potatoes." } },
+          { "id": "thicken", "text": { "ru": "Если соус получился жидким, подержать картофель с овощами (без курицы) на плите до загустения соуса.", "en": "If the sauce is too runny, simmer the potatoes and vegetables (without the chicken) on the stove until the sauce thickens." } }
+        ]
+      }
+    ]
+  }
+}

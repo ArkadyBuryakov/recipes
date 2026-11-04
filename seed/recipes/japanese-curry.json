@@ -1,0 +1,58 @@
+{
+  "slug": "japanese-curry",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Японское карри", "en": "Japanese curry" },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "японская", "en": "japanese" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "говядина", "en": "beef" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=8md7Z7HWkIY", "label": { "ru": "Taiji's Kitchen", "en": "Taiji's Kitchen" } },
+    "sections": [
+      {
+        "id": "curry",
+        "title": { "ru": "Карри", "en": "Curry" },
+        "bowls": [
+          { "id": "aromatics", "label": { "ru": "Чеснок и имбирь", "en": "Garlic and ginger" } },
+          { "id": "stew", "label": { "ru": "Овощи и вода", "en": "Vegetables and water" } }
+        ],
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Масло для жарки", "en": "Frying oil" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2, "max": 4 }, "unit": "clove", "bowl": "aromatics", "prep": { "ru": "натереть (около 15 г)", "en": "grated (about 15 g)" } },
+          { "id": "ginger", "name": { "ru": "Имбирь", "en": "Ginger" }, "qty": { "min": 15 }, "unit": "g", "bowl": "aromatics", "prep": { "ru": "небольшой кусочек, натереть", "en": "a small piece, grated" } },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onion" }, "qty": { "min": 400, "max": 500 }, "unit": "g", "prep": { "ru": "2–4 шт., тонко нарезать", "en": "2–4 onions, thinly sliced" } },
+          { "id": "garam-masala", "name": { "ru": "Гарам-масала", "en": "Garam masala" }, "qty": { "min": 1 }, "unit": "tsp", "optional": true },
+          { "id": "tomatoes", "name": { "ru": "Консервированные томаты", "en": "Canned tomatoes" }, "qty": { "min": 200 }, "unit": "g", "bowl": "stew" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 500 }, "unit": "ml", "bowl": "stew" },
+          { "id": "carrot", "name": { "ru": "Морковь", "en": "Carrot" }, "qty": { "min": 300 }, "unit": "g", "bowl": "stew", "prep": { "ru": "1–2 шт., нарезать кусочками", "en": "1–2 carrots, bite-sized pieces" } },
+          { "id": "potatoes", "name": { "ru": "Картофель", "en": "Potatoes" }, "qty": { "min": 300 }, "unit": "g", "bowl": "stew", "prep": { "ru": "2–4 шт., нарезать кусочками", "en": "2–4 potatoes, bite-sized pieces" } },
+          { "id": "apple", "name": { "ru": "Яблоко", "en": "Apple" }, "qty": { "min": 1 }, "bowl": "stew", "prep": { "ru": "около 200 г, натереть", "en": "about 200 g, grated" } },
+          { "id": "beef", "name": { "ru": "Говядина", "en": "Beef" }, "qty": { "min": 400 }, "unit": "g", "prep": { "ru": "нарезать кусочками", "en": "bite-sized pieces" }, "alternatives": [{ "name": { "ru": "любое другое мясо", "en": "any other meat" } }] },
+          { "id": "curry-mix", "name": { "ru": "Японская смесь карри", "en": "Japanese curry mix" }, "qty": { "min": 110 }, "unit": "g" }
+        ],
+        "steps": [
+          { "id": "aromatics", "text": { "ru": "В большую кастрюлю положить {{ing:garlic}} и {{ing:ginger}} вместе с {{ing:oil}} и слегка обжарить.", "en": "Put the {{ing:garlic}} and {{ing:ginger}} into a large pot with the {{ing:oil}} and fry lightly." } },
+          { "id": "onion", "text": { "ru": "Добавить {{ing:onion}} и карамелизовать.", "en": "Add the {{ing:onion}} and caramelize." } },
+          { "id": "spice", "text": { "ru": "Добавить {{ing:garam-masala}} и немного обжарить, чтобы раскрылся аромат.", "en": "Add the {{ing:garam-masala}} and fry briefly to release the aroma." } },
+          { "id": "veg", "text": { "ru": "Добавить {{ing:tomatoes}}, {{ing:water}}, {{ing:carrot}}, {{ing:potatoes}} и {{ing:apple}}.", "en": "Add the {{ing:tomatoes}}, {{ing:water}}, {{ing:carrot}}, {{ing:potatoes}} and {{ing:apple}}." } },
+          { "id": "simmer", "text": { "ru": "Довести до кипения и оставить тушиться.", "en": "Bring to a boil and leave to simmer." } },
+          { "id": "beef", "text": { "ru": "Тем временем обжарить {{ing:beef}} на сковороде до корочки.", "en": "Meanwhile, brown the {{ing:beef}} in a frying pan." } },
+          { "id": "stew", "text": { "ru": "Переложить мясо вместе с соком со сковороды в кастрюлю, накрыть крышкой и тушить ещё {{timer:30m}}.", "en": "Add the meat and the pan juices to the pot, cover and simmer for another {{timer:30m}}." } },
+          { "id": "curry", "text": { "ru": "Добавить {{ing:curry-mix}} и перемешать.", "en": "Add the {{ing:curry-mix}} and stir." } }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "ingredients": [
+          { "id": "rice", "name": { "ru": "Рис", "en": "Rice" }, "qty": { "min": 2 }, "unit": "cup", "prep": { "ru": "отварить", "en": "cooked" } }
+        ],
+        "steps": [
+          { "id": "serve", "text": { "ru": "Подавать с {{ing:rice}}.", "en": "Serve with {{ing:rice}}." } }
+        ]
+      }
+    ]
+  }
+}

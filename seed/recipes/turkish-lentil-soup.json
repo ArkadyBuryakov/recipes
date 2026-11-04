@@ -1,0 +1,65 @@
+{
+  "slug": "turkish-lentil-soup",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Турецкий чечевичный суп", "en": "Turkish lentil soup" },
+    "description": { "ru": "Классический турецкий суп-пюре из красной чечевицы (Mercimek çorbası). 6–8 порций.", "en": "Classic Turkish red lentil purée soup (Mercimek çorbası). Serves 6–8." },
+    "servings": { "amount": 6 },
+    "times": { "prepMin": 15, "cookMin": 30 },
+    "tags": [
+      { "ru": "турецкая", "en": "turkish" },
+      { "ru": "суп", "en": "soup" }
+    ],
+    "source": { "url": "https://www.nefisyemektarifleri.com/mercimek-corbasi-tarifi/", "label": { "en": "Nefis Yemek Tarifleri — Mercimek Çorbası" } },
+    "sections": [
+      {
+        "id": "soup",
+        "title": { "ru": "Суп", "en": "Soup" },
+        "bowls": [{ "id": "veg", "label": { "ru": "Паста, морковь и чечевица", "en": "Paste, carrot and lentils" } }],
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "qty": { "min": 5 }, "unit": "tbsp" },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onion" }, "qty": { "min": 1 }, "prep": { "ru": "нарезать кубиком", "en": "diced" } },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "pepper-paste", "name": { "ru": "Перцовая паста", "en": "Pepper paste" }, "qty": { "min": 0.5 }, "unit": "tbsp", "optional": true, "bowl": "veg", "alternatives": [{ "name": { "ru": "томатная паста", "en": "tomato paste" } }] },
+          { "id": "carrot", "name": { "ru": "Морковь", "en": "Carrot" }, "qty": { "min": 1 }, "prep": { "ru": "нарезать кубиком", "en": "diced" }, "bowl": "veg" },
+          { "id": "lentils", "name": { "ru": "Красная чечевица", "en": "Red lentils" }, "qty": { "min": 2 }, "unit": "cup", "prep": { "ru": "промыть", "en": "rinsed" }, "bowl": "veg" },
+          { "id": "water", "name": { "ru": "Горячая вода", "en": "Hot water" }, "qty": { "min": 2 }, "unit": "l" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "tsp" },
+          { "id": "black-pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "qty": { "min": 0.5 }, "unit": "tsp" },
+          { "id": "cumin", "name": { "ru": "Зира", "en": "Cumin" }, "qty": { "min": 1 }, "unit": "tsp", "optional": true }
+        ],
+        "steps": [
+          { "id": "onion", "text": { "ru": "Обжарить {{ing:onion}} в {{ing:oil}} на слабом огне до светло-розового цвета.", "en": "Fry the {{ing:onion}} in the {{ing:oil}} over low heat until pale pink." } },
+          { "id": "flour", "text": { "ru": "Добавить {{ing:flour}} и, помешивая, ещё немного прогреть.", "en": "Add the {{ing:flour}} and cook a little longer, stirring." } },
+          { "id": "veg", "text": { "ru": "Добавить {{ing:pepper-paste}} (если используется), {{ing:carrot}} и {{ing:lentils}}.", "en": "Add the {{ing:pepper-paste}} (if using), {{ing:carrot}} and {{ing:lentils}}." } },
+          { "id": "water", "text": { "ru": "Влить {{ing:water}}, накрыть крышкой и довести до кипения на среднем огне.", "en": "Pour in the {{ing:water}}, cover and bring to a boil over medium heat." } },
+          { "id": "simmer", "text": { "ru": "Убавить огонь и варить, иногда помешивая, пока чечевица и морковь не станут мягкими.", "en": "Lower the heat and simmer, stirring occasionally, until the lentils and carrot are soft." } },
+          { "id": "blend", "text": { "ru": "Пробить блендером до однородности (или протереть через сито).", "en": "Blend until smooth (or press through a sieve)." } },
+          { "id": "season", "text": { "ru": "Добавить {{ing:salt}}, {{ing:black-pepper}} и {{ing:cumin}} и поварить ещё {{timer:5m}}.", "en": "Add the {{ing:salt}}, {{ing:black-pepper}} and {{ing:cumin}} and simmer for another {{timer:5m}}." } },
+          { "id": "thin", "text": { "ru": "Если суп слишком густой, долить немного горячей воды и снова довести до кипения.", "en": "If the soup is too thick, add a little more hot water and bring back to a boil." } }
+        ]
+      },
+      {
+        "id": "topping",
+        "title": { "ru": "Заправка", "en": "Topping" },
+        "ingredients": [
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "pul-biber", "name": { "ru": "Хлопья красного перца (пул бибер)", "en": "Red pepper flakes (pul biber)" }, "qty": { "min": 1 }, "unit": "tsp" }
+        ],
+        "steps": [
+          { "id": "pepper-butter", "text": { "ru": "Растопить {{ing:butter}} в сковороде, всыпать {{ing:pul-biber}} и сразу снять с огня.", "en": "Melt the {{ing:butter}} in a pan, add the {{ing:pul-biber}} and remove from the heat right away." } }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "ingredients": [
+          { "id": "lemon", "name": { "ru": "Лимон", "en": "Lemon" }, "scaling": "to-taste", "prep": { "ru": "нарезать дольками", "en": "cut into wedges" } }
+        ],
+        "steps": [
+          { "id": "serve", "text": { "ru": "Разлить суп по тарелкам, полить перечным маслом и подавать с долькой {{ing:lemon}}.", "en": "Ladle the soup into bowls, drizzle with the pepper butter and serve with a wedge of {{ing:lemon}}." } }
+        ]
+      }
+    ]
+  }
+}

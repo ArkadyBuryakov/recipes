@@ -1,0 +1,138 @@
+{
+  "slug": "lasagna",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Лазанья", "en": "Lasagna" },
+    "description": {
+      "ru": "Лазанья с бешамелью на пармезане и быстрым болоньезе из фарша и готового соуса Barilla",
+      "en": "Lasagna with parmesan béchamel and a quick Bolognese made from mince and ready-made Barilla sauce"
+    },
+    "servings": { "amount": 6 },
+    "tags": [
+      { "ru": "итальянская", "en": "italian" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "говядина", "en": "beef" }
+    ],
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 200 °C", "en": "Preheat the oven to 200 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "bechamel",
+        "title": { "ru": "Соус бешамель", "en": "Béchamel sauce" },
+        "ingredients": [
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "qty": { "min": 75 }, "unit": "g" },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 2 }, "unit": "tbsp" },
+          { "id": "milk", "name": { "ru": "Молоко", "en": "Milk" }, "qty": { "min": 400 }, "unit": "ml" },
+          { "id": "eggs", "name": { "ru": "Яйца", "en": "Eggs" }, "qty": { "min": 2 }, "prep": { "ru": "взбить", "en": "beaten" } },
+          { "id": "parmesan", "name": { "ru": "Пармезан", "en": "Parmesan" }, "qty": { "min": 150 }, "unit": "g", "prep": { "ru": "натереть", "en": "grated" } },
+          { "id": "nutmeg", "name": { "ru": "Мускатный орех", "en": "Nutmeg" }, "qty": { "min": 1 }, "unit": "pinch", "optional": true }
+        ],
+        "steps": [
+          { "id": "melt", "text": { "ru": "В небольшой кастрюле растопить {{ing:butter}}", "en": "Melt the {{ing:butter}} in a small saucepan" } },
+          {
+            "id": "flour",
+            "text": {
+              "ru": "Всыпать {{ing:flour}} и тщательно перемешивать, чтобы не было комочков",
+              "en": "Add the {{ing:flour}} and stir thoroughly so there are no lumps"
+            }
+          },
+          {
+            "id": "toast",
+            "text": {
+              "ru": "Перемешивать, пока мука чуть не поджарится и не пожелтеет",
+              "en": "Keep stirring until the flour is lightly toasted and turns yellowish"
+            }
+          },
+          {
+            "id": "milk",
+            "text": {
+              "ru": "Тонкой струйкой влить {{ing:milk}}, постоянно помешивая, чтобы не образовались комки",
+              "en": "Pour in the {{ing:milk}} in a thin stream, stirring constantly so no lumps form"
+            }
+          },
+          {
+            "id": "thicken",
+            "text": {
+              "ru": "Довести до кипения и помешивать на медленном огне до консистенции жидкой сметаны",
+              "en": "Bring to a boil and stir over low heat until it has the consistency of thin sour cream"
+            }
+          },
+          {
+            "id": "eggs",
+            "text": {
+              "ru": "Влить {{ing:eggs}}, быстро перемешивая",
+              "en": "Pour in the {{ing:eggs}}, stirring quickly"
+            }
+          },
+          {
+            "id": "cheese",
+            "text": {
+              "ru": "Снять с огня, всыпать {{ing:parmesan}} и {{ing:nutmeg}}. Тщательно перемешать",
+              "en": "Take off the heat, add the {{ing:parmesan}} and {{ing:nutmeg}}. Stir thoroughly"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bolognese",
+        "title": { "ru": "Болоньезе", "en": "Bolognese" },
+        "ingredients": [
+          {
+            "id": "mince",
+            "name": { "ru": "Говяжий фарш", "en": "Ground beef" },
+            "qty": { "min": 400 },
+            "unit": "g",
+            "alternatives": [{ "name": { "ru": "говядина + свинина или баранина", "en": "beef + pork or lamb" } }]
+          },
+          {
+            "id": "sauce",
+            "name": { "ru": "Соус Barilla", "en": "Barilla pasta sauce" },
+            "qty": { "min": 2 },
+            "unit": "can",
+            "prep": { "ru": "Аррабьята + Наполетана и/или Болоньезе", "en": "Arrabbiata + Napoletana and/or Bolognese" }
+          }
+        ],
+        "steps": [
+          {
+            "id": "brown",
+            "text": {
+              "ru": "Выложить {{ing:mince}} на разогретую сковороду и жарить, пока фарш не изменит цвет",
+              "en": "Put the {{ing:mince}} into a hot pan and fry until it changes colour"
+            }
+          },
+          { "id": "sauce", "text": { "ru": "Добавить {{ing:sauce}}", "en": "Add the {{ing:sauce}}" } },
+          { "id": "reduce", "text": { "ru": "Жарить до загустения соуса", "en": "Cook until the sauce thickens" } }
+        ]
+      },
+      {
+        "id": "assembly",
+        "title": { "ru": "Лазанья", "en": "Lasagna" },
+        "ingredients": [
+          { "id": "sheets", "name": { "ru": "Листы лазаньи", "en": "Lasagna sheets" } },
+          { "id": "parmesan-top", "name": { "ru": "Пармезан", "en": "Parmesan" }, "prep": { "ru": "немного", "en": "a little" } }
+        ],
+        "steps": [
+          {
+            "id": "layer",
+            "text": {
+              "ru": "Выложить в форму слоями: болоньезе, {{ing:sheets}}, бешамель — и повторить",
+              "en": "Layer in a baking dish: Bolognese, {{ing:sheets}}, béchamel — and repeat"
+            }
+          },
+          {
+            "id": "top",
+            "text": { "ru": "Поверх последнего слоя натереть {{ing:parmesan-top}}", "en": "Grate the {{ing:parmesan-top}} over the top layer" }
+          },
+          {
+            "id": "bake",
+            "text": {
+              "ru": "Запекать в духовке при 200 °C {{timer:25m}} (25–30 минут)",
+              "en": "Bake at 200 °C for {{timer:25m}} (25–30 minutes)"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

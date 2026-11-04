@@ -1,0 +1,73 @@
+{
+  "slug": "karaage",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Караагэ", "en": "Karaage" },
+    "description": {
+      "ru": "Японская жареная курица в два этапа обжарки. Подавать с рисом, свежими и маринованными овощами.",
+      "en": "Japanese fried chicken, double-fried. Serve with rice and fresh and pickled vegetables."
+    },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "японская", "en": "japanese" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "курица", "en": "chicken" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=wv4GEri998c", "label": { "ru": "YouTube — How to cook KARAAGE", "en": "YouTube — How to cook KARAAGE" } },
+    "sections": [
+      {
+        "id": "marinade",
+        "title": { "ru": "Маринад", "en": "Marinade" },
+        "bowls": [{ "id": "marinade-mix", "label": { "ru": "Маринад", "en": "Marinade" } }],
+        "ingredients": [
+          { "id": "chicken", "name": { "ru": "Курица", "en": "Chicken" }, "qty": { "min": 300, "max": 400 }, "unit": "g", "prep": { "ru": "лучше бёдра или крылья; без костей, кусочками", "en": "preferably thighs or wings; boned, cut into pieces" } },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2, "max": 3 }, "unit": "clove", "bowl": "marinade-mix", "prep": { "ru": "натереть", "en": "grated" } },
+          { "id": "ginger", "name": { "ru": "Имбирь", "en": "Ginger" }, "qty": { "min": 1 }, "unit": "piece", "bowl": "marinade-mix", "prep": { "ru": "небольшой, натереть", "en": "small, grated" } },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 3, "max": 5 }, "unit": "tbsp", "bowl": "marinade-mix" },
+          { "id": "sake", "name": { "ru": "Сакэ", "en": "Sake" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "marinade-mix", "optional": true },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 1, "max": 2 }, "unit": "tbsp", "bowl": "marinade-mix" }
+        ],
+        "steps": [
+          { "id": "prep-meat", "text": { "ru": "Подготовить {{ing:chicken}}: удалить кости и нарезать на кусочки.", "en": "Prepare the {{ing:chicken}}: remove the bones and cut into pieces." } },
+          { "id": "grate", "text": { "ru": "В миску натереть {{ing:garlic}} и {{ing:ginger}}.", "en": "Grate the {{ing:garlic}} and {{ing:ginger}} into a bowl." } },
+          { "id": "liquids", "text": { "ru": "Добавить {{ing:soy}}, {{ing:sake}} и {{ing:sugar}}.", "en": "Add the {{ing:soy}}, {{ing:sake}} and {{ing:sugar}}." } },
+          { "id": "marinate", "text": { "ru": "Положить мясо в маринад и оставить на 3–5 часов ({{timer:3h}}), минимум на {{timer:1h}}.", "en": "Add the meat to the marinade and leave for 3–5 hours ({{timer:3h}}), at least {{timer:1h}}." } }
+        ],
+        "waitAfterMin": 180
+      },
+      {
+        "id": "batter",
+        "title": { "ru": "Панировка", "en": "Coating" },
+        "ingredients": [
+          { "id": "starch", "name": { "ru": "Крахмал", "en": "Starch" }, "qty": { "min": 3, "max": 5 }, "unit": "tbsp" }
+        ],
+        "steps": [
+          { "id": "drain", "text": { "ru": "Слить излишки маринада и насыпать {{ing:starch}}.", "en": "Pour off the excess marinade and add the {{ing:starch}}." } },
+          { "id": "coat", "text": { "ru": "Перемешать курицу с крахмалом до полного покрытия — должна получиться густая масса.", "en": "Mix the chicken with the starch until fully coated — it should become a thick paste." } }
+        ]
+      },
+      {
+        "id": "frying",
+        "title": { "ru": "Обжарка", "en": "Frying" },
+        "ingredients": [
+          { "id": "frying-oil", "name": { "ru": "Масло для фритюра", "en": "Oil for deep-frying" }, "prep": { "ru": "столько, чтобы кусочки погружались целиком", "en": "enough to fully submerge the pieces" } }
+        ],
+        "steps": [
+          { "id": "oil", "text": { "ru": "Налить в кастрюлю {{ing:frying-oil}} — столько, чтобы кусочки погружались целиком.", "en": "Pour {{ing:frying-oil}} into a pot, deep enough to fully submerge the pieces." } },
+          { "id": "heat-1", "text": { "ru": "Нагреть масло до 150 °C и убавить до среднего огня.", "en": "Heat the oil to 150 °C and turn down to medium heat." } },
+          { "id": "fry-1", "text": { "ru": "Обжарить мясо небольшими партиями по 2–4 минуты ({{timer:3m}}) и отложить.", "en": "Fry the meat in small batches for 2–4 minutes each ({{timer:3m}}) and set aside." } },
+          { "id": "heat-2", "text": { "ru": "Нагреть масло до 200 °C.", "en": "Heat the oil to 200 °C." } },
+          { "id": "fry-2", "text": { "ru": "Обжарить мясо повторно небольшими порциями по 1–2 минуты ({{timer:1m30s}}).", "en": "Fry the meat again in small batches for 1–2 minutes each ({{timer:1m30s}})." } },
+          { "id": "rest", "text": { "ru": "Выложить на бумажное полотенце, чтобы впиталось лишнее масло.", "en": "Transfer to paper towels to absorb the excess oil." } }
+        ]
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "steps": [
+          { "id": "serve", "text": { "ru": "Подавать с рисом, свежими и маринованными овощами.", "en": "Serve with rice and fresh and pickled vegetables." } }
+        ]
+      }
+    ]
+  }
+}

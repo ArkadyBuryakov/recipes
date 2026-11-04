@@ -1,0 +1,50 @@
+{
+  "slug": "ptitim-with-chicken",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Птитим с курицей", "en": "Ptitim with chicken" },
+    "description": {
+      "ru": "Птитим с курицей и шампиньонами в сливочном соусе.",
+      "en": "Ptitim with chicken and mushrooms in a cream sauce."
+    },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "основное", "en": "main" },
+      { "ru": "курица", "en": "chicken" }
+    ],
+    "source": { "url": "https://t.me/c/1242761780/148", "label": { "ru": "Telegram — Луковые новости", "en": "Telegram — Lukovye novosti" } },
+    "sections": [
+      {
+        "id": "ptitim",
+        "title": { "ru": "Птитим", "en": "Ptitim" },
+        "ingredients": [
+          { "id": "ptitim", "name": { "ru": "Птитим", "en": "Ptitim" }, "qty": { "min": 160 }, "unit": "g" }
+        ],
+        "steps": [
+          { "id": "boil-ptitim", "text": { "ru": "Сначала поставить вариться {{ing:ptitim}}.", "en": "First, put the {{ing:ptitim}} on to boil." } }
+        ]
+      },
+      {
+        "id": "main",
+        "title": { "ru": "Курица с грибами", "en": "Chicken and mushrooms" },
+        "bowls": [{ "id": "veg", "label": { "ru": "Лук и грибы", "en": "Onion and mushrooms" } }],
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "scaling": "to-taste" },
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" }, "scaling": "to-taste", "optional": true },
+          { "id": "onion", "name": { "ru": "Репчатый лук", "en": "Onion" }, "qty": { "min": 40 }, "unit": "g", "prep": { "ru": "нарезать (можно больше)", "en": "chopped (more is fine)" }, "bowl": "veg" },
+          { "id": "mushrooms", "name": { "ru": "Шампиньоны", "en": "Button mushrooms" }, "qty": { "min": 100 }, "unit": "g", "prep": { "ru": "нарезать", "en": "sliced" }, "bowl": "veg" },
+          { "id": "chicken", "name": { "ru": "Куриное филе", "en": "Chicken breast" }, "qty": { "min": 100 }, "unit": "g", "prep": { "ru": "нарезать", "en": "cut into pieces" } },
+          { "id": "cream", "name": { "ru": "Кулинарные сливки", "en": "Cooking cream" }, "qty": { "min": 150 }, "unit": "g" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste" },
+          { "id": "spices", "name": { "ru": "Специи", "en": "Spices" }, "scaling": "to-taste" }
+        ],
+        "steps": [
+          { "id": "fry-veg", "text": { "ru": "Обжарить {{ing:onion}} и {{ing:mushrooms}} (желательно на смеси {{ing:oil}} и {{ing:butter}}), пока грибы не отдадут влагу.", "en": "Fry the {{ing:onion}} and {{ing:mushrooms}} (ideally in a mix of {{ing:oil}} and {{ing:butter}}) until the mushrooms release their liquid." } },
+          { "id": "fry-chicken", "text": { "ru": "Добавить {{ing:chicken}} и жарить до готовности.", "en": "Add the {{ing:chicken}} and fry until cooked through." } },
+          { "id": "finish", "text": { "ru": "Добавить отварной птитим, влить {{ing:cream}}, добавить {{ing:salt}}, {{ing:pepper}} и {{ing:spices}} по вкусу и немного уварить до загустения.", "en": "Add the boiled ptitim, pour in the {{ing:cream}}, season with {{ing:salt}}, {{ing:pepper}} and {{ing:spices}} to taste, and simmer briefly until slightly thickened." } }
+        ]
+      }
+    ]
+  }
+}

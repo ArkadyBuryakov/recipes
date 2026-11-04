@@ -2,7 +2,7 @@
 node_modules
 build
 .react-router
-recipes
+/recipes
 docs
 playwright-report
 test-results

@@ -1,0 +1,66 @@
+{
+  "slug": "peach-turnover-cake",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Пирог-перевёртыш с персиками", "en": "Peach upside-down cake" },
+    "description": {
+      "ru": "Пирог-перевёртыш в чугунной сковороде: карамель, персики с кориандром и медовый бисквит.",
+      "en": "An upside-down cake baked in a cast-iron pan: caramel, coriander-dusted peaches and a honey sponge."
+    },
+    "servings": { "amount": 8 },
+    "tags": [
+      { "ru": "десерт", "en": "dessert" },
+      { "ru": "выпечка", "en": "baking" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=LnXSzqJ-FLo", "label": { "ru": "YouTube — 5 Cast Iron Pan Recipes", "en": "YouTube — 5 Cast Iron Pan Recipes" } },
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 150 °C", "en": "Preheat the oven to 150 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "topping",
+        "title": { "ru": "Топпинг", "en": "Topping" },
+        "bowls": [{ "id": "sugars", "label": { "ru": "Весь сахар", "en": "All the sugar" } }],
+        "ingredients": [
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 0.5 }, "unit": "cup", "bowl": "sugars" },
+          { "id": "sugar-extra", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 2, "max": 3 }, "unit": "tbsp", "bowl": "sugars" },
+          { "id": "butter", "name": { "ru": "Сливочное масло", "en": "Butter" } },
+          { "id": "peaches", "name": { "ru": "Персики", "en": "Peaches" }, "qty": { "min": 5 }, "prep": { "ru": "средние, тонко нарезать", "en": "medium, thinly sliced" } },
+          { "id": "coriander", "name": { "ru": "Кориандр", "en": "Coriander seeds" }, "qty": { "min": 1 }, "unit": "tbsp", "prep": { "ru": "смолоть", "en": "ground" } }
+        ],
+        "steps": [
+          { "id": "caramel", "text": { "ru": "На среднем или слабом огне карамелизовать {{ing:sugar}} и {{ing:sugar-extra}} в сковороде, активно помешивая.", "en": "Over medium-low heat, caramelize the {{ing:sugar}} and {{ing:sugar-extra}} in the pan, stirring constantly." } },
+          { "id": "butter", "text": { "ru": "Как только весь сахар растопился, добавить {{ing:butter}} и перемешивать до однородности.", "en": "As soon as all the sugar has melted, add the {{ing:butter}} and stir until fully combined." } },
+          { "id": "off", "text": { "ru": "Выключить огонь.", "en": "Turn off the heat." } },
+          { "id": "peaches", "text": { "ru": "Тонко нарезать {{ing:peaches}} и выложить на карамель.", "en": "Thinly slice the {{ing:peaches}} and lay them over the caramel." } },
+          { "id": "coriander", "text": { "ru": "Смолоть {{ing:coriander}} и равномерно посыпать персики.", "en": "Grind the {{ing:coriander}} and sprinkle it evenly over the peaches." } }
+        ]
+      },
+      {
+        "id": "batter",
+        "title": { "ru": "Тесто", "en": "Batter" },
+        "bowls": [{ "id": "dry", "label": { "ru": "Мука и соль", "en": "Flour and salt" } }],
+        "ingredients": [
+          { "id": "eggs", "name": { "ru": "Яйца", "en": "Eggs" }, "qty": { "min": 3 } },
+          { "id": "honey", "name": { "ru": "Мёд", "en": "Honey" }, "qty": { "min": 0.333 }, "unit": "cup" },
+          { "id": "flour", "name": { "ru": "Мука", "en": "Flour" }, "qty": { "min": 1.5 }, "unit": "cup", "bowl": "dry" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "pinch", "bowl": "dry" }
+        ],
+        "steps": [
+          { "id": "whisk", "text": { "ru": "Соединить в одной ёмкости {{ing:eggs}} и {{ing:honey}} и взбивать миксером {{timer:5m}}.", "en": "Combine the {{ing:eggs}} and {{ing:honey}} in a bowl and beat with a mixer for {{timer:5m}}." } },
+          { "id": "fold", "text": { "ru": "Добавить {{ing:flour}} и {{ing:salt}} и аккуратно перемешать до однородности.", "en": "Add the {{ing:flour}} and {{ing:salt}} and gently fold until smooth." } }
+        ]
+      },
+      {
+        "id": "baking",
+        "title": { "ru": "Выпекание", "en": "Baking" },
+        "steps": [
+          { "id": "pour", "text": { "ru": "Вылить тесто в сковороду поверх персиков.", "en": "Pour the batter into the pan over the peaches." } },
+          { "id": "bake", "text": { "ru": "Выпекать в духовке {{timer:45m}}.", "en": "Bake in the oven for {{timer:45m}}." } },
+          { "id": "cool", "text": { "ru": "Дать немного остыть {{timer:5m}}.", "en": "Let it cool slightly for {{timer:5m}}." } },
+          { "id": "flip", "text": { "ru": "Извлечь пирог из сковороды, перевернув её. Можно накрыть сковороду доской и перевернуть вместе с ней, чтобы пирог сразу оказался на доске.", "en": "Turn the cake out of the pan by flipping it. You can cover the pan with a board and flip them together so the cake lands right on the board." } }
+        ]
+      }
+    ]
+  }
+}

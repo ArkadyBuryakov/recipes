@@ -1,0 +1,83 @@
+{
+  "slug": "lamb-ribs",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Бараньи рёбрышки", "en": "Lamb ribs" },
+    "description": { "ru": "Бараньи рёбра, запечённые в духовке в медово-соевом соусе", "en": "Oven-baked lamb ribs in a honey-soy glaze" },
+    "servings": { "amount": 4 },
+    "times": { "cookMin": 45 },
+    "tags": [
+      { "ru": "основное", "en": "main" },
+      { "ru": "баранина", "en": "lamb" }
+    ],
+    "source": {
+      "url": "https://lifehacker.ru/recipe/barani-ryobra-zapechyonnye-v-duxovke/",
+      "label": { "ru": "Лайфхакер", "en": "Lifehacker" }
+    },
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 180 °C", "en": "Preheat the oven to 180 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "sauce",
+        "title": { "ru": "Соус", "en": "Sauce" },
+        "bowls": [{ "id": "sauce", "label": { "ru": "Соус", "en": "Sauce" } }],
+        "ingredients": [
+          { "id": "honey", "name": { "ru": "Мёд", "en": "Honey" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 4 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2 }, "unit": "clove", "prep": { "ru": "измельчить", "en": "minced" }, "bowl": "sauce" },
+          { "id": "brown-sugar", "name": { "ru": "Коричневый сахар", "en": "Brown sugar" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "hot-sauce", "name": { "ru": "Острый соус", "en": "Hot sauce" }, "qty": { "min": 1, "max": 2 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "rice-vinegar", "name": { "ru": "Рисовый уксус", "en": "Rice vinegar" }, "qty": { "min": 2 }, "unit": "tbsp", "bowl": "sauce" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste", "bowl": "sauce" }
+        ],
+        "steps": [
+          {
+            "id": "mix",
+            "text": {
+              "ru": "Смешать {{ing:honey}}, {{ing:soy}}, {{ing:garlic}}, {{ing:brown-sugar}}, {{ing:hot-sauce}}, {{ing:rice-vinegar}} и {{ing:salt}}",
+              "en": "Mix the {{ing:honey}}, {{ing:soy}}, {{ing:garlic}}, {{ing:brown-sugar}}, {{ing:hot-sauce}}, {{ing:rice-vinegar}} and {{ing:salt}}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bake",
+        "title": { "ru": "Запекание", "en": "Baking" },
+        "ingredients": [
+          { "id": "ribs", "name": { "ru": "Бараньи рёбра", "en": "Lamb ribs" }, "qty": { "min": 1 }, "unit": "kg" }
+        ],
+        "steps": [
+          {
+            "id": "arrange",
+            "text": {
+              "ru": "Выложить {{ing:ribs}} одним слоем в форму или на противень и смазать половиной соуса",
+              "en": "Lay the {{ing:ribs}} in a single layer in a baking dish or on a tray and brush with half of the sauce"
+            }
+          },
+          {
+            "id": "bake-1",
+            "text": {
+              "ru": "Запекать при 180 °C {{timer:20m}} (20–25 минут)",
+              "en": "Bake at 180 °C for {{timer:20m}} (20–25 minutes)"
+            }
+          },
+          {
+            "id": "bake-2",
+            "text": {
+              "ru": "Смазать рёбрышки половиной оставшегося соуса и запекать ещё {{timer:10m}}",
+              "en": "Brush the ribs with half of the remaining sauce and bake for another {{timer:10m}}"
+            }
+          },
+          {
+            "id": "bake-3",
+            "text": {
+              "ru": "Добавить оставшийся соус, увеличить температуру до 220 °C и запекать ещё примерно {{timer:10m}}",
+              "en": "Add the rest of the sauce, raise the oven to 220 °C and bake for about {{timer:10m}} more"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

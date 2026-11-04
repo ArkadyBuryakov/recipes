@@ -1,0 +1,92 @@
+{
+  "slug": "chashu-and-nitamago",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Чашу и нитамаго", "en": "Chashu and nitamago" },
+    "description": {
+      "ru": "Маринованные свинина и яйца. Отличный топпинг к японским блюдам (рис, рамен и т. д.).",
+      "en": "Marinated pork belly and eggs. A great topping for Japanese dishes (rice, ramen, you name it)."
+    },
+    "servings": { "amount": 4 },
+    "times": { "prepMin": 20, "cookMin": 120, "passiveMin": 720 },
+    "tags": [
+      { "ru": "японская", "en": "japanese" },
+      { "ru": "топпинг", "en": "topping" },
+      { "ru": "свинина", "en": "pork" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=sYUp0qCAtzw", "label": { "ru": "Taiji's Kitchen", "en": "Taiji's Kitchen" } },
+    "prepTasks": [
+      { "id": "twine", "text": { "ru": "Приготовить кулинарную нить для перевязки мяса", "en": "Get kitchen twine to tie the meat" } },
+      { "id": "ahead", "text": { "ru": "Начать за день: мясо и яйца маринуются ночь", "en": "Start a day ahead: the pork and eggs marinate overnight" }, "leadMin": 1440 }
+    ],
+    "sections": [
+      {
+        "id": "chashu",
+        "title": { "ru": "Чашу", "en": "Chashu" },
+        "bowls": [{ "id": "aromatics", "label": { "ru": "Ароматика", "en": "Aromatics" } }],
+        "ingredients": [
+          { "id": "pork", "name": { "ru": "Свиная грудинка", "en": "Pork belly" }, "qty": { "min": 750, "max": 1000 }, "unit": "g" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2, "max": 3 }, "unit": "clove", "bowl": "aromatics" },
+          { "id": "ginger", "name": { "ru": "Имбирь", "en": "Ginger" }, "qty": { "min": 10 }, "unit": "g", "bowl": "aromatics", "prep": { "ru": "тонко нарезать", "en": "thinly sliced" } },
+          { "id": "scallion", "name": { "ru": "Зелёный лук", "en": "Scallion" }, "qty": { "min": 1, "max": 2 }, "unit": "stalk", "bowl": "aromatics" }
+        ],
+        "steps": [
+          { "id": "score", "text": { "ru": "На {{ing:pork}} сделать надрезы и проткнуть мясо вилкой по всей площади с обеих сторон.", "en": "Score the {{ing:pork}} and prick it all over with a fork on both sides." } },
+          { "id": "roll", "text": { "ru": "Скрутить {{ing:pork}} надрезами внутрь, начиная с тонкой стороны, и зафиксировать нитью.", "en": "Roll up the {{ing:pork}} with the scored side inside, starting from the thin end, and tie it with twine." } },
+          { "id": "blanch", "text": { "ru": "Залить {{ing:pork}} в кастрюле водой, довести до кипения и кипятить около {{timer:1m}}.", "en": "Cover the {{ing:pork}} with water in a pot, bring to a boil and boil for about {{timer:1m}}." } },
+          { "id": "rinse", "text": { "ru": "Слить воду, помыть кастрюлю и прополоскать {{ing:pork}}.", "en": "Drain the water, wash the pot and rinse the {{ing:pork}}." } },
+          { "id": "boil", "text": { "ru": "Снова залить мясо водой, добавить {{ing:scallion}}, {{ing:garlic}} и {{ing:ginger}}. Довести до кипения и варить под крышкой {{timer:1h30m}}, доливая воду, чтобы мясо всегда было покрыто.", "en": "Cover the meat with water again, add {{ing:scallion}}, {{ing:garlic}} and {{ing:ginger}}. Bring to a boil and simmer covered for {{timer:1h30m}}, topping up the water so the meat stays submerged." } },
+          { "id": "remove", "text": { "ru": "Вынуть мясо, отваренные овощи выбросить. Бульон сохранить — для маринада и других блюд.", "en": "Take out the meat and discard the boiled vegetables. Keep the broth for the marinade and other dishes." } }
+        ]
+      },
+      {
+        "id": "marinade",
+        "title": { "ru": "Маринад", "en": "Marinade" },
+        "bowls": [{ "id": "marinade-mix", "label": { "ru": "Маринад", "en": "Marinade" } }],
+        "ingredients": [
+          { "id": "broth", "name": { "ru": "Свиной бульон", "en": "Pork broth" }, "qty": { "min": 2 }, "unit": "cup", "bowl": "marinade-mix" },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 1 }, "unit": "cup", "bowl": "marinade-mix" },
+          { "id": "sugar", "name": { "ru": "Сахар", "en": "Sugar" }, "qty": { "min": 100, "max": 150 }, "unit": "g", "bowl": "marinade-mix" },
+          { "id": "garlic-2", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2, "max": 3 }, "unit": "clove", "bowl": "marinade-mix" },
+          { "id": "ginger-2", "name": { "ru": "Имбирь", "en": "Ginger" }, "qty": { "min": 10 }, "unit": "g", "bowl": "marinade-mix" },
+          { "id": "scallion-2", "name": { "ru": "Зелёный лук", "en": "Scallion" }, "qty": { "min": 1, "max": 2 }, "unit": "stalk", "bowl": "marinade-mix" },
+          { "id": "chili", "name": { "ru": "Острый перец", "en": "Chili pepper" }, "optional": true, "scaling": "to-taste", "bowl": "marinade-mix" }
+        ],
+        "steps": [
+          { "id": "combine", "text": { "ru": "Положить {{ing:pork}} в небольшую кастрюлю, добавить {{ing:broth}}, {{ing:soy}}, {{ing:sugar}}, {{ing:garlic-2}}, {{ing:ginger-2}}, {{ing:scallion-2}} и {{ing:chili}}.", "en": "Put the {{ing:pork}} into a small pot and add {{ing:broth}}, {{ing:soy}}, {{ing:sugar}}, {{ing:garlic-2}}, {{ing:ginger-2}}, {{ing:scallion-2}} and {{ing:chili}}." } },
+          { "id": "simmer", "text": { "ru": "Довести до кипения на среднем огне и накрыть мясо бумажной салфеткой.", "en": "Bring to a boil over medium heat and cover the meat with a paper towel." } },
+          { "id": "cook", "text": { "ru": "Варить {{timer:20m}}, через {{timer:10m}} перевернуть мясо.", "en": "Simmer for {{timer:20m}}, turning the meat over after {{timer:10m}}." } },
+          { "id": "cool", "text": { "ru": "Дать кастрюле остыть.", "en": "Let the pot cool down." } }
+        ]
+      },
+      {
+        "id": "nitamago",
+        "title": { "ru": "Нитамаго", "en": "Nitamago" },
+        "ingredients": [
+          { "id": "eggs", "name": { "ru": "Яйца", "en": "Eggs" }, "qty": { "min": 3 } }
+        ],
+        "steps": [
+          { "id": "eggs-boil", "text": { "ru": "Пока остывает мясо, сварить {{ing:eggs}} в мешочек — {{timer:6m}}, затем очистить.", "en": "While the meat cools, soft-boil the {{ing:eggs}} for {{timer:6m}}, then peel them." } }
+        ]
+      },
+      {
+        "id": "marinating",
+        "title": { "ru": "Маринование", "en": "Marinating" },
+        "steps": [
+          { "id": "pack", "text": { "ru": "Перелить маринад в одну ёмкость, переложить туда {{ing:pork}} и {{ing:eggs}} (лучше всего зип-лок пакет или контейнер по размеру).", "en": "Pour the marinade into one container and add the {{ing:pork}} and {{ing:eggs}} (a zip-lock bag or a snug container works best)." } },
+          { "id": "overnight", "text": { "ru": "Оставить на ночь.", "en": "Leave overnight." } }
+        ],
+        "waitAfterMin": 720
+      },
+      {
+        "id": "serving",
+        "title": { "ru": "Подача", "en": "Serving" },
+        "steps": [
+          { "id": "serve-topping", "text": { "ru": "Мясо и яйца можно использовать как топпинг как есть.", "en": "The pork and eggs can be used as a topping as is." } },
+          { "id": "serve-sauce", "text": { "ru": "Маринад можно использовать как заправку или для приготовления соуса терияки.", "en": "The marinade can be used as a dressing or to make teriyaki sauce." } },
+          { "id": "serve-sear", "text": { "ru": "Нарезанное мясо можно дополнительно обжарить и карамелизовать в небольшом количестве маринада.", "en": "Sliced pork can also be seared and caramelized in a little of the marinade." } }
+        ]
+      }
+    ]
+  }
+}

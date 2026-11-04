@@ -1,0 +1,163 @@
+{
+  "slug": "pasta-potatoes-mussels",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Паста с картошкой и мидиями", "en": "Pasta with potatoes and mussels" },
+    "description": {
+      "ru": "Pasta e patate e cozze — неаполитанское домашнее блюдо в версии шефа Антонио (La Minerva, Капри). В видео количества не названы — указаны примерные, по классическим пропорциям. Соль не добавляем: она приходит из мидий",
+      "en": "Pasta e patate e cozze — a Neapolitan home-style dish, as made by chef Antonio (La Minerva, Capri). The video gives no quantities, so these are approximate, based on the classic proportions. No salt: it comes from the mussels"
+    },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "итальянская", "en": "italian" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "морепродукты", "en": "seafood" }
+    ],
+    "source": {
+      "url": "https://www.instagram.com/reel/DZktgNENevt/",
+      "label": { "ru": "Шеф Антонио, La Minerva (Капри)", "en": "Chef Antonio, La Minerva (Capri)" }
+    },
+    "sections": [
+      {
+        "id": "mussels",
+        "title": { "ru": "Мидии", "en": "Mussels" },
+        "ingredients": [
+          {
+            "id": "mussels",
+            "name": { "ru": "Мидии в раковинах", "en": "Mussels in their shells" },
+            "qty": { "min": 500 },
+            "unit": "g"
+          }
+        ],
+        "steps": [
+          {
+            "id": "boil",
+            "text": {
+              "ru": "Отварить {{ing:mussels}} и очистить (получится ~120 г мяса). Бульон от варки сохранить",
+              "en": "Boil the {{ing:mussels}} and shell them (about 120 g of meat). Keep the cooking liquid"
+            }
+          }
+        ]
+      },
+      {
+        "id": "pasta",
+        "title": { "ru": "Паста", "en": "Pasta" },
+        "bowls": [{ "id": "soffritto", "label": { "ru": "Лук и сельдерей", "en": "Onion and celery" } }],
+        "ingredients": [
+          {
+            "id": "onion",
+            "name": { "ru": "Лук", "en": "Onion" },
+            "qty": { "min": 50 },
+            "unit": "g",
+            "prep": {
+              "ru": "половина небольшой красной луковицы и 1 молодая луковица; мелким кубиком",
+              "en": "half a small red onion and 1 spring onion; finely diced"
+            },
+            "bowl": "soffritto"
+          },
+          { "id": "celery", "name": { "ru": "Сельдерей", "en": "Celery" }, "qty": { "min": 1 }, "unit": "stalk", "prep": { "ru": "мелким кубиком", "en": "finely diced" }, "bowl": "soffritto" },
+          { "id": "lard", "name": { "ru": "Смалец", "en": "Lard" }, "qty": { "min": 1 }, "unit": "tbsp" },
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 1 }, "unit": "tbsp", "prep": { "ru": "для обжарки", "en": "for frying" } },
+          {
+            "id": "potatoes",
+            "name": { "ru": "Картошка", "en": "Potatoes" },
+            "qty": { "min": 300 },
+            "unit": "g",
+            "prep": {
+              "ru": "двух сортов по 150 г (один для структуры, другой для вкуса); кубиком покрупнее",
+              "en": "two varieties, 150 g each (one for texture, one for flavour); cut into larger dice"
+            }
+          },
+          { "id": "broth", "name": { "ru": "Бульон от варки мидий", "en": "Mussel cooking liquid" }, "qty": { "min": 200 }, "unit": "ml" },
+          { "id": "water", "name": { "ru": "Вода", "en": "Water" }, "qty": { "min": 400 }, "unit": "ml", "prep": { "ru": "подливать по необходимости", "en": "added as needed" } },
+          { "id": "pasta", "name": { "ru": "Паста mista", "en": "Pasta mista" }, "qty": { "min": 160 }, "unit": "g", "prep": { "ru": "смесь разных мелких форм", "en": "mix of small shapes" } },
+          { "id": "black-pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "scaling": "to-taste", "prep": { "ru": "много", "en": "plenty" } },
+          { "id": "basil", "name": { "ru": "Листья базилика", "en": "Basil leaves" }, "qty": { "min": 5, "max": 6 } },
+          { "id": "parsley", "name": { "ru": "Петрушка", "en": "Parsley" }, "qty": { "min": 1 }, "unit": "tbsp", "prep": { "ru": "рубленая", "en": "chopped" } },
+          { "id": "olive-oil-finish", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 2 }, "unit": "tbsp", "prep": { "ru": "в конце", "en": "to finish" } }
+        ],
+        "steps": [
+          {
+            "id": "chop",
+            "text": {
+              "ru": "Нарезать {{ing:onion}} и {{ing:celery}} мелким кубиком, {{ing:potatoes}} — кубиком покрупнее",
+              "en": "Finely dice the {{ing:onion}} and {{ing:celery}}; cut the {{ing:potatoes}} into larger dice"
+            }
+          },
+          {
+            "id": "soffritto",
+            "text": {
+              "ru": "Положить лук и сельдерей в кастрюлю, добавить {{ing:lard}} и {{ing:olive-oil}}",
+              "en": "Put the onion and celery in a pot with the {{ing:lard}} and {{ing:olive-oil}}"
+            }
+          },
+          {
+            "id": "soften",
+            "text": {
+              "ru": "Готовить на среднем огне {{timer:5m}} (5–7 минут), пока всё не станет мягким",
+              "en": "Cook over medium heat for {{timer:5m}} (5–7 minutes), until everything is soft"
+            }
+          },
+          { "id": "potatoes", "text": { "ru": "Добавить оба сорта картошки и перемешать", "en": "Add both kinds of potato and stir" } },
+          {
+            "id": "liquid",
+            "text": {
+              "ru": "Залить {{ing:broth}} и долить немного воды ({{ing:water}}) — жидкость должна только покрыть картошку",
+              "en": "Pour in the {{ing:broth}} and top up with a little {{ing:water}} — the liquid should just cover the potatoes"
+            }
+          },
+          {
+            "id": "pasta",
+            "text": {
+              "ru": "Когда картошка готова примерно на 60%, добавить {{ing:pasta}}",
+              "en": "When the potatoes are about 60% done, add the {{ing:pasta}}"
+            }
+          },
+          {
+            "id": "risotto",
+            "text": {
+              "ru": "Дальше готовить как ризотто: помешивать, чтобы выделялся крахмал, и по необходимости подливать бульон от мидий или воду. Постоянно пробовать",
+              "en": "Cook it like a risotto from here: stir so the starch is released, adding mussel liquid or water as needed. Taste constantly"
+            }
+          },
+          { "id": "pepper", "text": { "ru": "Щедро поперчить: {{ing:black-pepper}}", "en": "Season generously with {{ing:black-pepper}}" } },
+          {
+            "id": "mussels",
+            "text": {
+              "ru": "Добавить {{ing:basil}}, затем мидии и {{ing:parsley}}, перемешать",
+              "en": "Add the {{ing:basil}}, then the mussels and {{ing:parsley}}, and stir"
+            }
+          },
+          {
+            "id": "mash",
+            "text": {
+              "ru": "Размять несколько кусочков картошки для кремовости",
+              "en": "Mash a few pieces of potato for creaminess"
+            }
+          },
+          {
+            "id": "oil",
+            "text": {
+              "ru": "Влить {{ing:olive-oil-finish}}, накрыть крышкой и оставить на {{timer:2m}}",
+              "en": "Pour in the {{ing:olive-oil-finish}}, cover and leave for {{timer:2m}}"
+            }
+          },
+          {
+            "id": "mantecare",
+            "text": {
+              "ru": "Интенсивно вымешать, как ризотто со сливочным маслом в конце",
+              "en": "Stir vigorously, the way you finish a risotto with butter"
+            }
+          },
+          {
+            "id": "plate",
+            "text": {
+              "ru": "Разложить по тарелкам и посыпать чёрным перцем",
+              "en": "Plate and sprinkle with black pepper"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

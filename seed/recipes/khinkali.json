@@ -1,0 +1,73 @@
+{
+  "slug": "khinkali",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Хинкали", "en": "Khinkali" },
+    "servings": { "amount": 4 },
+    "tags": [
+      { "ru": "грузинская", "en": "georgian" },
+      { "ru": "основное", "en": "main" },
+      { "ru": "баранина", "en": "lamb" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=iMlY4gm00ic", "label": { "ru": "Грузинская кухня — Великолепный хинкали!", "en": "Georgian cuisine — Magnificent khinkali!" } },
+    "prepTasks": [
+      { "id": "dough-ahead", "text": { "ru": "Замесить тесто вечером накануне — оно отдыхает ночь", "en": "Knead the dough the evening before — it rests overnight" }, "leadMin": 720 }
+    ],
+    "sections": [
+      {
+        "id": "dough",
+        "title": { "ru": "Тесто", "en": "Dough" },
+        "bowls": [{ "id": "liquid", "label": { "ru": "Вода с уксусом и солью", "en": "Water with vinegar and salt" } }],
+        "ingredients": [
+          { "id": "flour", "name": { "ru": "Мука высшего сорта", "en": "Premium wheat flour" }, "qty": { "min": 0.5 }, "unit": "kg" },
+          { "id": "dough-water", "name": { "ru": "Ледяная вода", "en": "Ice-cold water" }, "qty": { "min": 200, "max": 300 }, "unit": "ml", "bowl": "liquid" },
+          { "id": "vinegar", "name": { "ru": "Винный уксус", "en": "Wine vinegar" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "liquid" },
+          { "id": "dough-salt", "name": { "ru": "Соль", "en": "Salt" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "liquid" }
+        ],
+        "steps": [
+          { "id": "dissolve", "text": { "ru": "Растворить {{ing:vinegar}} и {{ing:dough-salt}} в {{ing:dough-water}}.", "en": "Dissolve the {{ing:vinegar}} and {{ing:dough-salt}} in the {{ing:dough-water}}." } },
+          { "id": "knead", "text": { "ru": "Вечером замесить тесто из {{ing:flour}}, понемногу добавляя ледяную воду.", "en": "In the evening, knead a dough from the {{ing:flour}}, adding the ice-cold water a little at a time." } },
+          { "id": "rest", "text": { "ru": "Оставить тесто на ночь.", "en": "Leave the dough to rest overnight." } }
+        ],
+        "waitAfterMin": 720
+      },
+      {
+        "id": "filling",
+        "title": { "ru": "Начинка", "en": "Filling" },
+        "bowls": [{ "id": "spices", "label": { "ru": "Специи", "en": "Spices" } }],
+        "ingredients": [
+          { "id": "meat", "name": { "ru": "Баранина", "en": "Lamb" }, "qty": { "min": 0.5 }, "unit": "kg", "prep": { "ru": "мелко нарубить или крупно смолоть", "en": "finely chopped or coarsely ground" }, "alternatives": [{ "name": { "ru": "микс говядины и свинины", "en": "beef and pork mix" } }] },
+          { "id": "onion", "name": { "ru": "Лук", "en": "Onion" }, "qty": { "min": 1 }, "prep": { "ru": "пропустить через мясорубку", "en": "minced in a meat grinder" } },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2 }, "unit": "clove" },
+          { "id": "herbs", "name": { "ru": "Кинза с петрушкой", "en": "Cilantro and parsley" }, "qty": { "min": 20 }, "unit": "g", "prep": { "ru": "мелко нарубить", "en": "finely chopped" } },
+          { "id": "chili", "name": { "ru": "Красный чили", "en": "Red chili" }, "qty": { "min": 0.5 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "paprika", "name": { "ru": "Паприка", "en": "Paprika" }, "qty": { "min": 0.5 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "caraway", "name": { "ru": "Тмин", "en": "Caraway" }, "qty": { "min": 0.5 }, "unit": "tsp", "bowl": "spices" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste", "bowl": "spices" },
+          { "id": "filling-water", "name": { "ru": "Ледяная вода", "en": "Ice-cold water" }, "qty": { "min": 0.3, "max": 0.5 }, "unit": "l" }
+        ],
+        "steps": [
+          { "id": "meat", "text": { "ru": "{{ing:meat}} мелко нарубить или сделать крупный фарш.", "en": "Finely chop the {{ing:meat}} or grind it coarsely." } },
+          { "id": "onion", "text": { "ru": "{{ing:onion}} измельчить через мясорубку, мелко нарубить {{ing:herbs}}.", "en": "Mince the {{ing:onion}} in a meat grinder and finely chop the {{ing:herbs}}." } },
+          { "id": "mix", "text": { "ru": "Перемешать фарш с луком, зеленью, {{ing:garlic}} и всеми специями: {{ing:chili}}, {{ing:paprika}}, {{ing:caraway}}, {{ing:salt}}.", "en": "Mix the meat with the onion, herbs, {{ing:garlic}} and all the spices: {{ing:chili}}, {{ing:paprika}}, {{ing:caraway}}, {{ing:salt}}." } },
+          { "id": "water", "text": { "ru": "Добавить {{ing:filling-water}} до консистенции каши.", "en": "Add the {{ing:filling-water}} until the filling has the consistency of porridge." } }
+        ]
+      },
+      {
+        "id": "khinkali",
+        "title": { "ru": "Хинкали", "en": "Khinkali" },
+        "ingredients": [
+          { "id": "black-pepper", "name": { "ru": "Чёрный перец", "en": "Black pepper" }, "scaling": "to-taste", "prep": { "ru": "для подачи", "en": "for serving" } }
+        ],
+        "steps": [
+          { "id": "roll", "text": { "ru": "Разрезать тесто на кусочки по 50 г и раскатать в кружочки.", "en": "Cut the dough into 50 g pieces and roll them out into circles." } },
+          { "id": "fill", "text": { "ru": "Выложить начинку на кружок теста.", "en": "Put filling onto a dough circle." } },
+          { "id": "shape", "text": { "ru": "Слепить хинкали и отрезать край хвостика.", "en": "Pleat the khinkali and trim the top of the knot." } },
+          { "id": "test", "text": { "ru": "Слепив первые два хинкали, сварить их на пробу; если не хватает специй — добавить их в фарш.", "en": "After the first two khinkali, boil them as a test; if the filling needs more spices, add them." } },
+          { "id": "boil", "text": { "ru": "Долепить остальные и сварить. При варке раскрутить воду в кастрюле и опускать хинкали хвостиками вниз.", "en": "Shape the rest and boil them. Stir the water into a whirlpool and drop the khinkali in, knots down." } },
+          { "id": "serve", "text": { "ru": "Подавать, посыпав {{ing:black-pepper}}.", "en": "Serve sprinkled with {{ing:black-pepper}}." } }
+        ]
+      }
+    ]
+  }
+}

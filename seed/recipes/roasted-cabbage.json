@@ -1,0 +1,90 @@
+{
+  "slug": "roasted-cabbage",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Запечённая капуста", "en": "Roasted cabbage" },
+    "description": {
+      "ru": "Крупные куски капусты, запечённые со специями, с заправкой из апельсина, горчицы и пармезана",
+      "en": "Big chunks of cabbage roasted with spices, tossed with an orange, mustard and parmesan dressing"
+    },
+    "servings": { "amount": 2 },
+    "times": { "cookMin": 30 },
+    "tags": [
+      { "ru": "гарнир", "en": "side" },
+      { "ru": "овощи", "en": "vegetables" }
+    ],
+    "prepTasks": [
+      { "id": "oven", "text": { "ru": "Разогреть духовку до 190 °C", "en": "Preheat the oven to 190 °C" } }
+    ],
+    "sections": [
+      {
+        "id": "cabbage",
+        "title": { "ru": "Капуста", "en": "Cabbage" },
+        "bowls": [{ "id": "spices", "label": { "ru": "Специи", "en": "Spices" } }],
+        "ingredients": [
+          { "id": "cabbage", "name": { "ru": "Капуста (кочан)", "en": "Cabbage (head)" }, "qty": { "min": 0.5 }, "unit": "piece", "prep": { "ru": "нарезать крупными кусками", "en": "cut into large chunks" } },
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" } },
+          { "id": "pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste", "bowl": "spices" },
+          { "id": "chili-flakes", "name": { "ru": "Хлопья чили", "en": "Chili flakes" }, "scaling": "to-taste", "bowl": "spices" },
+          { "id": "oregano", "name": { "ru": "Орегано", "en": "Oregano" }, "scaling": "to-taste", "bowl": "spices" }
+        ],
+        "steps": [
+          {
+            "id": "cut",
+            "text": { "ru": "Нарезать {{ing:cabbage}} крупными кусками", "en": "Cut the {{ing:cabbage}} into large chunks" }
+          },
+          {
+            "id": "season",
+            "text": {
+              "ru": "Полить капусту {{ing:olive-oil}} и посыпать специями: {{ing:pepper}}, {{ing:chili-flakes}}, {{ing:oregano}} и т. д.",
+              "en": "Drizzle the cabbage with {{ing:olive-oil}} and sprinkle with spices: {{ing:pepper}}, {{ing:chili-flakes}}, {{ing:oregano}}, etc."
+            }
+          },
+          {
+            "id": "roast",
+            "text": {
+              "ru": "Перемешать, выложить на противень и запекать {{timer:30m}}",
+              "en": "Toss, spread on a baking tray and roast for {{timer:30m}}"
+            }
+          }
+        ]
+      },
+      {
+        "id": "dressing",
+        "title": { "ru": "Заправка", "en": "Dressing" },
+        "bowls": [{ "id": "jar", "label": { "ru": "Баночка", "en": "Jar" } }],
+        "ingredients": [
+          { "id": "olive-oil-dressing", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "jar" },
+          { "id": "orange", "name": { "ru": "Апельсин", "en": "Orange" }, "qty": { "min": 0.5 }, "prep": { "ru": "выжать сок", "en": "juiced" }, "bowl": "jar" },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 2 }, "unit": "clove", "prep": { "ru": "раздавить", "en": "crushed" }, "bowl": "jar" },
+          { "id": "soy", "name": { "ru": "Соевый соус", "en": "Soy sauce" }, "qty": { "min": 1 }, "unit": "tbsp", "bowl": "jar" },
+          { "id": "dijon", "name": { "ru": "Дижонская горчица", "en": "Dijon mustard" }, "qty": { "min": 1 }, "unit": "tsp", "bowl": "jar" },
+          { "id": "parmesan", "name": { "ru": "Пармезан", "en": "Parmesan" }, "qty": { "min": 70 }, "unit": "g", "bowl": "jar" }
+        ],
+        "steps": [
+          {
+            "id": "jar",
+            "text": {
+              "ru": "Пока запекается капуста, сложить в маленькую баночку {{ing:olive-oil-dressing}}, сок ({{ing:orange}}), {{ing:garlic}}, {{ing:soy}}, {{ing:dijon}} и {{ing:parmesan}}",
+              "en": "While the cabbage roasts, put the {{ing:olive-oil-dressing}}, juice of the {{ing:orange}}, {{ing:garlic}}, {{ing:soy}}, {{ing:dijon}} and {{ing:parmesan}} into a small jar"
+            }
+          },
+          {
+            "id": "shake",
+            "text": {
+              "ru": "Закрыть банку и встряхнуть, чтобы всё перемешалось",
+              "en": "Close the jar and shake until everything is combined"
+            }
+          },
+          {
+            "id": "toss",
+            "text": {
+              "ru": "Достать капусту, добавить заправку и перемешать",
+              "en": "Take out the cabbage, add the dressing and toss"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

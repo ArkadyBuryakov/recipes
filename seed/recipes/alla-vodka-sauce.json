@@ -1,0 +1,42 @@
+{
+  "slug": "alla-vodka-sauce",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Соус алла водка", "en": "Alla vodka sauce" },
+    "description": { "ru": "Томатно-сливочный соус с водкой для пасты.", "en": "Creamy tomato pasta sauce with vodka." },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "итальянская", "en": "italian" },
+      { "ru": "соус", "en": "sauce" }
+    ],
+    "source": { "url": "https://t.me/masha_gotovit/297", "label": { "ru": "Telegram — Маша готовит!", "en": "Telegram — Masha gotovit!" } },
+    "sections": [
+      {
+        "id": "sauce",
+        "ingredients": [
+          { "id": "olive-oil", "name": { "ru": "Оливковое масло", "en": "Olive oil" }, "qty": { "min": 3 }, "unit": "tbsp" },
+          { "id": "shallot", "name": { "ru": "Лук-шалот", "en": "Shallot" }, "qty": { "min": 1 }, "prep": { "ru": "мелко нарезать кубиками", "en": "finely diced" }, "alternatives": [{ "name": { "ru": "белый лук", "en": "white onion" }, "qty": { "min": 0.5 } }] },
+          { "id": "chili-flakes", "name": { "ru": "Сушёные хлопья чили", "en": "Dried chili flakes" }, "qty": { "min": 1 }, "unit": "tsp", "optional": true },
+          { "id": "garlic", "name": { "ru": "Чеснок", "en": "Garlic" }, "qty": { "min": 3 }, "unit": "clove", "prep": { "ru": "мелко нарубить", "en": "finely chopped" } },
+          { "id": "tomato-paste", "name": { "ru": "Томатная паста", "en": "Tomato paste" }, "qty": { "min": 1 }, "unit": "tbsp" },
+          { "id": "vodka", "name": { "ru": "Водка", "en": "Vodka" }, "qty": { "min": 60 }, "unit": "ml" },
+          { "id": "tomatoes", "name": { "ru": "Томаты в собственном соку", "en": "Canned tomatoes in juice" }, "qty": { "min": 400 }, "unit": "g", "prep": { "ru": "лучше целые, но подойдут любые", "en": "whole are best, but any will do" } },
+          { "id": "cream", "name": { "ru": "Жирные сливки", "en": "Heavy cream" }, "qty": { "min": 120 }, "unit": "ml" },
+          { "id": "salt", "name": { "ru": "Соль", "en": "Salt" }, "scaling": "to-taste" },
+          { "id": "pepper", "name": { "ru": "Перец", "en": "Pepper" }, "scaling": "to-taste" },
+          { "id": "parmesan", "name": { "ru": "Пармезан", "en": "Parmesan" }, "qty": { "min": 20 }, "unit": "g" },
+          { "id": "vinegar", "name": { "ru": "Бальзамический уксус", "en": "Balsamic vinegar" }, "qty": { "min": 1 }, "unit": "tbsp", "alternatives": [{ "name": { "ru": "красный винный уксус", "en": "red wine vinegar" } }] }
+        ],
+        "steps": [
+          { "id": "onion", "text": { "ru": "Разогреть {{ing:olive-oil}}, положить {{ing:shallot}} и {{ing:chili-flakes}} (если хочется острого соуса), убавить огонь и готовить лук, помешивая, 4–5 минут {{timer:4m}}.", "en": "Heat the {{ing:olive-oil}}, add the {{ing:shallot}} and {{ing:chili-flakes}} (if you want a spicy sauce), lower the heat and cook the onion, stirring, for 4–5 minutes {{timer:4m}}." } },
+          { "id": "garlic", "text": { "ru": "Добавить к луку {{ing:garlic}} и готовить пару минут {{timer:2m}}, не давая пригореть.", "en": "Add the {{ing:garlic}} to the onion and cook for a couple of minutes {{timer:2m}} without letting it burn." } },
+          { "id": "paste", "text": { "ru": "Добавить {{ing:tomato-paste}}, увеличить огонь выше среднего и тщательно перемешать, чтобы паста покрыла овощи.", "en": "Add the {{ing:tomato-paste}}, raise the heat to medium-high and stir well so the paste coats the vegetables." } },
+          { "id": "vodka", "text": { "ru": "Влить {{ing:vodka}} и, помешивая, дать ей выпариться. В сковороде должна получиться не очень жидкая масса, как густые сливки.", "en": "Pour in the {{ing:vodka}} and let it cook off, stirring. The mixture in the pan should not be too runny — like thick cream." } },
+          { "id": "tomatoes", "text": { "ru": "Добавить {{ing:tomatoes}}, дать вскипеть и готовить соус около 3–5 минут {{timer:3m}}.", "en": "Add the {{ing:tomatoes}}, bring to a boil and cook the sauce for about 3–5 minutes {{timer:3m}}." } },
+          { "id": "blend", "text": { "ru": "Если есть блендер, переложить томатную основу в него, перемолоть и вернуть в сковороду, чтобы соус был гладким. Если блендера нет, размять томаты вилкой или толкушкой.", "en": "If you have a blender, transfer the tomato base to it, blend and return it to the pan for a smooth sauce. Without a blender, mash the tomatoes with a fork or potato masher." } },
+          { "id": "finish", "text": { "ru": "Влить {{ing:cream}}, перемешать, посолить ({{ing:salt}}) и поперчить ({{ing:pepper}}) по вкусу. Натереть в соус {{ing:parmesan}}, добавить {{ing:vinegar}}, перемешать и сразу снять с огня.", "en": "Pour in the {{ing:cream}}, stir and season with {{ing:salt}} and {{ing:pepper}} to taste. Grate the {{ing:parmesan}} into the sauce, add the {{ing:vinegar}}, stir and remove from the heat right away." } }
+        ]
+      }
+    ]
+  }
+}

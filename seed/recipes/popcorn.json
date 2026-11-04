@@ -1,0 +1,40 @@
+{
+  "slug": "popcorn",
+  "status": "published",
+  "recipe": {
+    "title": { "ru": "Острый попкорн с Лао Гань Ма", "en": "Spicy Lao Gan Ma popcorn" },
+    "description": {
+      "ru": "Вкусный попкорн с остринкой! Если убрать Лао Гань Ма и острый перец, получится классический солёный попкорн.",
+      "en": "Tasty popcorn with a kick! Leave out the Lao Gan Ma and chili powder and you get classic salted popcorn."
+    },
+    "servings": { "amount": 2 },
+    "tags": [
+      { "ru": "закуска", "en": "snack" },
+      { "ru": "американская", "en": "american" }
+    ],
+    "source": { "url": "https://www.youtube.com/watch?v=3fG8rNHUspU", "label": { "ru": "YouTube", "en": "YouTube" } },
+    "sections": [
+      {
+        "id": "popcorn",
+        "title": { "ru": "Попкорн", "en": "Popcorn" },
+        "ingredients": [
+          { "id": "oil", "name": { "ru": "Растительное масло", "en": "Vegetable oil" }, "qty": { "min": 3 }, "unit": "tbsp" },
+          { "id": "lao-gan-ma", "name": { "ru": "Лао Гань Ма (хрустящее чили-масло)", "en": "Lao Gan Ma spicy chili crisp" }, "qty": { "min": 2, "max": 3 }, "unit": "tbsp" },
+          { "id": "salt", "name": { "ru": "Мелкая соль для попкорна", "en": "Theater (popcorn) salt" }, "qty": { "min": 0.5 }, "unit": "tsp" },
+          { "id": "kernels", "name": { "ru": "Зёрна для попкорна", "en": "Popcorn kernels" }, "qty": { "min": 0.5 }, "unit": "cup" },
+          { "id": "gochugaru", "name": { "ru": "Кочукару", "en": "Gochugaru" }, "qty": { "min": 2 }, "unit": "pinch", "optional": true, "alternatives": [{ "name": { "ru": "другой молотый красный перец", "en": "other red pepper powder" } }] }
+        ],
+        "steps": [
+          { "id": "oil", "text": { "ru": "Налить в вок {{ing:oil}} и процедить туда масляную основу {{ing:lao-gan-ma}}; твёрдую часть отложить.", "en": "Pour the {{ing:oil}} into a wok and strain in the oil from the {{ing:lao-gan-ma}}; set the solids aside." } },
+          { "id": "kernels", "text": { "ru": "Добавить {{ing:salt}} и насыпать {{ing:kernels}}.", "en": "Add the {{ing:salt}} and the {{ing:kernels}}." } },
+          { "id": "cover", "text": { "ru": "Накрыть вок фольгой.", "en": "Cover the wok with foil." } },
+          { "id": "pop", "text": { "ru": "Поставить на огонь. Как только начнутся первые хлопки, трясти вок, чтобы раскрывшиеся зёрна поднимались наверх, а сырые падали вниз.", "en": "Put on the heat. As soon as the first kernels pop, start shaking the wok so the popped corn rises to the top and the unpopped kernels fall to the bottom." } },
+          { "id": "shake", "text": { "ru": "Трясти, пока хлопки не станут реже — раз в 3–4 секунды.", "en": "Keep shaking until the popping slows to once every 3–4 seconds." } },
+          { "id": "off", "text": { "ru": "Снять с огня.", "en": "Take off the heat." } },
+          { "id": "season", "text": { "ru": "Посыпать {{ing:gochugaru}} и отцеженной твёрдой частью {{ing:lao-gan-ma}}.", "en": "Sprinkle with the {{ing:gochugaru}} and the drained {{ing:lao-gan-ma}} solids." } },
+          { "id": "toss", "text": { "ru": "Накрыть фольгой и хорошо потрясти, чтобы всё перемешалось.", "en": "Cover with foil and shake well to mix everything." } }
+        ]
+      }
+    ]
+  }
+}
