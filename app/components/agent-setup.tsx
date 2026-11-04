@@ -49,8 +49,8 @@ function agents(origin: string): Agent[] {
         {
           title: { ru: "Подключение", en: "Setup" },
           text: {
-            ru: "Настройки → Коннекторы → «Добавить свой коннектор». Название: Recipes, URL — один из адресов ниже. Коннектор, добавленный на claude.ai, появится и в Desktop, и в мобильном приложении. В Team/Enterprise его добавляет владелец организации.",
-            en: "Settings → Connectors → Add custom connector. Name: Recipes, URL: one of the addresses below. A connector added on claude.ai also appears in the Desktop and mobile apps. On Team/Enterprise plans, an organization owner adds it.",
+            ru: "Настройки → Customize → Коннекторы → «Добавить свой коннектор». Название: Recipes, URL — один из адресов ниже. Коннектор, добавленный на claude.ai, появится и в Desktop, и в мобильном приложении. В Team/Enterprise его добавляет владелец организации.",
+            en: "Settings → Customize → Connectors → Add custom connector. Name: Recipes, URL: one of the addresses below. A connector added on claude.ai also appears in the Desktop and mobile apps. On Team/Enterprise plans, an organization owner adds it.",
           },
         },
         { title: READ, code: pub },
