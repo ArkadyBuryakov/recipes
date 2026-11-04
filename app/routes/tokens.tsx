@@ -1,6 +1,7 @@
 import { auth } from "@server/auth";
 import { useState } from "react";
 import { Form, useActionData } from "react-router";
+import { AgentSetup } from "~/components/agent-setup";
 import { requireEditor } from "~/lib/ctx.server";
 import { useLang, useT } from "~/lib/i18n";
 import type { Route } from "./+types/tokens";
@@ -48,8 +49,8 @@ export async function action({ context, request }: Route.ActionArgs) {
 const TEXT = {
   ru: {
     endpoints: "MCP-серверы",
-    public: "Публичный, только чтение, без авторизации",
-    editor: "Для редактирования: OAuth (агент откроет страницу входа) или API-токен",
+    intro:
+      "Публичный сервер — только чтение, без входа. Для редактирования агент входит через OAuth или использует API-токен ниже.",
     tokens: "API-токены",
     name: "Название (агент, скрипт)",
     create: "Создать токен",
@@ -59,8 +60,8 @@ const TEXT = {
   },
   en: {
     endpoints: "MCP servers",
-    public: "Public, read-only, no auth",
-    editor: "For editing: OAuth (the agent opens a login page) or an API token",
+    intro:
+      "The public server is read-only and needs no login. For editing, the agent signs in with OAuth or uses an API token from below.",
     tokens: "API tokens",
     name: "Name (agent, script)",
     create: "Create token",
@@ -69,10 +70,6 @@ const TEXT = {
     never: "never used",
   },
 };
-
-function Snippet({ children }: { children: string }) {
-  return <pre className="mt-1 overflow-x-auto rounded-lg bg-surface-2 p-2 text-xs">{children}</pre>;
-}
 
 export default function Tokens({ loaderData }: Route.ComponentProps) {
   const lang = useLang();
@@ -87,17 +84,8 @@ export default function Tokens({ loaderData }: Route.ComponentProps) {
       <h1 className="mb-5 text-3xl">{tr.tokens}</h1>
 
       <h2 className="mb-2 text-xl">{t.endpoints}</h2>
-      <div className="card mb-6 grid gap-4 p-4 text-sm">
-        <div>
-          <b>{t.public}</b>
-          <Snippet>{`claude mcp add --transport http recipes ${origin}/mcp`}</Snippet>
-        </div>
-        <div>
-          <b>{t.editor}</b>
-          <Snippet>{`claude mcp add --transport http recipes-editor ${origin}/mcp/editor`}</Snippet>
-          <Snippet>{`claude mcp add --transport http recipes-editor ${origin}/mcp/editor \\\n  --header "Authorization: Bearer rcp_…"`}</Snippet>
-        </div>
-      </div>
+      <p className="mb-3 text-sm text-muted">{t.intro}</p>
+      <AgentSetup origin={origin} lang={lang} />
 
       <h2 className="mb-2 text-xl">{t.tokens}</h2>
       {result?.key && (
@@ -126,7 +114,11 @@ export default function Tokens({ loaderData }: Route.ComponentProps) {
       <Form method="post" className="card mb-4 flex gap-2 p-3">
         <input type="hidden" name="intent" value="create" />
         <input className="input" name="name" placeholder={t.name} />
-        <button type="submit" className="btn btn-primary" onClick={() => setCopied(false)}>
+        <button
+          type="submit"
+          className="btn btn-primary flex-none whitespace-nowrap"
+          onClick={() => setCopied(false)}
+        >
           {t.create}
         </button>
       </Form>

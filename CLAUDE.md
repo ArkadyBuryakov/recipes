@@ -11,7 +11,7 @@ plugins), MCP SDK v2 (`@modelcontextprotocol/server`). One process: `server.ts` 
 
 ## Commands
 
-- `wf run dev` — per-worktree docker compose stack with watch (`scripts/dev.sh env` prints ports/URLs). `wf run destroy` drops volumes.
+- `wf run up` — per-worktree docker compose stack with watch (`scripts/dev.sh env` prints ports/URLs). `wf run down` stops it; `wf run destroy` also drops volumes.
 - `bun run check` — format, lint, typecheck, unit tests (pre-commit hook, Stop hook).
 - `bun run check:all` — plus integration tests (throwaway Postgres in Docker) and Playwright e2e against a production build.
 - `bun run db:generate` — new migration after editing `server/db/schema.ts`. Never edit applied migrations.

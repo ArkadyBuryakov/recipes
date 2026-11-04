@@ -83,6 +83,16 @@ test.describe("MCP", () => {
     expect(meta.resource).toBe(`${baseURL}/mcp/editor`);
   });
 
+  test("tokens page: setup instructions per agent", async ({ page }) => {
+    await login(page, "/en");
+    await page.goto("/en/tokens");
+    await expect(page.getByRole("tabpanel")).toContainText("claude mcp add --transport http recipes ");
+    await page.getByRole("tab", { name: "Cursor" }).click();
+    await expect(page.getByRole("tabpanel")).toContainText('"mcpServers"');
+    await page.getByRole("tab", { name: "ChatGPT" }).click();
+    await expect(page.getByRole("tabpanel")).toContainText("Developer mode");
+  });
+
   test("API token: create, publish and find a recipe", async ({ page, baseURL }) => {
     await login(page, "/en");
     await page.goto("/en/tokens");

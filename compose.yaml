@@ -1,4 +1,4 @@
-# Local development only. Start it with `wf run dev` (or scripts/dev.sh up), which picks
+# Local development only. Start it with `wf run up` (or scripts/dev.sh up), which picks
 # per-worktree ports and project names so several worktrees can run side by side.
 name: ${COMPOSE_PROJECT_NAME:-recipes}
 
