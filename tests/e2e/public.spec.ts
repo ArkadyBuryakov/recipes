@@ -67,6 +67,17 @@ test.describe("public cookbook", () => {
     await expect(page.getByRole("link", { name: /Open on YouTube/ })).toHaveAttribute("href", /youtube\.com/);
   });
 
+  test("TikTok and Instagram sources are embedded too", async ({ page }) => {
+    await page.goto("/en/r/chinese-beef-salad");
+    await expect(page.locator("aside iframe")).toHaveAttribute("src", /tiktok\.com\/player\/v1\/\d+/);
+    await expect(page.getByRole("link", { name: /Open on TikTok/ })).toBeVisible();
+    await page.goto("/en/r/chakhokhbili");
+    await expect(page.locator("aside iframe")).toHaveAttribute(
+      "src",
+      /instagram\.com\/reel\/[\w-]+\/embed\//,
+    );
+  });
+
   test("SEO: JSON-LD, hreflang, sitemap, robots", async ({ page, request }) => {
     await page.goto("/en/r/kombucha");
     const ld = JSON.parse((await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}");

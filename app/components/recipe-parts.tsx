@@ -185,7 +185,7 @@ function InlineIngredient({ ing, factor, label }: { ing: Ingredient; factor: num
     <button
       type="button"
       onClick={() => setOpen((o) => !o)}
-      className="marker inline px-0.5 text-left font-medium text-ink"
+      className="marker inline px-1 text-left font-medium text-ink"
       title={ing.prep ? t(ing.prep, lang) : undefined}
     >
       {label ?? lowerFirst(t(ing.name, lang))}

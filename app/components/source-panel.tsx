@@ -1,5 +1,5 @@
 import { type Lang, t } from "@shared/l10n";
-import { detectSourceKind, type Source, youtubeId } from "@shared/recipe";
+import { detectSourceKind, type Source, videoEmbed } from "@shared/recipe";
 import { useEffect, useState } from "react";
 import { useT } from "~/lib/i18n";
 import { useStoredState } from "~/lib/storage";
@@ -14,7 +14,7 @@ export function SourceLine({ source, lang }: { source: Source; lang: Lang }) {
   const [preview, setPreview] = useState(false);
   const kind = detectSourceKind(source);
   const label = source.label ? t(source.label, lang) : "";
-  if (kind === "youtube") return null;
+  if (source.url && videoEmbed(source.url)) return null;
   return (
     <p className="mb-4 text-[15px] text-muted">
       {tr.source}:{" "}
@@ -80,6 +80,8 @@ export function useVideoPanel() {
   };
 }
 
+const PROVIDER = { youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram" } as const;
+
 export function VideoPanel({
   source,
   lang,
@@ -91,15 +93,15 @@ export function VideoPanel({
 }) {
   const tr = useT();
   const { desktopOpen, setDesktopOpen, mode, setMode, isDesktop } = panel;
-  const id = source.url ? youtubeId(source.url) : null;
-  if (!id || !source.url) return null;
+  const embed = source.url ? videoEmbed(source.url) : null;
+  if (!embed || !source.url) return null;
   const active = isDesktop ? desktopOpen : mode !== "closed";
   const label = source.label ? t(source.label, lang) : "";
   const phone =
     mode === "open"
       ? "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:border-line-strong max-lg:border-t-2 max-lg:p-4 max-lg:pb-6"
       : mode === "mini"
-        ? "max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:w-48 max-lg:overflow-hidden max-lg:border-2 max-lg:border-line-strong max-lg:shadow-lg"
+        ? `max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:overflow-hidden ${embed.vertical ? "max-lg:w-32" : "max-lg:w-48"} max-lg:border-2 max-lg:border-line-strong max-lg:shadow-lg`
         : "max-lg:hidden";
   const desktop = desktopOpen
     ? "lg:sticky lg:top-16 lg:h-[calc(100dvh-4rem)] lg:w-[420px] lg:flex-none lg:overflow-y-auto lg:border-line-strong lg:border-l-2 lg:p-5"
@@ -119,9 +121,15 @@ export function VideoPanel({
       <div className="relative">
         {active && (
           <iframe
-            className="aspect-video w-full border-2 border-line-strong bg-black"
-            src={`https://www.youtube-nocookie.com/embed/${id}`}
-            title={label || "YouTube"}
+            className={`border-2 border-line-strong bg-black ${
+              embed.vertical
+                ? // Vertical video: sized by height so it fits the sidebar/sheet, width follows. Instagram wraps
+                  // the video in a header and footer, so its frame is taller.
+                  `mx-auto block ${embed.provider === "instagram" ? "aspect-[1/2]" : "aspect-[9/16]"} max-w-full lg:h-[min(calc(100dvh-13rem),720px)] ${mode === "mini" ? "max-lg:w-full" : "max-lg:h-[60dvh]"}`
+                : "aspect-video w-full"
+            }`}
+            src={embed.src}
+            title={label || PROVIDER[embed.provider]}
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen
           />
@@ -149,7 +157,7 @@ export function VideoPanel({
       </div>
       <div className={mode === "mini" ? "max-lg:hidden" : ""}>
         <a href={source.url} target="_blank" rel="noopener noreferrer" className="btn mt-3">
-          {tr.openOn("YouTube")}
+          {tr.openOn(PROVIDER[embed.provider])}
         </a>
         {label && <p className="mt-2 text-sm text-muted">{label}</p>}
       </div>

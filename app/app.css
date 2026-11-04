@@ -101,8 +101,11 @@
   .sec-no {
     @apply bg-accent px-1.5 py-px text-xs text-accent-ink tabular-nums;
   }
-  /* Highlighter stroke behind inline ingredients. */
+  /* Highlighter behind inline ingredients: covers the glyphs evenly, not a stripe below them. */
   .marker {
-    background: linear-gradient(transparent 45%, var(--color-accent-soft) 45%);
+    background: var(--color-accent-soft);
+    /* Paint each line of a wrapped ingredient separately; otherwise one gradient spans all lines. */
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 }

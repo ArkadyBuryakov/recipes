@@ -4,14 +4,15 @@
 
 ## Context
 
-Most recipe sites block iframes. You want YouTube embedded plus a link to it, other sites as links, photos as a preview, and plain text for sources without a URL.
+Most recipe sites block iframes. You want YouTube, TikTok and Instagram videos embedded with a link to the original, other sites as links, photos as a preview, and plain text for sources without a URL.
 
 ## Decision
 
 | `source.kind` | Rendering |
 | --- | --- |
 | `youtube` | Embedded player (`youtube-nocookie.com`) **+** a link that opens YouTube in a new tab (description/comments) |
-| `web`, `social` | Link, opens in a new tab. No iframe attempt. |
+| `social`: TikTok video, Instagram reel/post | Embedded player (`tiktok.com/player/v1/<id>`, `instagram.com/reel/<code>/embed/`), shown vertically, **+** an "Open on …" link |
+| `web`, other `social` | Link, opens in a new tab. No iframe attempt. TikTok short links (`vm.tiktok.com`) can't be embedded without following the redirect, so they stay links. |
 | `photo` | Thumbnail. Tap opens a full-screen, zoomable preview. |
 | `text` | Plain text (e.g. "Бабушка Палана") |
 | no source | Section hidden |
@@ -20,3 +21,5 @@ Most recipe sites block iframes. You want YouTube embedded plus a link to it, ot
 - **Phone:** a bottom sheet opened from a "Source" button. Collapsing it while a video plays keeps the video in a **floating mini player** (the player stays mounted, so playback isn't interrupted).
 - No timestamp sync between steps and video.
 - `kind` is auto-detected from the URL on write (YouTube, Instagram/TikTok → `social`, otherwise `web`) unless set explicitly.
+- The embed URL is derived from `source.url` by `videoEmbed()` (`shared/recipe.ts`), nothing extra is stored. If the post has been deleted or made private, the provider's own "unavailable" page shows in the frame, and the link is still there.
+- TikTok shows its own cookie prompt inside the player on first play. It's the provider's frame, so the site can't answer it.

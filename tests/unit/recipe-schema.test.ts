@@ -1,5 +1,11 @@
 import { describe, expect, test } from "bun:test";
-import { detectSourceKind, normalizeRecipeData, recipeDataSchema, youtubeId } from "@shared/recipe";
+import {
+  detectSourceKind,
+  normalizeRecipeData,
+  recipeDataSchema,
+  videoEmbed,
+  youtubeId,
+} from "@shared/recipe";
 import { chashu } from "../fixtures/chashu";
 
 const clone = () => structuredClone(chashu);
@@ -102,5 +108,31 @@ describe("sources", () => {
     expect(youtubeId("https://www.youtube.com/watch?v=sYUp0qCAtzw&ab_channel=x")).toBe("sYUp0qCAtzw");
     expect(youtubeId("https://youtu.be/abc123")).toBe("abc123");
     expect(youtubeId("https://www.youtube.com/shorts/xyz")).toBe("xyz");
+  });
+
+  test("video embeds for YouTube, TikTok and Instagram", () => {
+    expect(videoEmbed("https://youtu.be/abc")).toEqual({
+      provider: "youtube",
+      src: "https://www.youtube-nocookie.com/embed/abc",
+      vertical: false,
+    });
+    expect(videoEmbed("https://www.youtube.com/shorts/xyz")?.vertical).toBe(true);
+    expect(videoEmbed("https://www.tiktok.com/@chinesefood1020/video/7055627336825195777?lang=en")).toEqual({
+      provider: "tiktok",
+      src: "https://www.tiktok.com/player/v1/7055627336825195777?rel=0",
+      vertical: true,
+    });
+    expect(videoEmbed("https://www.instagram.com/reel/DOEDlqHjFmx/?igsh=MTNr")?.src).toBe(
+      "https://www.instagram.com/reel/DOEDlqHjFmx/embed/",
+    );
+    expect(videoEmbed("https://instagram.com/reels/C9S2YMKi_1t")?.src).toBe(
+      "https://www.instagram.com/reel/C9S2YMKi_1t/embed/",
+    );
+    expect(videoEmbed("https://www.instagram.com/p/Cw0an-GNEGh/")?.src).toBe(
+      "https://www.instagram.com/p/Cw0an-GNEGh/embed/",
+    );
+    expect(videoEmbed("https://vm.tiktok.com/ZMabc/")).toBeNull();
+    expect(videoEmbed("https://www.instagram.com/someuser/")).toBeNull();
+    expect(videoEmbed("https://example.com/recipe")).toBeNull();
   });
 });

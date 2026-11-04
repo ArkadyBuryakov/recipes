@@ -3,7 +3,7 @@ import { EDITOR, PUBLIC, type ResolvedSubRecipe } from "@server/recipes/service"
 import { isLang, type Lang, pick, t } from "@shared/l10n";
 import { ingredientLine, renderStepText } from "@shared/markdown";
 import { buildShoppingList, formatShoppingAmounts } from "@shared/prep";
-import { detectSourceKind, type RecipeData } from "@shared/recipe";
+import { type RecipeData, videoEmbed } from "@shared/recipe";
 import { formatDuration } from "@shared/tokens";
 import { useMemo } from "react";
 import { data, Link } from "react-router";
@@ -161,7 +161,7 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
   const { servings, tab } = state;
   const factor = servings / base;
   const video = useVideoPanel();
-  const kind = recipe.source ? detectSourceKind(recipe.source) : null;
+  const embed = recipe.source?.url ? videoEmbed(recipe.source.url) : null;
   const title = pick(recipe.title, lang);
   useWakeLock();
 
@@ -231,7 +231,7 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
                   +
                 </button>
               </div>
-              {kind === "youtube" && (
+              {embed && (
                 <button type="button" className="btn min-h-11" onClick={video.toggle}>
                   ▶ <span className="max-sm:hidden">{tr.source}</span>
                 </button>
@@ -315,9 +315,7 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
           )}
         </article>
       </main>
-      {recipe.source && kind === "youtube" && (
-        <VideoPanel source={recipe.source} lang={lang} panel={video.panel} />
-      )}
+      {recipe.source && embed && <VideoPanel source={recipe.source} lang={lang} panel={video.panel} />}
     </div>
   );
 }

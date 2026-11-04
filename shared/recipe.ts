@@ -260,6 +260,45 @@ export function youtubeId(url: string): string | null {
   return u.searchParams.get("v");
 }
 
+export type VideoEmbed = { provider: "youtube" | "tiktok" | "instagram"; src: string; vertical: boolean };
+
+/**
+ * Embeddable player for a video source URL (ADR 0009): YouTube (incl. Shorts), TikTok videos and
+ * Instagram reels/posts. Short links that need a redirect (vm.tiktok.com) aren't embeddable.
+ */
+export function videoEmbed(url: string): VideoEmbed | null {
+  let u: URL;
+  try {
+    u = new URL(url);
+  } catch {
+    return null;
+  }
+  const host = u.hostname.replace(/^www\.|^m\./, "");
+  if (host === "youtube.com" || host === "youtu.be" || host === "music.youtube.com") {
+    const id = youtubeId(url);
+    return id
+      ? {
+          provider: "youtube",
+          src: `https://www.youtube-nocookie.com/embed/${id}`,
+          vertical: u.pathname.startsWith("/shorts/"),
+        }
+      : null;
+  }
+  if (host === "tiktok.com") {
+    const id = u.pathname.match(/\/video\/(\d+)/)?.[1];
+    return id
+      ? { provider: "tiktok", src: `https://www.tiktok.com/player/v1/${id}?rel=0`, vertical: true }
+      : null;
+  }
+  if (host === "instagram.com") {
+    const m = u.pathname.match(/^\/(?:[\w.]+\/)?(p|reels?|tv)\/([\w-]+)/);
+    if (!m) return null;
+    const type = m[1] === "p" ? "p" : "reel";
+    return { provider: "instagram", src: `https://www.instagram.com/${type}/${m[2]}/embed/`, vertical: true };
+  }
+  return null;
+}
+
 /** Normalize derived fields before storing. */
 export function normalizeRecipeData(data: RecipeData): RecipeData {
   return data.source ? { ...data, source: { ...data.source, kind: detectSourceKind(data.source) } } : data;
