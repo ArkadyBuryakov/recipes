@@ -43,11 +43,22 @@ async function networkFirst(request) {
   }
 }
 
+/** The installed app starts at "/", a server-side language redirect; offline, redirect to a cached home instead. */
+async function startPage(request) {
+  try {
+    return await fetch(request);
+  } catch {
+    const lang = /^en\b/i.test(self.navigator.language) ? "en" : "ru";
+    return Response.redirect(`/${lang}`, 302);
+  }
+}
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") return;
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
+  if (url.pathname === "/" && request.mode === "navigate") return event.respondWith(startPage(request));
   if (url.pathname.startsWith("/assets/")) return event.respondWith(cacheFirst(SHELL, request));
   if (url.pathname.startsWith("/img/")) return event.respondWith(cacheFirst(IMAGES, request));
   if (isPage(url)) return event.respondWith(networkFirst(request));

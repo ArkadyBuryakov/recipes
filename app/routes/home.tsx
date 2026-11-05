@@ -1,9 +1,11 @@
 import { EDITOR, PUBLIC, type RecipeSummary } from "@server/recipes/service";
 import { isLang, type Lang, t as pick } from "@shared/l10n";
 import { formatDuration } from "@shared/tokens";
+import { useState } from "react";
 import { Form, Link, useNavigation, useSubmit } from "react-router";
 import { getCtx } from "~/lib/ctx.server";
 import { dictionaries, useLang, useT } from "~/lib/i18n";
+import { useInstall } from "~/lib/pwa";
 import type { Route } from "./+types/home";
 
 export async function loader({ context, request, params }: Route.LoaderArgs) {
@@ -102,9 +104,33 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       ) : (
         <p className="py-16 text-center text-muted">{t.nothingFound}</p>
       )}
-      <Link to={`/${lang}/agents`} className="label mt-10 inline-block hover:text-ink">
-        {t.agents} →
-      </Link>
+      <div className="mt-10 flex flex-wrap items-baseline gap-x-8 gap-y-3">
+        <InstallApp />
+        <Link to={`/${lang}/agents`} className="label hover:text-ink">
+          {t.agents} →
+        </Link>
+      </div>
     </main>
+  );
+}
+
+/** Add to Home Screen: the native dialog where the browser offers one, Safari's manual steps otherwise. */
+function InstallApp() {
+  const t = useT();
+  const { mode, install } = useInstall();
+  const [hint, setHint] = useState(false);
+  if (!mode) return null;
+  return (
+    <div>
+      <button
+        type="button"
+        className="label hover:text-ink"
+        onClick={() => (mode === "prompt" ? install() : setHint((h) => !h))}
+        aria-expanded={mode === "ios" ? hint : undefined}
+      >
+        {t.installApp} ↓
+      </button>
+      {hint && <p className="mt-2 text-sm text-muted">{t.installIosHint}</p>}
+    </div>
   );
 }

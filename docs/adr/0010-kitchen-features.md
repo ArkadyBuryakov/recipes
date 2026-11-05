@@ -31,6 +31,11 @@ Wanted: screen wake lock, timers from steps (several running at once), push noti
   in both languages (SSR HTML + React Router `.data`), the JS/CSS assets they reference, and cover thumbnails (Cache Storage).
 - Pages are network-first (5 s timeout) with cache fallback; assets and images are cache-first. An offline banner is shown.
   Editing requires being online.
+- **Installable** (Add to Home Screen): `standalone` manifest with a separate full-bleed maskable icon, an opaque
+  180 px `apple-touch-icon` (iOS paints transparency black) and the iOS `apple-mobile-web-app-*` meta tags. The app
+  starts at `/`, a server redirect, so offline the worker redirects it to the cached `/ru` or `/en` instead.
+  The home page offers "Install on your phone": Chrome's native prompt (`beforeinstallprompt`) or, on iOS Safari,
+  which has no install API, the Share → Add to Home Screen steps. Hidden when already running standalone.
 
 ## Consequences
 

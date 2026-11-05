@@ -24,7 +24,8 @@ export async function loader({ context }: Route.LoaderArgs) {
 export const links: Route.LinksFunction = () => [
   { rel: "manifest", href: "/manifest.webmanifest" },
   { rel: "icon", href: "/icon.svg", type: "image/svg+xml" },
-  { rel: "apple-touch-icon", href: "/icon-192.png" },
+  // Opaque and full-bleed: iOS rounds the corners itself and paints transparency black.
+  { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
 ];
 
 // Applied before paint so the chosen theme never flashes (system | light | dark in localStorage).
@@ -39,6 +40,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#161412" media="(prefers-color-scheme: dark)" />
+        {/* Home Screen app on iOS (the manifest covers Android) */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="Рецепты" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static inline theme bootstrap */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
         <Meta />

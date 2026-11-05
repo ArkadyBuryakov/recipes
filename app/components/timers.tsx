@@ -82,7 +82,7 @@ export function TimerTray() {
   }, []);
   if (!timers.length && !settingsOpen) return null;
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-3 z-40 flex flex-col items-center gap-2 px-3 print:hidden">
+    <div className="pointer-events-none fixed inset-x-0 bottom-[max(0.75rem,env(safe-area-inset-bottom))] z-40 flex flex-col items-center gap-2 px-3 print:hidden">
       {settingsOpen && (
         <div className="pointer-events-auto">
           <Settings onClose={() => setSettingsOpen(false)} />
