@@ -10,6 +10,7 @@ import { db, sql } from "./db/client";
 import { runMigrations } from "./db/migrate";
 import { env } from "./env";
 import { createMcpEndpoints } from "./mcp";
+import { withPublicScheme } from "./public-url";
 import { services } from "./services";
 
 export const app = new Hono();
@@ -68,7 +69,7 @@ app.all("*", async (c) => {
     publicUrl: env.PUBLIC_URL,
     vapidPublicKey: env.VAPID_PUBLIC_KEY ?? null,
   });
-  return handleRequest(c.req.raw, context);
+  return handleRequest(withPublicScheme(c.req.raw, env.PUBLIC_URL), context);
 });
 
 /** Startup: schema migrations, initial data migration (seeds), first admin. */
