@@ -60,7 +60,7 @@ export function SourceLine({ source, lang }: { source: Source; lang: Lang }) {
 }
 
 /**
- * YouTube source: a right-hand sidebar on laptops; a bottom sheet on phones that collapses into a
+ * Video source: a right-hand sidebar on laptops; a bottom sheet on phones that collapses into a
  * floating mini player. The iframe stays mounted while moving between states, so playback continues.
  */
 export function useVideoPanel() {
@@ -80,7 +80,12 @@ export function useVideoPanel() {
   };
 }
 
-const PROVIDER = { youtube: "YouTube", tiktok: "TikTok", instagram: "Instagram" } as const;
+const PROVIDER = {
+  youtube: "YouTube",
+  tiktok: "TikTok",
+  instagram: "Instagram",
+  facebook: "Facebook",
+} as const;
 
 export function VideoPanel({
   source,

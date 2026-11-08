@@ -260,11 +260,16 @@ export function youtubeId(url: string): string | null {
   return u.searchParams.get("v");
 }
 
-export type VideoEmbed = { provider: "youtube" | "tiktok" | "instagram"; src: string; vertical: boolean };
+export type VideoEmbed = {
+  provider: "youtube" | "tiktok" | "instagram" | "facebook";
+  src: string;
+  vertical: boolean;
+};
 
 /**
- * Embeddable player for a video source URL (ADR 0009): YouTube (incl. Shorts), TikTok videos and
- * Instagram reels/posts. Short links that need a redirect (vm.tiktok.com) aren't embeddable.
+ * Embeddable player for a video source URL (ADR 0009): YouTube (incl. Shorts), TikTok videos,
+ * Instagram reels/posts and Facebook videos/reels. Short links that need a redirect (vm.tiktok.com,
+ * fb.watch, facebook.com/share/…) aren't embeddable.
  */
 export function videoEmbed(url: string): VideoEmbed | null {
   let u: URL;
@@ -295,6 +300,24 @@ export function videoEmbed(url: string): VideoEmbed | null {
     if (!m) return null;
     const type = m[1] === "p" ? "p" : "reel";
     return { provider: "instagram", src: `https://www.instagram.com/${type}/${m[2]}/embed/`, vertical: true };
+  }
+  if (host === "facebook.com" || host === "web.facebook.com") {
+    const reel = u.pathname.match(/^\/reel\/(\d+)/)?.[1];
+    const video =
+      u.pathname.match(/^\/[\w.-]+\/videos\/(?:[^/]+\/)?(\d+)/)?.[1] ??
+      (/^\/watch\/?$/.test(u.pathname) ? u.searchParams.get("v") : null);
+    const href = reel
+      ? `https://www.facebook.com/reel/${reel}`
+      : video && /^\d+$/.test(video)
+        ? `https://www.facebook.com/watch/?v=${video}`
+        : null;
+    return href
+      ? {
+          provider: "facebook",
+          src: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(href)}&show_text=false`,
+          vertical: Boolean(reel),
+        }
+      : null;
   }
   return null;
 }

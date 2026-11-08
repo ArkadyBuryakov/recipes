@@ -110,7 +110,7 @@ describe("sources", () => {
     expect(youtubeId("https://www.youtube.com/shorts/xyz")).toBe("xyz");
   });
 
-  test("video embeds for YouTube, TikTok and Instagram", () => {
+  test("video embeds for YouTube, TikTok, Instagram and Facebook", () => {
     expect(videoEmbed("https://youtu.be/abc")).toEqual({
       provider: "youtube",
       src: "https://www.youtube-nocookie.com/embed/abc",
@@ -131,6 +131,23 @@ describe("sources", () => {
     expect(videoEmbed("https://www.instagram.com/p/Cw0an-GNEGh/")?.src).toBe(
       "https://www.instagram.com/p/Cw0an-GNEGh/embed/",
     );
+    expect(videoEmbed("https://www.facebook.com/reel/1234567890123456/?mibextid=abc")).toEqual({
+      provider: "facebook",
+      src: "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1234567890123456&show_text=false",
+      vertical: true,
+    });
+    const fbVideo =
+      "https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D987654321&show_text=false";
+    expect(videoEmbed("https://m.facebook.com/SomePage/videos/987654321/")).toEqual({
+      provider: "facebook",
+      src: fbVideo,
+      vertical: false,
+    });
+    expect(videoEmbed("https://www.facebook.com/some.page/videos/tasty-soup/987654321")?.src).toBe(fbVideo);
+    expect(videoEmbed("https://www.facebook.com/watch/?v=987654321&ref=sharing")?.src).toBe(fbVideo);
+    expect(videoEmbed("https://www.facebook.com/share/v/1AbCdEf/")).toBeNull();
+    expect(videoEmbed("https://fb.watch/abc123/")).toBeNull();
+    expect(videoEmbed("https://www.facebook.com/SomePage")).toBeNull();
     expect(videoEmbed("https://vm.tiktok.com/ZMabc/")).toBeNull();
     expect(videoEmbed("https://www.instagram.com/someuser/")).toBeNull();
     expect(videoEmbed("https://example.com/recipe")).toBeNull();

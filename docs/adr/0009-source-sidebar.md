@@ -4,15 +4,15 @@
 
 ## Context
 
-Most recipe sites block iframes. You want YouTube, TikTok and Instagram videos embedded with a link to the original, other sites as links, photos as a preview, and plain text for sources without a URL.
+Most recipe sites block iframes. You want YouTube, TikTok, Instagram and Facebook videos embedded with a link to the original, other sites as links, photos as a preview, and plain text for sources without a URL.
 
 ## Decision
 
 | `source.kind` | Rendering |
 | --- | --- |
 | `youtube` | Embedded player (`youtube-nocookie.com`) **+** a link that opens YouTube in a new tab (description/comments) |
-| `social`: TikTok video, Instagram reel/post | Embedded player (`tiktok.com/player/v1/<id>`, `instagram.com/reel/<code>/embed/`), shown vertically, **+** an "Open on …" link |
-| `web`, other `social` | Link, opens in a new tab. No iframe attempt. TikTok short links (`vm.tiktok.com`) can't be embedded without following the redirect, so they stay links. |
+| `social`: TikTok video, Instagram reel/post, Facebook video/reel | Embedded player (`tiktok.com/player/v1/<id>`, `instagram.com/reel/<code>/embed/`, `facebook.com/plugins/video.php?href=…`), shown vertically (Facebook: reels only), **+** an "Open on …" link |
+| `web`, other `social` | Link, opens in a new tab. No iframe attempt. Short links (`vm.tiktok.com`, `fb.watch`, `facebook.com/share/…`) can't be embedded without following the redirect, so they stay links. |
 | `photo` | Thumbnail. Tap opens a full-screen, zoomable preview. |
 | `text` | Plain text (e.g. "Бабушка Палана") |
 | no source | Section hidden |
