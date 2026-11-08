@@ -22,6 +22,7 @@ import {
 } from "../db/schema";
 import { env } from "../env";
 import { DomainError, validationError } from "../errors";
+import { resolveSourceUrl } from "./short-links";
 
 export type Actor = {
   userId: string | null;
@@ -129,10 +130,10 @@ export function derive(data: RecipeData) {
   };
 }
 
-function parseData(input: unknown): RecipeData {
+async function parseData(input: unknown): Promise<RecipeData> {
   const parsed = recipeDataSchema.safeParse(input);
   if (!parsed.success) throw validationError(parsed.error);
-  return normalizeRecipeData(parsed.data);
+  return normalizeRecipeData(await resolveSourceUrl(parsed.data));
 }
 
 function parseSlug(slug: unknown): string {
@@ -212,7 +213,7 @@ export class RecipeService {
     actor: Actor,
   ): Promise<Recipe> {
     const slug = parseSlug(input.slug);
-    const data = parseData(input.recipe);
+    const data = await parseData(input.recipe);
     await this.checkLinks(slug, data);
     const status = input.status ?? "draft";
     return this.db.transaction(async (tx) => {
@@ -241,7 +242,7 @@ export class RecipeService {
     input: { recipe: unknown; slug?: string; status?: RecipeStatus; expectedVersion?: number },
     actor: Actor,
   ): Promise<Recipe> {
-    const data = parseData(input.recipe);
+    const data = await parseData(input.recipe);
     const newSlug = input.slug ? parseSlug(input.slug) : slug;
     await this.checkLinks(newSlug, data);
     return this.db.transaction(async (tx) => {
