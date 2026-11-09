@@ -2,7 +2,7 @@ import { DomainError } from "@server/errors";
 import { EDITOR, PUBLIC, type ResolvedSubRecipe } from "@server/recipes/service";
 import { isLang, type Lang, pick, t } from "@shared/l10n";
 import { ingredientLine, renderStepText } from "@shared/markdown";
-import { buildShoppingList, formatShoppingAmounts } from "@shared/prep";
+import { buildShoppingList, formatShoppingAmounts, inlineSubRecipes } from "@shared/prep";
 import { type RecipeData, videoEmbed } from "@shared/recipe";
 import { formatDuration } from "@shared/tokens";
 import { useMemo } from "react";
@@ -113,43 +113,90 @@ function flatten(subs: ResolvedSubRecipe[], factor: number): { data: RecipeData;
   ]);
 }
 
-function SubRecipes({
+/**
+ * A recipe's prep or cook panel with its sub-recipes (ADR 0008). In cook mode a sub-recipe that a
+ * step mentions ({{recipe:slug}}) opens under that step; the rest come first, since a sub-recipe is
+ * usually something the main steps need ready.
+ */
+function RecipeBody({
+  data,
   subs,
   factor,
   checks,
   tab,
+  ns = "",
 }: {
+  data: RecipeData;
   subs: ResolvedSubRecipe[];
   factor: number;
   checks: Checks;
-  tab: Tab;
+  tab: "prep" | "cook";
+  ns?: string;
+}) {
+  const inline = tab === "cook" ? inlineSubRecipes(data) : new Map<string, string[]>();
+  const placed = new Set([...inline.values()].flat());
+  const bySlug = new Map(subs.map((s) => [s.recipe.slug, s]));
+  const titles = new Map(subs.map((s) => [s.recipe.slug, s.recipe.title]));
+  const block = (s: ResolvedSubRecipe) => (
+    <SubRecipe key={s.recipe.slug} sub={s} factor={factor} checks={checks} tab={tab} />
+  );
+  return (
+    <>
+      {subs.filter((s) => !placed.has(s.recipe.slug)).map(block)}
+      {tab === "cook" ? (
+        <CookPanel
+          data={data}
+          factor={factor}
+          checks={checks}
+          ns={ns}
+          recipeTitles={titles}
+          afterStep={(id) => {
+            const here = (inline.get(id) ?? []).flatMap((slug) => bySlug.get(slug) ?? []);
+            return here.length ? here.map(block) : null;
+          }}
+        />
+      ) : (
+        <PrepPanel data={data} factor={factor} checks={checks} ns={ns} />
+      )}
+    </>
+  );
+}
+
+function SubRecipe({
+  sub,
+  factor,
+  checks,
+  tab,
+}: {
+  sub: ResolvedSubRecipe;
+  factor: number;
+  checks: Checks;
+  tab: "prep" | "cook";
 }) {
   const lang = useLang();
   const tr = useT();
-  return subs.map((s) => {
-    const f = factor * s.factor;
-    const ns = `sub:${s.recipe.slug}:`;
-    return (
-      <details key={s.recipe.slug} className="card mb-7 px-4 open:pb-4 sm:px-5">
-        <summary className="min-h-14 cursor-pointer py-4 font-mono font-medium">
-          ↳ {tr.subRecipes}: <L value={s.recipe.title} />{" "}
-          <Link
-            to={`/${lang}/r/${s.recipe.slug}`}
-            className="font-normal underline decoration-accent decoration-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            ↗
-          </Link>
-        </summary>
-        {tab === "cook" ? (
-          <CookPanel data={s.recipe} factor={f} checks={checks} ns={ns} />
-        ) : (
-          <PrepPanel data={s.recipe} factor={f} checks={checks} ns={ns} />
-        )}
-        <SubRecipes subs={s.subRecipes} factor={f} checks={checks} tab={tab} />
-      </details>
-    );
-  });
+  return (
+    <details className="card mb-7 px-4 open:pb-4 sm:px-5">
+      <summary className="min-h-14 cursor-pointer py-4 font-mono font-medium">
+        ↳ {tr.subRecipes}: <L value={sub.recipe.title} />{" "}
+        <Link
+          to={`/${lang}/r/${sub.recipe.slug}`}
+          className="font-normal underline decoration-accent decoration-2"
+          onClick={(e) => e.stopPropagation()}
+        >
+          ↗
+        </Link>
+      </summary>
+      <RecipeBody
+        data={sub.recipe}
+        subs={sub.subRecipes}
+        factor={factor * sub.factor}
+        checks={checks}
+        tab={tab}
+        ns={`sub:${sub.recipe.slug}:`}
+      />
+    </details>
+  );
 }
 
 export default function RecipePage({ loaderData }: Route.ComponentProps) {
@@ -281,8 +328,9 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
 
-          {tab === "prep" && <PrepPanel data={recipe} factor={factor} checks={checks} />}
-          {tab === "cook" && <CookPanel data={recipe} factor={factor} checks={checks} />}
+          {tab !== "total" && (
+            <RecipeBody data={recipe} subs={subRecipes} factor={factor} checks={checks} tab={tab} />
+          )}
           {tab === "total" && (
             <section className="card mb-7 px-4 pb-1 sm:px-5">
               <h2 className="label pt-4 pb-1 text-ink">{tr.groceries}</h2>
@@ -302,7 +350,6 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
               })}
             </section>
           )}
-          {tab !== "total" && <SubRecipes subs={subRecipes} factor={factor} checks={checks} tab={tab} />}
 
           {(state.checked.length > 0 || servings !== base) && (
             <button

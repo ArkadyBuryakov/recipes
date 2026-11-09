@@ -43,7 +43,7 @@ Recipe {
   source?: { kind: 'youtube'|'web'|'social'|'photo'|'text'; url?; label?: L10n; imageKey? }
   sections: Section[]
   prepTasks: PrepTask[]
-  subRecipes?: { slug; factor: number }[]   // default 1; scales with the parent, shown collapsed
+  subRecipes?: { slug; factor: number }[]   // default 1; scales with the parent, shown collapsed before the steps, or under the step that mentions {{recipe:<slug>}} (0008)
 }
 Section {
   id, title: L10n

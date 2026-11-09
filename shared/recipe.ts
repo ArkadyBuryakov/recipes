@@ -142,7 +142,9 @@ const recipeDataBase = z.strictObject({
   subRecipes: z
     .array(z.strictObject({ slug: slugSchema, factor: z.number().positive().default(1) }))
     .default([])
-    .describe("Recipes embedded collapsed on this page; scale with this recipe times factor"),
+    .describe(
+      "Recipes embedded collapsed on this page, before the steps or under the first step that mentions {{recipe:<slug>}}; scale with this recipe times factor",
+    ),
 });
 
 export const recipeDataSchema = recipeDataBase.superRefine(validateReferences);

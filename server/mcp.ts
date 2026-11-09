@@ -32,6 +32,7 @@ export const AUTHORING_GUIDE = `How to write a recipe for this cookbook:
 - Multi-day processes (fermentation): one section per active stage, with waitAfterMin between them.
 - Quantity ranges use qty.max. Use scaling "fixed" for things that should not scale (1 bay leaf) and "to-taste" (no qty) for salt and pepper.
 - Set source.url to the original page/video; YouTube and social links are detected automatically. For a family recipe without a link, use source.label.
+- A component recipe (sushi rice, a sauce, a dough) goes to subRecipes, not into a section. It renders collapsed before the main steps; to place it mid-way instead, mention it in the step where it is made: "While the dough rests, make {{recipe:<slug>}}" (cook mode opens it under that step).
 - Slugs are lowercase latin words separated by dashes (e.g. "chicken-teriyaki"). New recipes are created as drafts; call publish_recipe when the user is happy.`;
 
 function json(value: unknown): CallToolResult {

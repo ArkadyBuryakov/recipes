@@ -1,6 +1,7 @@
 import { type Lang, t } from "./l10n";
 import { formatQty, scaleQty } from "./quantity";
 import type { Ingredient, PrepTask, Qty, RecipeData, Section } from "./recipe";
+import { parseStepText } from "./tokens";
 import type { Unit } from "./units";
 
 export type PrepItem = { ingredient: Ingredient; qty: Qty | undefined };
@@ -90,4 +91,26 @@ export function buildShoppingList(
 
 export function formatShoppingAmounts(item: ShoppingItem, lang: Lang): string {
   return item.amounts.map((a) => formatQty(a.qty, a.unit, lang)).join(" + ");
+}
+
+/**
+ * Where each sub-recipe renders in cook mode (ADR 0008): under the first step whose text (in any
+ * language) has a {{recipe:<slug>}} token for it. Sub-recipes no step mentions aren't in the map and
+ * render above the recipe instead.
+ */
+export function inlineSubRecipes(data: RecipeData): Map<string, string[]> {
+  const out = new Map<string, string[]>();
+  const pending = new Set(data.subRecipes.map((s) => s.slug));
+  for (const step of data.sections.flatMap((s) => s.steps)) {
+    if (!pending.size) break;
+    for (const text of Object.values(step.text)) {
+      if (!text) continue;
+      for (const seg of parseStepText(text).segments) {
+        if (seg.type !== "recipe" || !pending.has(seg.slug)) continue;
+        pending.delete(seg.slug);
+        out.set(step.id, [...(out.get(step.id) ?? []), seg.slug]);
+      }
+    }
+  }
+  return out;
 }

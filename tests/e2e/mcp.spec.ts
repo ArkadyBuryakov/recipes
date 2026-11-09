@@ -214,4 +214,55 @@ test.describe("MCP", () => {
     const me = await callTool(baseURL!, "/mcp/editor", "list_recipes", { limit: 1 }, tokens.access_token);
     expect(JSON.parse(me.text).recipes[0].status).toBeDefined();
   });
+  test("sub-recipes: unmentioned ones first, mentioned ones under their step", async ({ page, baseURL }) => {
+    await login(page, "/en");
+    await page.goto("/en/tokens");
+    await page.getByPlaceholder(/Name/).fill("e2e sub-recipes");
+    await page.getByRole("button", { name: "Create token" }).click();
+    const token = await page.locator("input[readonly]").inputValue();
+    const create = (slug: string, data: unknown) =>
+      callTool(baseURL!, "/mcp/editor", "create_recipe", { slug, recipe: data }, token);
+    const simple = (en: string, ru: string) => ({
+      title: { ru, en },
+      servings: { amount: 2 },
+      sections: [{ id: "main", steps: [{ id: "s1", text: { ru: `${ru}: шаг`, en: `${en}: step` } }] }],
+    });
+    expect((await create("e2e-rice", simple("Rice", "Рис"))).isError).toBe(false);
+    expect((await create("e2e-sauce", simple("Sauce", "Соус"))).isError).toBe(false);
+    const parent = await create("e2e-bowl", {
+      title: { ru: "Боул", en: "Bowl" },
+      servings: { amount: 2 },
+      subRecipes: [{ slug: "e2e-rice" }, { slug: "e2e-sauce" }],
+      sections: [
+        {
+          id: "main",
+          steps: [
+            { id: "a", text: { ru: "Нарезать овощи", en: "Chop the vegetables" } },
+            { id: "b", text: { ru: "Сделать {{recipe:e2e-sauce}}", en: "Make {{recipe:e2e-sauce}}" } },
+            { id: "c", text: { ru: "Собрать боул", en: "Assemble the bowl" } },
+          ],
+        },
+      ],
+    });
+    expect(parent.isError, parent.text).toBe(false);
+
+    await page.goto("/en/r/e2e-bowl");
+    await page.getByRole("tab", { name: "Cook" }).click();
+    // Top-level blocks in document order: sub-recipe summaries and the parent's own steps.
+    const order = () =>
+      page.evaluate(() =>
+        [...document.querySelectorAll("main summary, main [role=checkbox]")]
+          .filter((el) => el.tagName === "SUMMARY" || !el.closest("details"))
+          .map((el) =>
+            el.tagName === "SUMMARY"
+              ? `sub:${el.textContent?.match(/Rice|Sauce/)?.[0]}`
+              : el.textContent?.replace(/^✓\d+\./, "").trim(),
+          ),
+      );
+    await expect
+      .poll(order)
+      .toEqual(["sub:Rice", "Chop the vegetables", "Make Sauce", "sub:Sauce", "Assemble the bowl"]);
+    await page.getByRole("tab", { name: "Prep" }).click();
+    await expect(page.locator("main summary")).toHaveText([/Rice/, /Sauce/]);
+  });
 });

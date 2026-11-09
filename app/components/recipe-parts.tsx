@@ -1,4 +1,4 @@
-import { pick, t } from "@shared/l10n";
+import { type L10n, pick, t } from "@shared/l10n";
 import { lowerFirst } from "@shared/markdown";
 import { buildPrepList } from "@shared/prep";
 import { formatIngredientQty, formatQty } from "@shared/quantity";
@@ -202,11 +202,14 @@ export function StepText({
   data,
   factor,
   label,
+  recipeTitles,
 }: {
   text: string;
   data: RecipeData;
   factor: number;
   label: string;
+  /** Titles of the sub-recipes on this page, shown instead of a bare slug. */
+  recipeTitles?: Map<string, L10n>;
 }) {
   const lang = useLang();
   const byId = new Map(data.sections.flatMap((s) => (s.ingredients ?? []).map((i) => [i.id, i] as const)));
@@ -223,7 +226,7 @@ export function StepText({
               to={`/${lang}/r/${seg.slug}`}
               className="font-medium underline decoration-2 decoration-accent underline-offset-2"
             >
-              {seg.slug}
+              {recipeTitles?.has(seg.slug) ? t(recipeTitles.get(seg.slug), lang) : seg.slug}
             </Link>
           );
         const ing = byId.get(seg.id);
@@ -243,11 +246,16 @@ export function CookPanel({
   factor,
   checks,
   ns = "",
+  afterStep,
+  recipeTitles,
 }: {
   data: RecipeData;
   factor: number;
   checks: Checks;
   ns?: string;
+  /** Rendered between a step and the next one (a sub-recipe the step mentions); splits the section card there. */
+  afterStep?: (stepId: string) => ReactNode;
+  recipeTitles?: Map<string, L10n>;
 }) {
   const lang = useLang();
   const tr = useT();
@@ -261,43 +269,68 @@ export function CookPanel({
       {data.sections.map((section) => {
         if (!section.steps.length) return null;
         sn++;
+        // Steps run in one card until a step with an inline block; the block sits between two cards.
+        const chunks: { rows: ReactNode[]; after: ReactNode }[] = [{ rows: [], after: null }];
+        for (const step of section.steps) {
+          n++;
+          const num = n;
+          const p = pick(step.text, lang);
+          const label = section.title ? `${t(section.title, lang)} · ${num}` : `${title} · ${num}`;
+          const done = checks.has(`${ns}step:${step.id}`);
+          const chunk = chunks[chunks.length - 1] as (typeof chunks)[number];
+          chunk.rows.push(
+            <CheckRow
+              key={step.id}
+              id={`${ns}step:${step.id}`}
+              checks={checks}
+              className={step.id === current ? "-mx-4 bg-accent-soft px-4 sm:-mx-5 sm:px-5" : ""}
+              lead={
+                <span className="flex flex-none items-start gap-3">
+                  <span
+                    className={`mt-1 grid size-[22px] place-items-center border-2 border-line-strong text-sm ${done ? "bg-ink text-accent" : "text-transparent"}`}
+                  >
+                    ✓
+                  </span>
+                  <span className="min-w-7 pt-0.5 font-mono font-medium tabular-nums">{num}.</span>
+                </span>
+              }
+            >
+              <span className="text-[17px] leading-relaxed">
+                <StepText
+                  text={p.text}
+                  data={data}
+                  factor={factor}
+                  label={label}
+                  {...(recipeTitles && { recipeTitles })}
+                />
+              </span>
+              <Fallback fallback={p.fallback} />
+            </CheckRow>,
+          );
+          const after = afterStep?.(step.id);
+          if (after) {
+            chunk.after = after;
+            chunks.push({ rows: [], after: null });
+          }
+        }
         return (
           <div key={section.id}>
-            <section className="card mb-7 px-4 pb-1 sm:px-5">
-              {(section.title || data.sections.length > 1) && (
-                <SectionTitle n={sn}>{section.title ? <L value={section.title} /> : section.id}</SectionTitle>
-              )}
-              {section.steps.map((step) => {
-                n++;
-                const num = n;
-                const p = pick(step.text, lang);
-                const label = section.title ? `${t(section.title, lang)} · ${num}` : `${title} · ${num}`;
-                const done = checks.has(`${ns}step:${step.id}`);
-                return (
-                  <CheckRow
-                    key={step.id}
-                    id={`${ns}step:${step.id}`}
-                    checks={checks}
-                    className={step.id === current ? "-mx-4 bg-accent-soft px-4 sm:-mx-5 sm:px-5" : ""}
-                    lead={
-                      <span className="flex flex-none items-start gap-3">
-                        <span
-                          className={`mt-1 grid size-[22px] place-items-center border-2 border-line-strong text-sm ${done ? "bg-ink text-accent" : "text-transparent"}`}
-                        >
-                          ✓
-                        </span>
-                        <span className="min-w-7 pt-0.5 font-mono font-medium tabular-nums">{num}.</span>
-                      </span>
-                    }
-                  >
-                    <span className="text-[17px] leading-relaxed">
-                      <StepText text={p.text} data={data} factor={factor} label={label} />
-                    </span>
-                    <Fallback fallback={p.fallback} />
-                  </CheckRow>
-                );
-              })}
-            </section>
+            {chunks.map((chunk, i) => (
+              // biome-ignore lint/suspicious/noArrayIndexKey: chunks are positional and stable per render
+              <div key={i}>
+                {chunk.rows.length > 0 && (
+                  <section className="card mb-7 px-4 pb-1 sm:px-5">
+                    {i === 0 && (section.title || data.sections.length > 1) && (
+                      <SectionTitle n={sn}>
+                        {section.title ? <L value={section.title} /> : section.id}
+                      </SectionTitle>
+                    )}
+                    {chunk.rows}
+                  </section>
+                )}
+                {chunk.after}
+              </div>
+            ))}
             {section.waitAfterMin && (
               <p className="-mt-3 mb-7 flex items-center gap-3 font-mono text-sm text-muted before:flex-1 before:border-line before:border-t before:border-dashed after:flex-1 after:border-line after:border-t after:border-dashed">
                 {tr.wait} {formatDuration(section.waitAfterMin * 60, lang)}

@@ -118,6 +118,14 @@ export function recipeToMarkdown(data: RecipeData, opts: MarkdownOptions): strin
     }
   }
 
+  if (data.subRecipes.length) {
+    out.push(`\n## ${l.sub}`);
+    for (const s of data.subRecipes) {
+      const link = opts.recipeUrl ? `[${s.slug}](${opts.recipeUrl(s.slug)})` : s.slug;
+      out.push(`- ${link}${s.factor !== 1 ? ` ×${s.factor}` : ""}`);
+    }
+  }
+
   for (const section of data.sections) {
     const title = section.title ? t(section.title, lang) : data.sections.length > 1 ? section.id : "";
     if (title) out.push(`\n## ${title}`);
@@ -143,13 +151,6 @@ export function recipeToMarkdown(data: RecipeData, opts: MarkdownOptions): strin
     if (section.waitAfterMin) out.push(`\n_${l.wait}: ${formatDuration(section.waitAfterMin * 60, lang)}_`);
   }
 
-  if (data.subRecipes.length) {
-    out.push(`\n## ${l.sub}`);
-    for (const s of data.subRecipes) {
-      const link = opts.recipeUrl ? `[${s.slug}](${opts.recipeUrl(s.slug)})` : s.slug;
-      out.push(`- ${link}${s.factor !== 1 ? ` ×${s.factor}` : ""}`);
-    }
-  }
   return out.join("\n");
 }
 

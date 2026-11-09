@@ -1,6 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { recipeToMarkdown, shoppingListToMarkdown } from "@shared/markdown";
-import { buildPrepList, buildShoppingList, formatShoppingAmounts } from "@shared/prep";
+import { buildPrepList, buildShoppingList, formatShoppingAmounts, inlineSubRecipes } from "@shared/prep";
 import { recipeDataSchema } from "@shared/recipe";
 import { chashu } from "../fixtures/chashu";
 
@@ -21,6 +21,31 @@ describe("prep list", () => {
   test("scales quantities", () => {
     const prep = buildPrepList(data, 2);
     expect(prep.sections[0]?.loose[0]?.qty).toEqual({ min: 1500, max: 2000 });
+  });
+});
+
+describe("inline sub-recipes", () => {
+  test("places each sub-recipe under the first step that mentions it", () => {
+    const withSubs = recipeDataSchema.parse({
+      ...chashu,
+      subRecipes: [{ slug: "tare" }, { slug: "eggs" }, { slug: "rice" }],
+      sections: chashu.sections.map((s, i) =>
+        i === 1
+          ? {
+              ...s,
+              steps: [
+                { id: "a", text: { ru: "Сварить {{recipe:eggs}}" } },
+                { id: "b", text: { en: "Make {{recipe:tare}} and {{recipe:eggs}}" } },
+                { id: "c", text: { en: "Serve over {{recipe:udon}}" } },
+              ],
+            }
+          : s,
+      ),
+    });
+    expect([...inlineSubRecipes(withSubs)]).toEqual([
+      ["a", ["eggs"]],
+      ["b", ["tare"]],
+    ]);
   });
 });
 

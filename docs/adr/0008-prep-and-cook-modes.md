@@ -23,7 +23,7 @@ The main reason the site exists: prep everything (measure, clean, chop), then co
 ### Shared
 - A servings control defaults to the recipe's `servings`, and scaling applies everywhere (prep, cook, totals).
 - Checkbox state and the chosen servings **persist locally per recipe** (localStorage / IndexedDB) and survive reload and screen lock. A "reset" button clears them. No cross-device sync.
-- Sub-recipes render collapsed on the same page, with their own prep and cook blocks.
+- Sub-recipes render collapsed on the same page, with their own prep and cook blocks. They come **before** the recipe's own blocks, since a sub-recipe is usually something the main steps need ready. In cook mode, a sub-recipe that a step mentions with `{{recipe:<slug>}}` opens **under the first step that mentions it** instead, so a sub-recipe made mid-way ("while the dough rests, make the filling") sits where it's needed. A `{{recipe:<slug>}}` to a recipe that isn't in `subRecipes` stays a link.
 
 ## Consequences
 
