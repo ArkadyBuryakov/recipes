@@ -37,13 +37,30 @@ type TimersApi = {
   resume: (id: string) => void;
   extend: (id: string, seconds: number) => void;
   cancel: (id: string) => void;
+  /** Asks for notification permission, subscribes, and schedules pushes for the running timers. */
   enablePush: () => Promise<boolean>;
+  /** Schedules a push in a few seconds, to check the whole chain (lock the phone and wait). */
+  testPush: (label: string) => Promise<boolean>;
+  /** Web Push can work here (iOS: only in the Home Screen app) and isn't blocked. */
+  pushAvailable: boolean;
 };
 
 const TimersContext = createContext<TimersApi | null>(null);
 
 export function remaining(timer: Timer, now: number): number {
   return timer.endsAt === null ? timer.remainingMs : Math.max(0, timer.endsAt - now);
+}
+
+type AudioSessionNavigator = Navigator & { audioSession?: { type: string } };
+
+/** iOS: "playback" rings through the silent switch like an alarm; "auto" lets other audio (music) carry on. */
+function setAudioSession(type: "playback" | "auto") {
+  const session = (navigator as AudioSessionNavigator).audioSession;
+  try {
+    if (session && session.type !== type) session.type = type;
+  } catch {
+    // unsupported value on this browser
+  }
 }
 
 function beep(ctx: AudioContext) {
@@ -84,10 +101,10 @@ async function pushSubscription(vapidKey: string | null, create: boolean): Promi
   return reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64ToBytes(vapidKey) });
 }
 
-async function schedulePush(timer: Timer, vapidKey: string | null) {
+async function schedulePush(timer: Timer, vapidKey: string | null): Promise<boolean> {
   const sub = await pushSubscription(vapidKey, false).catch(() => null);
-  if (!sub || timer.endsAt === null) return;
-  await fetch("/api/timers", {
+  if (!sub || timer.endsAt === null) return false;
+  const res = await fetch("/api/timers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -97,11 +114,30 @@ async function schedulePush(timer: Timer, vapidKey: string | null) {
       title: timer.label,
       url: timer.url,
     }),
-  }).catch(() => {});
+  }).catch(() => null);
+  return res?.ok ?? false;
 }
 
 function unschedulePush(id: string) {
   fetch(`/api/timers/${id}`, { method: "DELETE" }).catch(() => {});
+}
+
+/**
+ * iOS suspends ("interrupted") the AudioContext when the screen locks, and a chime scheduled on a stopped
+ * clock stays silent until something resumes it. Resume first and play once; never queue more than one chime.
+ */
+function chime(ctx: AudioContext, pending: { current: boolean }) {
+  setAudioSession("playback");
+  if (ctx.state === "running") return beep(ctx);
+  if (pending.current) return;
+  pending.current = true;
+  ctx
+    .resume()
+    .then(() => beep(ctx))
+    .catch(() => {})
+    .finally(() => {
+      pending.current = false;
+    });
 }
 
 export function TimersProvider({ children, vapidKey }: { children: ReactNode; vapidKey: string | null }) {
@@ -109,7 +145,40 @@ export function TimersProvider({ children, vapidKey }: { children: ReactNode; va
   const [settings, setSettings] = useStoredState<TimerSettings>("timer-settings", DEFAULT_SETTINGS);
   const [now, setNow] = useState(() => Date.now());
   const audio = useRef<AudioContext | null>(null);
+  const chimePending = useRef(false);
   const lastRing = useRef(0);
+  const [pushAvailable, setPushAvailable] = useState(false);
+
+  useEffect(() => {
+    setPushAvailable(
+      Boolean(vapidKey) &&
+        "serviceWorker" in navigator &&
+        "PushManager" in window &&
+        "Notification" in window &&
+        Notification.permission !== "denied",
+    );
+  }, [vapidKey]);
+
+  // Browsers only start or resume audio on a user gesture; take any tap, and retry when the page is shown again
+  // (after a screen lock), so the end-of-timer chime can play.
+  useEffect(() => {
+    const unlock = () => {
+      audio.current ??= new AudioContext();
+      if (audio.current.state !== "running") void audio.current.resume().catch(() => {});
+    };
+    const onVisible = () => {
+      if (document.visibilityState === "visible" && audio.current?.state !== "running")
+        void audio.current?.resume().catch(() => {});
+    };
+    window.addEventListener("pointerdown", unlock, true);
+    window.addEventListener("keydown", unlock, true);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      window.removeEventListener("pointerdown", unlock, true);
+      window.removeEventListener("keydown", unlock, true);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
 
   const running = timers.some((t) => t.endsAt !== null || t.firedAt !== null);
   useEffect(() => {
@@ -128,12 +197,13 @@ export function TimersProvider({ children, vapidKey }: { children: ReactNode; va
         ),
       );
     const ringing = timers.some((t) => t.firedAt !== null);
+    if (!ringing && !due.length) setAudioSession("auto");
     const shouldAlert = due.length > 0 || (ringing && settings.ring && now - lastRing.current > 2000);
     if (!shouldAlert) return;
     lastRing.current = now;
     if (settings.sound) {
       audio.current ??= new AudioContext();
-      beep(audio.current);
+      chime(audio.current, chimePending);
     }
     if (settings.vibration && due.length) navigator.vibrate?.([300, 150, 300, 150, 600]);
   }, [now, timers, settings, setTimers]);
@@ -152,7 +222,7 @@ export function TimersProvider({ children, vapidKey }: { children: ReactNode; va
       start(label, seconds) {
         // Unlock audio on the user gesture that starts a timer (iOS requirement).
         audio.current ??= new AudioContext();
-        void audio.current.resume();
+        void audio.current.resume().catch(() => {});
         const t: Timer = {
           id: crypto.randomUUID(),
           label,
@@ -199,10 +269,28 @@ export function TimersProvider({ children, vapidKey }: { children: ReactNode; va
         const permission = await Notification.requestPermission();
         if (permission !== "granted") return false;
         const sub = await pushSubscription(vapidKey, true).catch(() => null);
-        return sub !== null;
+        if (!sub) return false;
+        setSettings((s) => ({ ...s, push: true }));
+        // Timers already running when push is turned on get a notification too.
+        for (const t of timers) if (t.endsAt !== null) void schedulePush(t, vapidKey);
+        return true;
       },
+      testPush(label) {
+        const at = Date.now() + 5000;
+        const t: Timer = {
+          id: crypto.randomUUID(),
+          label,
+          url: location.pathname,
+          durationMs: 5000,
+          endsAt: at,
+          remainingMs: 5000,
+          firedAt: null,
+        };
+        return schedulePush(t, vapidKey);
+      },
+      pushAvailable,
     }),
-    [timers, now, settings, setSettings, setTimers, update, vapidKey],
+    [timers, now, settings, setSettings, setTimers, update, vapidKey, pushAvailable],
   );
 
   return <TimersContext.Provider value={api}>{children}</TimersContext.Provider>;

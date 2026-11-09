@@ -1,6 +1,7 @@
 import { formatDuration } from "@shared/tokens";
 import { useEffect, useState } from "react";
 import { useLang, useT } from "~/lib/i18n";
+import { useStoredState } from "~/lib/storage";
 import { formatClock, remaining, useTimers } from "~/lib/timers";
 
 export function TimerChip({ seconds, label }: { seconds: number; label: string }) {
@@ -22,8 +23,9 @@ export function TimerChip({ seconds, label }: { seconds: number; label: string }
 
 function Settings({ onClose }: { onClose: () => void }) {
   const t = useT();
-  const { settings, setSettings, enablePush } = useTimers();
+  const { settings, setSettings, enablePush, testPush } = useTimers();
   const [pushError, setPushError] = useState(false);
+  const [test, setTest] = useState<"idle" | "sent" | "failed">("idle");
   const isIos = typeof navigator !== "undefined" && /iP(hone|ad|od)/.test(navigator.userAgent);
   const standalone = typeof window !== "undefined" && matchMedia("(display-mode: standalone)").matches;
   const toggle = (key: "sound" | "vibration" | "ring") => (
@@ -46,7 +48,8 @@ function Settings({ onClose }: { onClose: () => void }) {
         </button>
       </div>
       {toggle("sound")}
-      {toggle("vibration")}
+      {/* iPhone has no vibration API */}
+      {typeof navigator !== "undefined" && "vibrate" in navigator && toggle("vibration")}
       {toggle("ring")}
       <label className="flex min-h-11 items-center justify-between gap-4">
         <span>{t.enableNotifications}</span>
@@ -56,12 +59,26 @@ function Settings({ onClose }: { onClose: () => void }) {
           checked={settings.push}
           onChange={async (e) => {
             if (!e.target.checked) return setSettings({ ...settings, push: false });
-            const ok = await enablePush();
-            setPushError(!ok);
-            setSettings({ ...settings, push: ok });
+            setPushError(!(await enablePush()));
           }}
         />
       </label>
+      {settings.push && (
+        <div className="flex min-h-11 items-center justify-between gap-4">
+          <button
+            type="button"
+            className="btn btn-ghost min-h-9 px-2"
+            onClick={async () => setTest((await testPush(t.testNotificationTitle)) ? "sent" : "failed")}
+          >
+            {t.testNotification}
+          </button>
+          {test !== "idle" && (
+            <span className="text-sm text-muted">
+              {test === "sent" ? t.testNotificationSent : t.testNotificationFailed}
+            </span>
+          )}
+        </div>
+      )}
       {(pushError || (isIos && !standalone)) && <p className="mt-1 text-sm text-muted">{t.iosInstallHint}</p>}
     </div>
   );
@@ -69,6 +86,31 @@ function Settings({ onClose }: { onClose: () => void }) {
 
 const OPEN_SETTINGS = "recipes:timer-settings";
 export const openTimerSettings = () => window.dispatchEvent(new Event(OPEN_SETTINGS));
+
+/** While a timer runs without push, explain that a locked phone stays silent and offer to turn push on. */
+function PushHint() {
+  const t = useT();
+  const { timers, settings, pushAvailable, enablePush } = useTimers();
+  const [dismissed, setDismissed, loaded] = useStoredState("push-hint-dismissed", false);
+  const running = timers.some((x) => x.endsAt !== null);
+  if (!loaded || dismissed || settings.push || !pushAvailable || !running) return null;
+  return (
+    <div className="card flex w-80 max-w-[calc(100vw-24px)] items-center gap-2 p-3 text-sm">
+      <span className="flex-1">{t.pushHint}</span>
+      <button type="button" className="btn btn-primary min-h-9 px-3" onClick={() => void enablePush()}>
+        {t.turnOn}
+      </button>
+      <button
+        type="button"
+        className="btn btn-ghost min-h-9 px-2"
+        aria-label="dismiss hint"
+        onClick={() => setDismissed(true)}
+      >
+        ✕
+      </button>
+    </div>
+  );
+}
 
 /** Floating tray of running timers, shown on every page. */
 export function TimerTray() {
@@ -88,6 +130,9 @@ export function TimerTray() {
           <Settings onClose={() => setSettingsOpen(false)} />
         </div>
       )}
+      <div className="pointer-events-auto">
+        <PushHint />
+      </div>
       <div className="pointer-events-auto flex max-w-full flex-wrap justify-center gap-2" aria-live="polite">
         {timers.map((timer) => {
           const ms = remaining(timer, now);

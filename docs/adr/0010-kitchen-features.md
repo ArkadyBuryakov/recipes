@@ -21,6 +21,10 @@ Wanted: screen wake lock, timers from steps (several running at once), push noti
   - Rows are deleted after firing. Expired subscriptions are pruned.
   - **iOS needs the PWA installed** to the Home Screen (iOS 16.4+). The UI explains this when permission is requested on iOS Safari.
 - **Alert settings** (localStorage): sound on/off (a generated three-tone chime), vibration on/off, and "ring until dismissed" vs a single chime. These apply to the in-page alert. The push notification uses the OS default sound.
+  - The service worker always shows the notification, even if the app looks open: iOS can report a locked, frozen app as visible, and it revokes the subscription of a worker that receives a push without showing one. Timer settings has a "Test notification" button (a push 5 s later) to check the whole chain.
+  - `VAPID_SUBJECT` must be a real `mailto:` or `https:` address; Apple's push service rejects placeholder subjects.
+  - Push is opt-in. While a timer runs with push off, the tray offers to turn it on (dismissible), because a locked phone can't alert any other way. Timers already running when push is enabled get scheduled too.
+  - Browsers only allow audio after a user gesture, and iOS suspends the AudioContext when the screen locks. So any tap resumes the audio, it's retried when the page becomes visible, and the chime waits for the resume rather than queueing on a stopped clock. While ringing, iOS's `navigator.audioSession` is set to `playback` so the chime plays through the silent switch; it goes back to `auto` afterwards. iPhone has no vibration API, so that setting is hidden there.
 
 ### Touch
 - At least 48 px interactive elements in prep and cook mode, and a full-row tap area for checkboxes.

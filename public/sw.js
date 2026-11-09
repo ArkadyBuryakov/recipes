@@ -106,11 +106,10 @@ self.addEventListener("message", (event) => {
 
 self.addEventListener("push", (event) => {
   const data = event.data ? event.data.json() : {};
+  // Always show it: iOS can report a frozen, locked app as visible, and it revokes the subscription of
+  // a service worker that receives a push without showing a notification.
   event.waitUntil(
     (async () => {
-      // The open page rings by itself; only notify when nobody is looking.
-      const windows = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
-      if (windows.some((w) => w.visibilityState === "visible" && w.focused)) return;
       await self.registration.showNotification(`⏱ ${data.title ?? "Timer"}`, {
         body: data.body || "",
         tag: data.tag,
