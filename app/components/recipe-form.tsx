@@ -773,6 +773,18 @@ export function RecipeForm({
             </button>
 
             <label className="mt-4 block">
+              <Label>
+                Or: this section is a sub-recipe (slug, also listed below; no ingredients or steps)
+              </Label>
+              <input
+                className="input w-full font-mono sm:w-80"
+                placeholder="slug"
+                value={section.recipe ?? ""}
+                onChange={(e) => setSection(si, { ...section, recipe: e.target.value.trim() || undefined })}
+              />
+            </label>
+
+            <label className="mt-4 block">
               <Label>Wait after this section, minutes (fermentation, resting)</Label>
               <input
                 className="input w-40"
@@ -800,7 +812,7 @@ export function RecipeForm({
       </button>
 
       <section className="grid gap-2">
-        <Label>Sub-recipes (shown collapsed, scale with this one)</Label>
+        <Label>Sub-recipes (expandable, scale with this one)</Label>
         {(draft.subRecipes ?? []).map((sub, i) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: id-less list items, edited in place
           <div key={`sub-${i}`} className="flex gap-2">

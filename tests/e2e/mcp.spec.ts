@@ -214,7 +214,10 @@ test.describe("MCP", () => {
     const me = await callTool(baseURL!, "/mcp/editor", "list_recipes", { limit: 1 }, tokens.access_token);
     expect(JSON.parse(me.text).recipes[0].status).toBeDefined();
   });
-  test("sub-recipes: unmentioned ones first, mentioned ones under their step", async ({ page, baseURL }) => {
+  test("sub-recipes: as a section, inside the step that mentions them, or first", async ({
+    page,
+    baseURL,
+  }) => {
     await login(page, "/en");
     await page.goto("/en/tokens");
     await page.getByPlaceholder(/Name/).fill("e2e sub-recipes");
@@ -227,18 +230,24 @@ test.describe("MCP", () => {
       servings: { amount: 2 },
       sections: [{ id: "main", steps: [{ id: "s1", text: { ru: `${ru}: шаг`, en: `${en}: step` } }] }],
     });
-    expect((await create("e2e-rice", simple("Rice", "Рис"))).isError).toBe(false);
-    expect((await create("e2e-sauce", simple("Sauce", "Соус"))).isError).toBe(false);
+    for (const [slug, en, ru] of [
+      ["e2e-rice", "Rice", "Рис"],
+      ["e2e-sauce", "Sauce", "Соус"],
+      ["e2e-salad", "Salad", "Салат"],
+    ] as const)
+      expect((await create(slug, simple(en, ru))).isError).toBe(false);
     const parent = await create("e2e-bowl", {
       title: { ru: "Боул", en: "Bowl" },
       servings: { amount: 2 },
-      subRecipes: [{ slug: "e2e-rice" }, { slug: "e2e-sauce" }],
+      subRecipes: [{ slug: "e2e-rice" }, { slug: "e2e-sauce" }, { slug: "e2e-salad" }],
       sections: [
+        { id: "salad", title: { ru: "Начинка", en: "Filling" }, recipe: "e2e-salad" },
         {
           id: "main",
+          title: { ru: "Сборка", en: "Assembly" },
           steps: [
             { id: "a", text: { ru: "Нарезать овощи", en: "Chop the vegetables" } },
-            { id: "b", text: { ru: "Сделать {{recipe:e2e-sauce}}", en: "Make {{recipe:e2e-sauce}}" } },
+            { id: "b", text: { ru: "Сделать {{recipe:e2e-sauce}}", en: "Make the {{recipe:e2e-sauce}}" } },
             { id: "c", text: { ru: "Собрать боул", en: "Assemble the bowl" } },
           ],
         },
@@ -248,21 +257,35 @@ test.describe("MCP", () => {
 
     await page.goto("/en/r/e2e-bowl");
     await page.getByRole("tab", { name: "Cook" }).click();
-    // Top-level blocks in document order: sub-recipe summaries and the parent's own steps.
-    const order = () =>
-      page.evaluate(() =>
-        [...document.querySelectorAll("main summary, main [role=checkbox]")]
-          .filter((el) => el.tagName === "SUMMARY" || !el.closest("details"))
-          .map((el) =>
-            el.tagName === "SUMMARY"
-              ? `sub:${el.textContent?.match(/Rice|Sauce/)?.[0]}`
-              : el.textContent?.replace(/^✓\d+\./, "").trim(),
-          ),
-      );
-    await expect
-      .poll(order)
-      .toEqual(["sub:Rice", "Chop the vegetables", "Make Sauce", "sub:Sauce", "Assemble the bowl"]);
+    const main = page.locator("main");
+    // Collapsed: rice first, the salad section as one row, the sauce only as the step's toggle.
+    await expect(main.locator("[aria-expanded], [role=checkbox]")).toHaveText([
+      /Part of this recipe: Rice/,
+      /01Filling: Salad/,
+      /Chop the vegetables/,
+      /Make the Sauce/,
+      "Sauce",
+      /▸/,
+      /Assemble the bowl/,
+    ]);
+    await expect(main.getByText("Sauce: step")).toHaveCount(0);
+    await page.screenshot({ path: "test-results/sub-recipes-collapsed.png", fullPage: true });
+
+    const step = main.getByRole("checkbox").filter({ hasText: "Make the Sauce" });
+    // The sub-recipe's name toggles the step's expansion too, instead of navigating away.
+    await step.getByRole("button", { name: "Sauce", exact: true }).click();
+    await expect(main.getByText("Sauce: step")).toBeVisible();
+    await expect(page).toHaveURL(/\/en\/r\/e2e-bowl$/);
+    await step.getByRole("button", { name: "Collapse" }).click();
+    await expect(main.getByText("Sauce: step")).toHaveCount(0);
+    await step.getByRole("button", { name: "Expand" }).click();
+    await expect(main.getByText("Sauce: step")).toBeVisible();
+    await expect(step).toHaveAttribute("aria-checked", "false");
+    await main.getByRole("button", { name: /Filling: Salad/ }).click();
+    await expect(main.getByText("Salad: step")).toBeVisible();
+    await page.screenshot({ path: "test-results/sub-recipes-expanded.png", fullPage: true });
+
     await page.getByRole("tab", { name: "Prep" }).click();
-    await expect(page.locator("main summary")).toHaveText([/Rice/, /Sauce/]);
+    await expect(main.locator("[aria-expanded]")).toHaveText([/Rice/, /Sauce/, /01Filling: Salad/]);
   });
 });

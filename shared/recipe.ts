@@ -82,6 +82,11 @@ export const sectionSchema = z.strictObject({
   bowls: z.array(bowlSchema).default([]),
   ingredients: z.array(ingredientSchema).default([]),
   steps: z.array(stepSchema).default([]),
+  recipe: slugSchema
+    .optional()
+    .describe(
+      "This section IS a sub-recipe (slug listed in subRecipes): rendered as one expandable row, with no ingredients or steps of its own",
+    ),
   waitAfterMin: minutes
     .positive()
     .optional()
@@ -143,7 +148,7 @@ const recipeDataBase = z.strictObject({
     .array(z.strictObject({ slug: slugSchema, factor: z.number().positive().default(1) }))
     .default([])
     .describe(
-      "Recipes embedded collapsed on this page, before the steps or under the first step that mentions {{recipe:<slug>}}; scale with this recipe times factor",
+      "Recipes embedded collapsed on this page (as a section with recipe, inside the first step that mentions {{recipe:<slug>}}, or before the steps); scale with this recipe times factor",
     ),
 });
 
@@ -204,7 +209,19 @@ function validateReferences(r: z.output<typeof recipeDataBase>, ctx: z.Refinemen
   );
   for (const s of r.sections) for (const i of s.ingredients) ingredientIds.add(i.id);
 
+  const subSlugs = new Set(r.subRecipes.map((s) => s.slug));
+  unique(
+    r.sections.flatMap((s) => (s.recipe ? [s.recipe] : [])),
+    ["sections"],
+    "section recipe",
+  );
   r.sections.forEach((section, si) => {
+    if (section.recipe) {
+      if (!subSlugs.has(section.recipe))
+        issue(["sections", si, "recipe"], `"${section.recipe}" must also be listed in subRecipes`);
+      if (section.ingredients.length || section.steps.length || section.bowls.length)
+        issue(["sections", si], "a section with recipe has no ingredients, bowls or steps of its own");
+    }
     const bowls = new Set(section.bowls.map((b) => b.id));
     unique([...section.bowls.map((b) => b.id)], ["sections", si, "bowls"], "bowl");
     section.ingredients.forEach((ing, ii) => {

@@ -7,7 +7,15 @@ import { type RecipeData, videoEmbed } from "@shared/recipe";
 import { formatDuration } from "@shared/tokens";
 import { useMemo } from "react";
 import { data, Link } from "react-router";
-import { CheckRow, type Checks, CookPanel, L, PrepPanel } from "~/components/recipe-parts";
+import {
+  CheckRow,
+  type Checks,
+  CookPanel,
+  L,
+  PrepPanel,
+  SubRow,
+  type SubView,
+} from "~/components/recipe-parts";
 import { SourceLine, useVideoPanel, VideoPanel } from "~/components/source-panel";
 import { openTimerSettings } from "~/components/timers";
 import { getCtx } from "~/lib/ctx.server";
@@ -114,9 +122,9 @@ function flatten(subs: ResolvedSubRecipe[], factor: number): { data: RecipeData;
 }
 
 /**
- * A recipe's prep or cook panel with its sub-recipes (ADR 0008). In cook mode a sub-recipe that a
- * step mentions ({{recipe:slug}}) opens under that step; the rest come first, since a sub-recipe is
- * usually something the main steps need ready.
+ * A recipe's prep or cook panel with its sub-recipes (ADR 0008). A section with `recipe` is that
+ * sub-recipe as one expandable row; in cook mode a sub-recipe a step mentions ({{recipe:slug}})
+ * expands inside that step. The rest come first, as expandable rows.
  */
 function RecipeBody({
   data,
@@ -125,6 +133,7 @@ function RecipeBody({
   checks,
   tab,
   ns = "",
+  compact = false,
 }: {
   data: RecipeData;
   subs: ResolvedSubRecipe[];
@@ -132,70 +141,55 @@ function RecipeBody({
   checks: Checks;
   tab: "prep" | "cook";
   ns?: string;
+  compact?: boolean;
 }) {
-  const inline = tab === "cook" ? inlineSubRecipes(data) : new Map<string, string[]>();
-  const placed = new Set([...inline.values()].flat());
   const bySlug = new Map(subs.map((s) => [s.recipe.slug, s]));
-  const titles = new Map(subs.map((s) => [s.recipe.slug, s.recipe.title]));
-  const block = (s: ResolvedSubRecipe) => (
-    <SubRecipe key={s.recipe.slug} sub={s} factor={factor} checks={checks} tab={tab} />
-  );
+  const view = (slug: string): SubView | undefined => {
+    const s = bySlug.get(slug);
+    return (
+      s && {
+        slug,
+        title: s.recipe.title,
+        body: (
+          <RecipeBody
+            data={s.recipe}
+            subs={s.subRecipes}
+            factor={factor * s.factor}
+            checks={checks}
+            tab={tab}
+            ns={`sub:${slug}:`}
+            compact
+          />
+        ),
+      }
+    );
+  };
+  const inline = tab === "cook" ? inlineSubRecipes(data) : new Map<string, string[]>();
+  const placed = new Set([
+    ...data.sections.flatMap((s) => (s.recipe ? [s.recipe] : [])),
+    ...[...inline.values()].flat(),
+  ]);
   return (
     <>
-      {subs.filter((s) => !placed.has(s.recipe.slug)).map(block)}
+      {subs
+        .filter((s) => !placed.has(s.recipe.slug))
+        .map((s) => (
+          <SubRow key={s.recipe.slug} sub={view(s.recipe.slug) as SubView} compact={compact} />
+        ))}
       {tab === "cook" ? (
         <CookPanel
           data={data}
           factor={factor}
           checks={checks}
           ns={ns}
-          recipeTitles={titles}
-          afterStep={(id) => {
-            const here = (inline.get(id) ?? []).flatMap((slug) => bySlug.get(slug) ?? []);
-            return here.length ? here.map(block) : null;
-          }}
+          subs={view}
+          inline={inline}
+          compact={compact}
         />
       ) : (
-        <PrepPanel data={data} factor={factor} checks={checks} ns={ns} />
+        <PrepPanel data={data} factor={factor} checks={checks} ns={ns} subs={view} compact={compact} />
       )}
     </>
-  );
-}
-
-function SubRecipe({
-  sub,
-  factor,
-  checks,
-  tab,
-}: {
-  sub: ResolvedSubRecipe;
-  factor: number;
-  checks: Checks;
-  tab: "prep" | "cook";
-}) {
-  const lang = useLang();
-  const tr = useT();
-  return (
-    <details className="card mb-7 px-4 open:pb-4 sm:px-5">
-      <summary className="min-h-14 cursor-pointer py-4 font-mono font-medium">
-        ↳ {tr.subRecipes}: <L value={sub.recipe.title} />{" "}
-        <Link
-          to={`/${lang}/r/${sub.recipe.slug}`}
-          className="font-normal underline decoration-accent decoration-2"
-          onClick={(e) => e.stopPropagation()}
-        >
-          ↗
-        </Link>
-      </summary>
-      <RecipeBody
-        data={sub.recipe}
-        subs={sub.subRecipes}
-        factor={factor * sub.factor}
-        checks={checks}
-        tab={tab}
-        ns={`sub:${sub.recipe.slug}:`}
-      />
-    </details>
   );
 }
 

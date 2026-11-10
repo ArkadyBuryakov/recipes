@@ -128,6 +128,13 @@ export function recipeToMarkdown(data: RecipeData, opts: MarkdownOptions): strin
 
   for (const section of data.sections) {
     const title = section.title ? t(section.title, lang) : data.sections.length > 1 ? section.id : "";
+    if (section.recipe) {
+      const r = section.recipe;
+      const link = opts.recipeUrl ? `[${r}](${opts.recipeUrl(r)})` : r;
+      out.push(`\n## ${title ? `${title}: ` : ""}${link}`);
+      if (section.waitAfterMin) out.push(`\n_${l.wait}: ${formatDuration(section.waitAfterMin * 60, lang)}_`);
+      continue;
+    }
     if (title) out.push(`\n## ${title}`);
     if (section.ingredients.length) {
       out.push(`\n### ${l.ingredients}`);

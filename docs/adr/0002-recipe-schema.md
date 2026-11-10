@@ -43,13 +43,14 @@ Recipe {
   source?: { kind: 'youtube'|'web'|'social'|'photo'|'text'; url?; label?: L10n; imageKey? }
   sections: Section[]
   prepTasks: PrepTask[]
-  subRecipes?: { slug; factor: number }[]   // default 1; scales with the parent, shown collapsed before the steps, or under the step that mentions {{recipe:<slug>}} (0008)
+  subRecipes?: { slug; factor: number }[]   // default 1; scales with the parent, expandable: as a section (section.recipe), inside the step that mentions {{recipe:<slug>}}, or before the steps (0008)
 }
 Section {
   id, title: L10n
   waitAfterMin?: number                      // passive gap before the next section (fermentation days)
   ingredients: Ingredient[]
   steps: Step[]
+  recipe?: slug                              // the section IS this sub-recipe (listed in subRecipes); no ingredients/steps
 }
 Ingredient {
   id                                         // stable within the recipe, referenced by steps

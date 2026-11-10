@@ -13,7 +13,7 @@ export type PrepList = { tasks: PrepTask[]; sections: PrepSection[] };
 export function buildPrepList(data: RecipeData, factor: number): PrepList {
   const tasks = [...data.prepTasks].sort((a, b) => (b.leadMin ?? -1) - (a.leadMin ?? -1));
   const sections = data.sections
-    .filter((s) => s.ingredients.length > 0)
+    .filter((s) => s.ingredients.length > 0 || s.recipe)
     .map((section) => {
       const item = (ingredient: Ingredient): PrepItem => ({
         ingredient,
@@ -94,13 +94,14 @@ export function formatShoppingAmounts(item: ShoppingItem, lang: Lang): string {
 }
 
 /**
- * Where each sub-recipe renders in cook mode (ADR 0008): under the first step whose text (in any
- * language) has a {{recipe:<slug>}} token for it. Sub-recipes no step mentions aren't in the map and
- * render above the recipe instead.
+ * Where each sub-recipe expands in cook mode (ADR 0008): inside the first step whose text (in any
+ * language) has a {{recipe:<slug>}} token for it. Sub-recipes that are a section of their own
+ * (section.recipe) or that no step mentions aren't in the map.
  */
 export function inlineSubRecipes(data: RecipeData): Map<string, string[]> {
   const out = new Map<string, string[]>();
-  const pending = new Set(data.subRecipes.map((s) => s.slug));
+  const asSection = new Set(data.sections.flatMap((s) => (s.recipe ? [s.recipe] : [])));
+  const pending = new Set(data.subRecipes.map((s) => s.slug).filter((slug) => !asSection.has(slug)));
   for (const step of data.sections.flatMap((s) => s.steps)) {
     if (!pending.size) break;
     for (const text of Object.values(step.text)) {

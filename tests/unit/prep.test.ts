@@ -47,6 +47,26 @@ describe("inline sub-recipes", () => {
       ["b", ["tare"]],
     ]);
   });
+
+  test("a section that is a sub-recipe: must be listed, has nothing of its own, isn't also inlined", () => {
+    const sections = [
+      { id: "filling", title: { en: "Filling" }, recipe: "salad" },
+      { id: "main", steps: [{ id: "a", text: { en: "Fill with the {{recipe:salad}}" } }] },
+    ];
+    const ok = recipeDataSchema.parse({ ...chashu, subRecipes: [{ slug: "salad" }], sections });
+    expect(inlineSubRecipes(ok).size).toBe(0);
+    expect(buildPrepList(ok, 1).sections.map((s) => s.section.id)).toEqual(["filling"]);
+    expect(recipeToMarkdown(ok, { lang: "en" })).toContain("## Filling: salad");
+
+    const unlisted = recipeDataSchema.safeParse({ ...chashu, subRecipes: [], sections });
+    expect(unlisted.error?.issues.map((i) => i.path.join("."))).toContain("sections.0.recipe");
+    const withSteps = recipeDataSchema.safeParse({
+      ...chashu,
+      subRecipes: [{ slug: "salad" }],
+      sections: [{ ...sections[0], steps: [{ id: "x", text: { en: "x" } }] }],
+    });
+    expect(withSteps.success).toBe(false);
+  });
 });
 
 describe("shopping list", () => {
