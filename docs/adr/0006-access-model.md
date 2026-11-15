@@ -9,6 +9,10 @@ The site is a public read-only cookbook. You and your family edit behind a login
 ## Decision
 
 - **Public:** all *published*, non-deleted recipes, search, prep mode, cook mode, timers, and the public read-only MCP. No account needed.
+- **Drafts by direct link:** a draft's page (`/:lang/r/<slug>`) opens for anyone who has the URL, so a draft
+  can be shared before it's published. Drafts hold nothing sensitive, so there's no secret token. They stay
+  out of the recipe list, search, tags, the sitemap, offline caching and the public MCP, and the page is
+  `noindex`.
 - **Roles:**
   - `admin` (you): everything, plus inviting and revoking users
   - `editor` (family): create, edit, soft-delete, restore, publish/unpublish, view the audit history (with a diff view and a "restore this version" button), and manage their own API tokens

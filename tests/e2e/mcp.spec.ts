@@ -132,6 +132,12 @@ test.describe("MCP", () => {
     expect(created.isError).toBe(false);
     expect(JSON.parse(created.text).status).toBe("draft");
     expect((await callTool(baseURL!, "/mcp", "get_recipe", { slug: "croutons" })).isError).toBe(true);
+    // Drafts open by direct link for anyone, but stay noindex and out of search and the sitemap.
+    const draftPage = await fetch(new URL("/en/r/croutons", baseURL));
+    expect(draftPage.status).toBe(200);
+    expect(await draftPage.text()).toContain('content="noindex"');
+    expect(await (await fetch(new URL("/en?q=croutons", baseURL))).text()).not.toContain("/en/r/croutons");
+    expect(await (await fetch(new URL("/sitemap.xml", baseURL))).text()).not.toContain("/r/croutons");
 
     await callTool(baseURL!, "/mcp/editor", "publish_recipe", { slug: "croutons" }, token);
     const pub = await callTool(baseURL!, "/mcp", "get_recipe", { slug: "croutons", lang: "ru" });

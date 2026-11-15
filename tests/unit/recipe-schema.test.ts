@@ -148,6 +148,19 @@ describe("sources", () => {
     expect(videoEmbed("https://www.facebook.com/share/v/1AbCdEf/")).toBeNull();
     expect(videoEmbed("https://fb.watch/abc123/")).toBeNull();
     expect(videoEmbed("https://www.facebook.com/SomePage")).toBeNull();
+    const xPost =
+      "https://platform.twitter.com/embed/Tweet.html?id=2121695221318627330&dnt=true&hideThread=true";
+    expect(videoEmbed("https://x.com/its_kgrimm/status/2121695221318627330")).toEqual({
+      provider: "x",
+      src: xPost,
+      vertical: false,
+      post: true,
+    });
+    expect(videoEmbed("https://twitter.com/its_kgrimm/status/2121695221318627330/video/1?s=46")?.src).toBe(
+      xPost,
+    );
+    expect(videoEmbed("https://mobile.twitter.com/i/web/status/2121695221318627330")?.src).toBe(xPost);
+    expect(videoEmbed("https://x.com/its_kgrimm")).toBeNull();
     expect(videoEmbed("https://vm.tiktok.com/ZMabc/")).toBeNull();
     expect(videoEmbed("https://www.instagram.com/someuser/")).toBeNull();
     expect(videoEmbed("https://example.com/recipe")).toBeNull();

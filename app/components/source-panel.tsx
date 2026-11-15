@@ -85,7 +85,37 @@ const PROVIDER = {
   tiktok: "TikTok",
   instagram: "Instagram",
   facebook: "Facebook",
+  x: "X",
 } as const;
+
+/**
+ * Height of an embedded X post. Its frame reports its content height via postMessage
+ * (`twttr.embed` → `twttr.private.resize`), the same way X's widgets.js sizes it.
+ */
+function usePostHeight(enabled: boolean) {
+  const [height, setHeight] = useState(560);
+  useEffect(() => {
+    if (!enabled) return;
+    const onMessage = (e: MessageEvent) => {
+      if (e.origin !== "https://platform.twitter.com") return;
+      let msg: unknown = e.data;
+      if (typeof msg === "string")
+        try {
+          msg = JSON.parse(msg);
+        } catch {
+          return;
+        }
+      const embed = (msg as { "twttr.embed"?: { method?: string; params?: { height?: unknown }[] } })?.[
+        "twttr.embed"
+      ];
+      const h = Number(embed?.method === "twttr.private.resize" && embed.params?.[0]?.height);
+      if (h > 0) setHeight(Math.ceil(h));
+    };
+    addEventListener("message", onMessage);
+    return () => removeEventListener("message", onMessage);
+  }, [enabled]);
+  return height;
+}
 
 export function VideoPanel({
   source,
@@ -99,14 +129,20 @@ export function VideoPanel({
   const tr = useT();
   const { desktopOpen, setDesktopOpen, mode, setMode, isDesktop } = panel;
   const embed = source.url ? videoEmbed(source.url) : null;
+  const postHeight = usePostHeight(Boolean(embed?.post));
   if (!embed || !source.url) return null;
+  // The X frame is only rendered on the client (`active` is false during SSR), so the theme can be read here.
+  const src =
+    embed.provider === "x" && typeof document !== "undefined"
+      ? `${embed.src}&theme=${document.documentElement.classList.contains("dark") ? "dark" : "light"}&lang=${lang}`
+      : embed.src;
   const active = isDesktop ? desktopOpen : mode !== "closed";
   const label = source.label ? t(source.label, lang) : "";
   const phone =
     mode === "open"
-      ? "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:border-line-strong max-lg:border-t-2 max-lg:p-4 max-lg:pb-6"
+      ? "max-lg:fixed max-lg:inset-x-0 max-lg:bottom-0 max-lg:z-50 max-lg:border-line-strong max-lg:max-h-[85dvh] max-lg:overflow-y-auto max-lg:border-t-2 max-lg:p-4 max-lg:pb-6"
       : mode === "mini"
-        ? `max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:overflow-hidden ${embed.vertical ? "max-lg:w-32" : "max-lg:w-48"} max-lg:border-2 max-lg:border-line-strong max-lg:shadow-lg`
+        ? `max-lg:fixed max-lg:right-3 max-lg:bottom-20 max-lg:z-50 max-lg:overflow-hidden ${embed.vertical ? "max-lg:w-32" : embed.post ? "max-lg:max-h-72 max-lg:w-64" : "max-lg:w-48"} max-lg:border-2 max-lg:border-line-strong max-lg:shadow-lg`
         : "max-lg:hidden";
   const desktop = desktopOpen
     ? "lg:sticky lg:top-16 lg:h-[calc(100dvh-4rem)] lg:w-[420px] lg:flex-none lg:overflow-y-auto lg:border-line-strong lg:border-l-2 lg:p-5"
@@ -126,14 +162,18 @@ export function VideoPanel({
       <div className="relative">
         {active && (
           <iframe
-            className={`border-2 border-line-strong bg-black ${
-              embed.vertical
-                ? // Vertical video: sized by height so it fits the sidebar/sheet, width follows. Instagram wraps
-                  // the video in a header and footer, so its frame is taller.
-                  `mx-auto block ${embed.provider === "instagram" ? "aspect-[1/2]" : "aspect-[9/16]"} max-w-full lg:h-[min(calc(100dvh-13rem),720px)] ${mode === "mini" ? "max-lg:w-full" : "max-lg:h-[60dvh]"}`
-                : "aspect-video w-full"
+            className={`border-2 border-line-strong ${
+              embed.post
+                ? // A whole post (text + media), as tall as its content; the sheet scrolls on phones.
+                  "block w-full bg-surface"
+                : embed.vertical
+                  ? // Vertical video: sized by height so it fits the sidebar/sheet, width follows. Instagram wraps
+                    // the video in a header and footer, so its frame is taller.
+                    `mx-auto block bg-black ${embed.provider === "instagram" ? "aspect-[1/2]" : "aspect-[9/16]"} max-w-full lg:h-[min(calc(100dvh-13rem),720px)] ${mode === "mini" ? "max-lg:w-full" : "max-lg:h-[60dvh]"}`
+                  : "aspect-video w-full bg-black"
             }`}
-            src={embed.src}
+            style={embed.post ? { height: postHeight } : undefined}
+            src={src}
             title={label || PROVIDER[embed.provider]}
             allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
             allowFullScreen

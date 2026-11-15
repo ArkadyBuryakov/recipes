@@ -4,7 +4,7 @@
 
 ## Context
 
-Most recipe sites block iframes. You want YouTube, TikTok, Instagram and Facebook videos embedded with a link to the original, other sites as links, photos as a preview, and plain text for sources without a URL.
+Most recipe sites block iframes. You want YouTube, TikTok, Instagram, Facebook and X videos embedded with a link to the original, other sites as links, photos as a preview, and plain text for sources without a URL.
 
 ## Decision
 
@@ -12,6 +12,7 @@ Most recipe sites block iframes. You want YouTube, TikTok, Instagram and Faceboo
 | --- | --- |
 | `youtube` | Embedded player (`youtube-nocookie.com`) **+** a link that opens YouTube in a new tab (description/comments) |
 | `social`: TikTok video, Instagram reel/post, Facebook video/reel | Embedded player (`tiktok.com/player/v1/<id>`, `instagram.com/reel/<code>/embed/`, `facebook.com/plugins/video.php?href=…`), shown vertically (Facebook: reels only), **+** an "Open on …" link |
+| `social`: X (Twitter) post (`x.com`/`twitter.com/<user>/status/<id>`) | The whole post (text + video) via `platform.twitter.com/embed/Tweet.html?id=<id>&dnt=true`, the frame X's own widget uses, in the site's theme. X has no video-only player. The frame's height follows the `twttr.private.resize` message it posts, so no script from X is loaded on the page. **+** an "Open on X" link |
 | `web`, other `social` | Link, opens in a new tab. No iframe attempt. Short share links (`vm.tiktok.com`, `fb.watch`, `facebook.com/share/r|v/…`) are resolved on save (see below); if that fails they stay links. |
 | `photo` | Thumbnail. Tap opens a full-screen, zoomable preview. |
 | `text` | Plain text (e.g. "Бабушка Палана") |

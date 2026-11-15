@@ -280,14 +280,17 @@ export function youtubeId(url: string): string | null {
 }
 
 export type VideoEmbed = {
-  provider: "youtube" | "tiktok" | "instagram" | "facebook";
+  provider: "youtube" | "tiktok" | "instagram" | "facebook" | "x";
   src: string;
+  /** Vertical video: the frame is sized by height. */
   vertical: boolean;
+  /** The frame is a whole post (X), sized by the height the provider reports via postMessage. */
+  post?: boolean;
 };
 
 /**
  * Embeddable player for a video source URL (ADR 0009): YouTube (incl. Shorts), TikTok videos,
- * Instagram reels/posts and Facebook videos/reels. Short links that need a redirect (vm.tiktok.com,
+ * Instagram reels/posts, Facebook videos/reels and X (Twitter) posts. Short links that need a redirect (vm.tiktok.com,
  * fb.watch, facebook.com/share/…) aren't embeddable.
  */
 export function videoEmbed(url: string): VideoEmbed | null {
@@ -335,6 +338,22 @@ export function videoEmbed(url: string): VideoEmbed | null {
           provider: "facebook",
           src: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(href)}&show_text=false`,
           vertical: Boolean(reel),
+        }
+      : null;
+  }
+  if (
+    host === "x.com" ||
+    host === "twitter.com" ||
+    host === "mobile.twitter.com" ||
+    host === "mobile.x.com"
+  ) {
+    const id = u.pathname.match(/^\/(?:\w+|i\/web)\/status(?:es)?\/(\d+)/)?.[1];
+    return id
+      ? {
+          provider: "x",
+          src: `https://platform.twitter.com/embed/Tweet.html?id=${id}&dnt=true&hideThread=true`,
+          vertical: false,
+          post: true,
         }
       : null;
   }

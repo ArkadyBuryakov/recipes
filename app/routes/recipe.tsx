@@ -26,9 +26,11 @@ import type { Route } from "./+types/recipe";
 
 export async function loader({ context, params }: Route.LoaderArgs) {
   const ctx = getCtx(context);
-  const v = ctx.principal ? EDITOR : PUBLIC;
   try {
-    const recipe = await ctx.services.recipes.get(params.slug, v);
+    // Drafts open for anyone with the direct link (ADR 0006); lists, search and the sitemap stay published-only.
+    const recipe = await ctx.services.recipes.get(params.slug, EDITOR);
+    // A draft shows its draft sub-recipes too; a published recipe shows only published ones.
+    const v = ctx.principal || recipe.status === "draft" ? EDITOR : PUBLIC;
     const subRecipes = await ctx.services.recipes.resolveSubRecipes(recipe, v);
     return { recipe, subRecipes, origin: ctx.publicUrl, canEdit: Boolean(ctx.principal) };
   } catch (e) {
