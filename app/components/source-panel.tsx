@@ -149,15 +149,27 @@ export function VideoPanel({
     : "lg:hidden";
   return (
     <aside className={`bg-surface print:hidden ${phone} ${desktop}`}>
-      <div className={`mb-3 flex items-center justify-between ${mode === "mini" ? "max-lg:hidden" : ""}`}>
+      {/* Header stays pinned while a tall post scrolls; negative offsets cancel the panel's padding. */}
+      <div
+        className={`sticky z-10 mb-3 flex items-center justify-between gap-2 bg-surface max-lg:-top-4 max-lg:-mx-4 max-lg:-mt-4 max-lg:px-4 max-lg:pt-4 max-lg:pb-2 lg:-top-5 lg:-mx-5 lg:-mt-5 lg:px-5 lg:pt-5 lg:pb-2 ${mode === "mini" ? "max-lg:hidden" : ""}`}
+      >
         <strong className="label text-ink">{tr.source}</strong>
-        <button
-          type="button"
-          className="btn btn-ghost min-h-9 px-2"
-          onClick={() => (isDesktop ? setDesktopOpen(false) : setMode("mini"))}
-        >
-          {isDesktop ? "✕" : tr.collapse}
-        </button>
+        <div className="flex gap-1">
+          {!isDesktop && (
+            <button type="button" className="btn btn-ghost min-h-9 px-2" onClick={() => setMode("mini")}>
+              {tr.collapse}
+            </button>
+          )}
+          <button
+            type="button"
+            className="btn btn-ghost min-h-9 px-2"
+            aria-label={tr.close}
+            title={tr.close}
+            onClick={() => (isDesktop ? setDesktopOpen(false) : setMode("closed"))}
+          >
+            ✕
+          </button>
+        </div>
       </div>
       <div className="relative">
         {active && (

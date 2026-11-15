@@ -12,6 +12,19 @@ test("phone: source sheet collapses into a mini player", async ({ page }) => {
   expect(box?.width).toBeLessThan(220);
 });
 
+test("phone: source sheet closes straight away, header pinned while scrolling", async ({ page }) => {
+  await page.goto("/en/r/chashu-and-nitamago");
+  await page.getByRole("button", { name: "▶" }).click();
+  const sheet = page.locator("aside");
+  await expect(sheet.locator("iframe")).toBeVisible();
+  await sheet.evaluate((el) => {
+    el.scrollTop = el.scrollHeight;
+  });
+  await expect(sheet.getByRole("button", { name: "Collapse" })).toBeInViewport();
+  await sheet.getByRole("button", { name: "Close" }).click();
+  await expect(sheet.locator("iframe")).toHaveCount(0);
+});
+
 test("phone: tabs are full width and rows are large touch targets", async ({ page }) => {
   await page.goto("/ru/r/karaage");
   const row = page.getByRole("checkbox").first();
