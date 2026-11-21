@@ -34,6 +34,22 @@ test.describe("public cookbook", () => {
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(/Kombucha/i);
   });
 
+  test("share button shares the clean recipe link", async ({ page }) => {
+    await page.addInitScript(() => {
+      // biome-ignore lint/suspicious/noExplicitAny: test stub
+      (navigator as any).share = async (d: ShareData) => {
+        // biome-ignore lint/suspicious/noExplicitAny: test stub
+        (window as any).shared = d;
+      };
+    });
+    await page.goto("/en/r/kombucha?x=1");
+    await page.getByRole("button", { name: "Share" }).click();
+    // biome-ignore lint/suspicious/noExplicitAny: test stub
+    const shared = await page.waitForFunction(() => (window as any).shared).then((h) => h.jsonValue());
+    expect(shared.url).toMatch(/\/en\/r\/kombucha$/);
+    expect(shared.title).toMatch(/Kombucha/i);
+  });
+
   test("prep checklist and servings persist across reloads", async ({ page }) => {
     await page.goto("/ru/r/chicken-teriyaki");
     const first = page.getByRole("checkbox").first();

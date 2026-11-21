@@ -5,7 +5,7 @@ import { ingredientLine, renderStepText } from "@shared/markdown";
 import { buildShoppingList, formatShoppingAmounts, inlineSubRecipes } from "@shared/prep";
 import { type RecipeData, videoEmbed } from "@shared/recipe";
 import { formatDuration } from "@shared/tokens";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { data, Link } from "react-router";
 import {
   CheckRow,
@@ -195,6 +195,55 @@ function RecipeBody({
   );
 }
 
+/** Native share sheet where available (phones, installed PWA); otherwise copies the link. */
+function ShareButton({ title, path }: { title: string; path: string }) {
+  const tr = useT();
+  const [copied, setCopied] = useState(false);
+  const share = async () => {
+    const url = new URL(path, window.location.origin).href;
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, url });
+        return;
+      } catch (e) {
+        if ((e as Error).name === "AbortError") return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      window.prompt(tr.share, url);
+    }
+  };
+  return (
+    <button
+      type="button"
+      className="btn w-11 px-0"
+      onClick={share}
+      title={copied ? tr.linkCopied : tr.share}
+      aria-label={copied ? tr.linkCopied : tr.share}
+    >
+      {copied ? (
+        "✓"
+      ) : (
+        <svg
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          aria-hidden="true"
+        >
+          <path d="M12 15V3m0 0L8 7m4-4 4 4M7 10H5v11h14V10h-2" />
+        </svg>
+      )}
+    </button>
+  );
+}
+
 export default function RecipePage({ loaderData }: Route.ComponentProps) {
   const { recipe, subRecipes, canEdit } = loaderData;
   const lang = useLang();
@@ -279,6 +328,7 @@ export default function RecipePage({ loaderData }: Route.ComponentProps) {
                   ▶ <span className="max-sm:hidden">{tr.source}</span>
                 </button>
               )}
+              <ShareButton title={title.text} path={`/${lang}/r/${recipe.slug}`} />
               <button
                 type="button"
                 className="btn w-11 px-0"
